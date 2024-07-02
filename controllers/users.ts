@@ -14,8 +14,8 @@ const storeUser = async (context: Context) => {
 
     transaction.begin();
     const result = await client.queryArray(
-      `INSERT INTO users(username, password) values($1, $2)`,
-      [body.username, hash]
+      `INSERT INTO users(username, password) values($username, $password)`,
+      { username: body.username, password: hash }
     );
 
     if (result.rowCount) {
