@@ -3,7 +3,7 @@ import { client } from "../services/apiConfig.ts";
 
 const indexClasses = async (context: Context) => {
   try {
-    await client.connect();
+    console.log("context", context);
   } catch (error) {
     console.error("error", error);
   }

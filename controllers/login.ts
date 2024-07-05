@@ -1,32 +1,29 @@
 import { Context } from "https://deno.land/x/oak@v16.1.0/mod.ts";
 import * as bcrypt from "https://deno.land/x/bcrypt@v0.4.1/mod.ts";
-import { client } from "../services/apiConfig.ts";
-import { UserModel } from "../models/userModel.ts";
+import * as djwt from "https://deno.land/x/djwt@v3.0.2/mod.ts";
+
+import { findByUsername } from "../models/userModel.ts";
+import { key } from "../utils/jwt.ts";
 
 const login = async (context: Context) => {
   const body = await context.request.body.json();
 
   try {
-    await client.connect();
-    const result = await client.queryObject<UserModel>(
-      `
-      SELECT * FROM users WHERE username = $username
-      `,
-      { username: body.username }
-    );
+    const user = await findByUsername(body.username);
+    const isMatch = await bcrypt.compare(body.password, user!.password);
 
-    if (result.rowCount) {
-      const isMatch = await bcrypt.compare(
-        body.password,
-        result.rows[0].password
-      );
-
-      if (isMatch) {
-        context.response.status = 200;
-      } else {
-        context.response.status = 400;
-      }
+    if (!user || !isMatch) {
+      context.response.status = 401;
+      context.response.body = { message: "Invalid credentials" };
+      return;
     }
+
+    const payload = {
+      id: Number(user.id),
+    };
+
+    const jwt = await djwt.create({ alg: "HS512", typ: "jwt" }, payload, key);
+    context.response.body = { token: jwt };
   } catch (error) {
     console.error("error", error);
   }
