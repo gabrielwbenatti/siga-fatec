@@ -1,4 +1,4 @@
-import { Context } from "https://deno.land/x/oak@v16.1.0/mod.ts";
+import { Context, Status } from "https://deno.land/x/oak@v16.1.0/mod.ts";
 import * as bcrypt from "https://deno.land/x/bcrypt@v0.4.1/mod.ts";
 
 import { client } from "../services/apiConfig.ts";
@@ -20,7 +20,7 @@ const storeUser = async (context: Context) => {
 
     if (result.rowCount) {
       transaction.commit();
-      context.response.status = 201;
+      context.response.status = Status.Created;
     }
   } catch (error) {
     console.error("error", error);

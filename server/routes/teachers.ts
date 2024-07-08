@@ -3,6 +3,7 @@ import { storeTeacher } from "../controllers/teachers.ts";
 
 const teachersRouter = new Router();
 
+// route: /teachers
 teachersRouter.post("/", storeTeacher);
 
 export { teachersRouter };

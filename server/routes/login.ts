@@ -3,6 +3,7 @@ import { login } from "../controllers/login.ts";
 
 const loginRoute = new Router();
 
+// route: /login
 loginRoute.post("/", login);
 
 export { loginRoute };

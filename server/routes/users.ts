@@ -3,6 +3,7 @@ import { storeUser } from "../controllers/users.ts";
 
 const usersRouter = new Router();
 
+// route: /users
 usersRouter.post("/", storeUser);
 
 export { usersRouter };

@@ -1,4 +1,4 @@
-import { Context } from "https://deno.land/x/oak@v16.1.0/mod.ts";
+import { Context, Status } from "https://deno.land/x/oak@v16.1.0/mod.ts";
 import * as bcrypt from "https://deno.land/x/bcrypt@v0.4.1/mod.ts";
 import * as djwt from "https://deno.land/x/djwt@v3.0.2/mod.ts";
 
@@ -13,7 +13,7 @@ const login = async (context: Context) => {
     const isMatch = await bcrypt.compare(body.password, user!.password);
 
     if (!user || !isMatch) {
-      context.response.status = 401;
+      context.response.status = Status.Unauthorized;
       context.response.body = { message: "Invalid credentials" };
       return;
     }
