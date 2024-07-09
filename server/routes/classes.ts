@@ -3,6 +3,7 @@ import {
   indexClasses,
   indexPlanning,
   indexMaterials,
+  storeMaterials,
 } from "../controllers/classes.ts";
 
 const classesRouter = new Router();
@@ -11,6 +12,7 @@ const classesRouter = new Router();
 classesRouter
   .get("/", indexClasses)
   .get("/planning", indexPlanning)
-  .get("/materials", indexMaterials);
+  .get("/materials", indexMaterials)
+  .post("/materials", storeMaterials);
 
 export { classesRouter };

@@ -19,7 +19,7 @@ const login = async (context: Context) => {
     }
 
     const payload = {
-      id: Number(user.id),
+      id: String(user.id),
     };
 
     const jwt = await djwt.create({ alg: "HS512", typ: "jwt" }, payload, key);

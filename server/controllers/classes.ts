@@ -2,8 +2,6 @@ import { Context, Status } from "https://deno.land/x/oak@v16.1.0/mod.ts";
 import { client } from "../services/apiConfig.ts";
 
 const indexClasses = async (context: Context) => {
-  const { headers } = context.request;
-
   try {
     await client.connect();
 
@@ -73,4 +71,47 @@ const indexMaterials = async (context: Context) => {
   }
 };
 
-export { indexClasses, indexPlanning, indexMaterials };
+const storeMaterials = async (context: Context) => {
+  const body = await context.request.body.json();
+
+  await client.connect();
+  const transaction = client.createTransaction("storeMaterials");
+
+  try {
+    await transaction.begin();
+
+    await client
+      .queryObject(
+        `
+        INSERT INTO class_materials
+        (class_id, title, description, file_format, file_url, list_index)
+        VALUES 
+        ($class_id, $title, $description, $file_format, $file_url, $list_index)
+        `,
+        {
+          class_id: body.class_id,
+          title: body.title,
+          description: body.description,
+          file_format: body.file_format,
+          file_url: body.file_url,
+        }
+      )
+      .then((result) => {
+        if (result.rowCount) {
+          transaction.commit();
+          context.response.status = Status.Created;
+        }
+      })
+      .catch((err) => {
+        transaction.rollback();
+        context.response.status = Status.InternalServerError;
+        context.response.body = err;
+      });
+  } catch (error) {
+    await transaction.rollback();
+    context.response.status = Status.InternalServerError;
+    context.response.body = error;
+  }
+};
+
+export { indexClasses, indexPlanning, indexMaterials, storeMaterials };

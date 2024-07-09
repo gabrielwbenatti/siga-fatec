@@ -8,8 +8,8 @@ const storeTeacher = async (context: Context) => {
     await client.connect();
     const transaction = client.createTransaction("storeTeacher");
 
-    transaction.begin();
-    const result = await client.queryArray(
+    await transaction.begin();
+    const result = await client.queryObject(
       `
       INSERT INTO teachers
         (user_id, teach_since, document, first_name, last_name)
