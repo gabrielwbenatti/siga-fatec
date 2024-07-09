@@ -7,7 +7,7 @@ const config = {
   database: env["DATABASE"],
   hostname: env["HOSTNAME"],
   password: env["PASSWORD"],
-  port: env["PORT"] || 5432,
+  port: env["DB_PORT"] || 5432,
   user: env["USER"],
 };
 
