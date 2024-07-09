@@ -9,10 +9,8 @@ const storeUser = async (context: Context) => {
   const hash = await bcrypt.hash(body.password, salt);
 
   await client.connect();
-  const transaction = client.createTransaction("storeUser");
 
   try {
-    await transaction.begin();
     const result = await client.queryArray(
       `
       INSERT INTO users(username, password) 
@@ -22,11 +20,9 @@ const storeUser = async (context: Context) => {
     );
 
     if (result.rowCount) {
-      await transaction.commit();
       context.response.status = Status.Created;
     }
   } catch (error) {
-    await transaction.rollback();
     context.response.status = Status.InternalServerError;
     context.response.body = error;
   }

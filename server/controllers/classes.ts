@@ -75,40 +75,30 @@ const storeMaterials = async (context: Context) => {
   const body = await context.request.body.json();
 
   await client.connect();
-  const transaction = client.createTransaction("storeMaterials");
 
   try {
-    await transaction.begin();
-
-    await client
-      .queryObject(
-        `
+    const result = await client.queryObject(
+      `
         INSERT INTO class_materials
         (class_id, title, description, file_format, file_url, list_index)
         VALUES 
         ($class_id, $title, $description, $file_format, $file_url, $list_index)
         `,
-        {
-          class_id: body.class_id,
-          title: body.title,
-          description: body.description,
-          file_format: body.file_format,
-          file_url: body.file_url,
-        }
-      )
-      .then((result) => {
-        if (result.rowCount) {
-          transaction.commit();
-          context.response.status = Status.Created;
-        }
-      })
-      .catch((err) => {
-        transaction.rollback();
-        context.response.status = Status.InternalServerError;
-        context.response.body = err;
-      });
+      {
+        class_id: body.class_id,
+        title: body.title,
+        description: body.description,
+        file_format: body.file_format,
+        file_url: body.file_url,
+        list_index: -1,
+      }
+    );
+
+    if (result.rowCount) {
+      context.response.status = Status.Created;
+    }
   } catch (error) {
-    await transaction.rollback();
+    console.log("err", error);
     context.response.status = Status.InternalServerError;
     context.response.body = error;
   }

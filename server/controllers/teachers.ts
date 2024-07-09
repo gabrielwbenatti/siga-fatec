@@ -6,9 +6,7 @@ const storeTeacher = async (context: Context) => {
 
   try {
     await client.connect();
-    const transaction = client.createTransaction("storeTeacher");
 
-    await transaction.begin();
     const result = await client.queryObject(
       `
       INSERT INTO teachers
@@ -26,7 +24,6 @@ const storeTeacher = async (context: Context) => {
     );
 
     if (result.rowCount) {
-      transaction.commit();
       context.response.status = Status.Created;
     }
   } catch (error) {}
