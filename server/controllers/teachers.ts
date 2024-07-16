@@ -8,17 +8,17 @@ const storeTeacher = async (context: Context) => {
   try {
     await client.authenticate();
 
-    const teahcer = await Teacher.create({
+    await Teacher.create({
       user_id: body.user_id,
       teach_since: body.teach_since || null,
       document: body.document,
       first_name: body.first_name,
       last_name: body.last_name,
+    }).then((teacher) => {
+      if (teacher) {
+        context.response.status = Status.Created;
+      }
     });
-
-    if (teahcer) {
-      context.response.status = Status.Created;
-    }
   } catch (error) {
     context.response.status = Status.InternalServerError;
     context.response.body = error;

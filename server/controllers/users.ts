@@ -12,14 +12,14 @@ const storeUser = async (context: Context) => {
   try {
     await client.authenticate();
 
-    const user = await User.create({
+    await User.create({
       username: body.username,
       password: hash,
+    }).then((user) => {
+      if (user) {
+        context.response.status = Status.Created;
+      }
     });
-
-    if (user) {
-      context.response.status = Status.Created;
-    }
   } catch (error) {
     context.response.status = Status.InternalServerError;
     context.response.body = error;
