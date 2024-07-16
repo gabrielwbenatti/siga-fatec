@@ -4,13 +4,12 @@ import { teachersRouter } from "./teachers.ts";
 import { loginRoute } from "./login.ts";
 import { classesRouter } from "./classes.ts";
 
-const router = new Router();
-const prefix = "/api/v1";
+const router = new Router({ prefix: "/api/v1" });
 
 router
-  .use(`${prefix}/login`, loginRoute.routes())
-  .use(`${prefix}/users`, usersRouter.routes())
-  .use(`${prefix}/teachers`, teachersRouter.routes())
-  .get(`${prefix}/classes`, classesRouter.routes());
+  .use("/login", loginRoute.routes())
+  .use("/users", usersRouter.routes())
+  .use("/teachers", teachersRouter.routes())
+  .get("/classes", classesRouter.routes());
 
 export { router };

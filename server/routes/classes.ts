@@ -4,14 +4,19 @@ import {
   indexPlanning,
   indexMaterials,
   storeMaterials,
+  storePlanning,
 } from "../controllers/classes.ts";
 
 const classesRouter = new Router();
 
 // route: /classes
+classesRouter.get("/", indexClasses);
+
+// Rotas de planejamento
+classesRouter.get("/planning", indexPlanning).post("/planning", storePlanning);
+
+// Rotas de materiais
 classesRouter
-  .get("/", indexClasses)
-  .get("/planning", indexPlanning)
   .get("/materials", indexMaterials)
   .post("/materials", storeMaterials);
 

@@ -46,6 +46,7 @@ ClassMaterial.init(
     },
     list_index: {
       type: DataTypes.SMALLINT,
+      defaultValue: 0,
     },
   },
   {

@@ -9,9 +9,9 @@ const storeUser = async (context: Context) => {
   const salt = await bcrypt.genSalt(8);
   const hash = await bcrypt.hash(body.password, salt);
 
-  await client.authenticate();
-
   try {
+    await client.authenticate();
+
     const user = await User.create({
       username: body.username,
       password: hash,
