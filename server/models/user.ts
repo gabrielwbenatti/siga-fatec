@@ -17,6 +17,8 @@ User.init(
   {
     id: {
       type: DataTypes.BIGINT,
+      primaryKey: true,
+      autoIncrement: true,
       allowNull: false,
     },
     username: {
