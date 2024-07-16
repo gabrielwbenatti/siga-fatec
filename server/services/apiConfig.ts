@@ -1,5 +1,5 @@
-import { Client } from "https://deno.land/x/postgres@v0.19.3/mod.ts";
 import { load } from "https://deno.land/std@0.224.0/dotenv/mod.ts";
+import { Sequelize } from "npm:sequelize@6.37.3";
 
 const env = await load();
 
@@ -11,6 +11,13 @@ const config = {
   user: env["USER"],
 };
 
-const client = new Client(config);
+const client = new Sequelize({
+  dialect: "postgres",
+  host: config.hostname,
+  port: +config.port,
+  database: config.database,
+  username: config.user,
+  password: config.password,
+});
 
 export { client };
