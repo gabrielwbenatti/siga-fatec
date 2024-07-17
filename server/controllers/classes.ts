@@ -3,8 +3,16 @@ import { QueryTypes } from "npm:sequelize@6.37.3";
 
 import { client } from "../services/apiConfig.ts";
 
-import { indexPlanning, storePlanning } from "./class-planning.ts";
-import { indexMaterials, storeMaterials } from "./class-materials.ts";
+import {
+  indexPlanning,
+  storePlanning,
+  deletePlanning,
+} from "./class-planning.ts";
+import {
+  indexMaterials,
+  storeMaterials,
+  deleteMaterials,
+} from "./class-materials.ts";
 
 const indexClasses = async (context: Context) => {
   try {
@@ -39,4 +47,6 @@ export {
   indexMaterials,
   storePlanning,
   storeMaterials,
+  deleteMaterials,
+  deletePlanning,
 };

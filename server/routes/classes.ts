@@ -5,6 +5,8 @@ import {
   indexMaterials,
   storeMaterials,
   storePlanning,
+  deleteMaterials,
+  deletePlanning,
 } from "../controllers/classes.ts";
 
 const classesRouter = new Router();
@@ -13,11 +15,15 @@ const classesRouter = new Router();
 classesRouter.get("/", indexClasses);
 
 // Rotas de planejamento
-classesRouter.get("/planning", indexPlanning).post("/planning", storePlanning);
+classesRouter
+  .get("/planning", indexPlanning)
+  .post("/planning", storePlanning)
+  .delete("/planning/:id", deletePlanning);
 
 // Rotas de materiais
 classesRouter
   .get("/materials", indexMaterials)
-  .post("/materials", storeMaterials);
+  .post("/materials", storeMaterials)
+  .delete("/materials/:id", deleteMaterials);
 
 export { classesRouter };

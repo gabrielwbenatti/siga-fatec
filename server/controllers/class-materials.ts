@@ -51,4 +51,24 @@ const storeMaterials = async (context: Context) => {
   }
 };
 
-export { indexMaterials, storeMaterials };
+const deleteMaterials = async (context: Context) => {
+  const id = context.params.id;
+
+  try {
+    await client.authenticate();
+
+    await ClassMaterial.findOne({ where: { id: id } }).then((material) => {
+      if (material) {
+        material.destroy();
+        context.response.status = Status.OK;
+      } else {
+        context.response.status = Status.NoContent;
+      }
+    });
+  } catch (error) {
+    context.response.status = Status.InternalServerError;
+    context.response.body = error;
+  }
+};
+
+export { indexMaterials, storeMaterials, deleteMaterials };

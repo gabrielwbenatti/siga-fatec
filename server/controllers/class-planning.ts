@@ -48,4 +48,24 @@ const storePlanning = async (context: Context) => {
   }
 };
 
-export { indexPlanning, storePlanning };
+const deletePlanning = async (context: Context) => {
+  const id = context.params.id;
+
+  try {
+    await client.authenticate();
+
+    await ClassPlanning.findOne({ where: { id: id } }).then((planning) => {
+      if (planning) {
+        planning.destroy();
+        context.response.status = Status.OK;
+      } else {
+        context.response.status = Status.NoContent;
+      }
+    });
+  } catch (error) {
+    context.response.status = Status.InternalServerError;
+    context.response.body = error;
+  }
+};
+
+export { indexPlanning, storePlanning, deletePlanning };
