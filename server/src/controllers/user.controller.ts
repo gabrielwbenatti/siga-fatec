@@ -2,7 +2,7 @@ import * as bcrypt from "bcrypt";
 import { Request, Response } from "express";
 import client from "../services/db";
 import User from "../models/user.model";
-import { StatusCode } from "../utils/http.status.code";
+import StatusCode from "../utils/http-status-code";
 
 const store = async (req: Request, res: Response) => {
   const body = req.body;

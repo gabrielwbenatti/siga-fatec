@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import ClassMaterial from "../models/class.material.model";
 import client from "../services/db";
-import { StatusCode } from "../utils/http.status.code";
+import StatusCode from "../utils/http-status-code";
 
 const index = async (_: Request, res: Response) => {
   try {

@@ -1,4 +1,4 @@
-export enum StatusCode {
+enum StatusCode {
   // 200
   Ok = 200,
   Created = 201,
@@ -11,3 +11,5 @@ export enum StatusCode {
   // 500
   InternalError = 500,
 }
+
+export default StatusCode;
