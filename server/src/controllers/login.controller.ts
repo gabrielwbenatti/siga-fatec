@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import client from "../services/db";
 import User from "../models/user.model";
-import { compare } from "bcrypt";
+import * as bcrypt from "bcrypt";
 import { StatusCode } from "../utils/http.status.code";
 
 const login = async (req: Request, res: Response) => {
@@ -14,7 +14,7 @@ const login = async (req: Request, res: Response) => {
 
       if (!user) throw new Error("User not found");
 
-      const isMatch = await compare(body.password, user.password);
+      const isMatch = await bcrypt.compare(body.password, user.password);
 
       if (!isMatch) throw new Error("Invalid Credentials");
 
