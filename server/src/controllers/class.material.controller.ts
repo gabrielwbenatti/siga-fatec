@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import ClassMaterial from "../models/class.material.model";
 import client from "../services/db";
+import { StatusCode } from "../utils/http.status.code";
 
 const index = async (_: Request, res: Response) => {
   try {
@@ -14,12 +15,12 @@ const index = async (_: Request, res: Response) => {
 
       if (result) {
         res.send(result);
-        res.statusCode = 200;
+        res.statusCode = StatusCode.Ok;
       } else {
-        res.statusCode = 204;
+        res.statusCode = StatusCode.Created;
       }
     } catch (error) {
-      res.statusCode = 500;
+      res.statusCode = StatusCode.InternalError;
       res.send(error);
     }
   } finally {
@@ -42,11 +43,11 @@ const store = async (req: Request, res: Response) => {
     try {
       await ClassMaterial.bulkCreate(newValues).then((result) => {
         if (result) {
-          res.statusCode = 201;
+          res.statusCode = StatusCode.Created;
         }
       });
     } catch (error) {
-      res.statusCode = 500;
+      res.statusCode = StatusCode.InternalError;
       res.send(error);
     }
   } finally {

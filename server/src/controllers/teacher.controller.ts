@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import client from "../services/db";
 import Teacher from "../models/teacher.model";
+import { StatusCode } from "../utils/http.status.code";
 
 const store = async (req: Request, res: Response) => {
   const body = req.body;
@@ -17,11 +18,11 @@ const store = async (req: Request, res: Response) => {
         last_name: body.last_name,
       }).then((teacher) => {
         if (teacher) {
-          res.statusCode = 201;
+          res.statusCode = StatusCode.Created;
         }
       });
     } catch (error) {
-      res.statusCode = 500;
+      res.statusCode = StatusCode.InternalError;
       res.send(error);
     }
   } finally {

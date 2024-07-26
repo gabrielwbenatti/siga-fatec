@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import client from "../services/db";
 import ClassPlanning from "../models/class.planning.model";
+import { StatusCode } from "../utils/http.status.code";
 
 const index = async (_: Request, res: Response) => {
   try {
@@ -13,12 +14,12 @@ const index = async (_: Request, res: Response) => {
 
       if (result) {
         res.send(result);
-        res.statusCode = 200;
+        res.statusCode = StatusCode.Ok;
       } else {
-        res.statusCode = 204;
+        res.statusCode = StatusCode.NoContent;
       }
     } catch (error) {
-      res.statusCode = 500;
+      res.statusCode = StatusCode.InternalError;
       res.send(error);
     }
   } finally {
