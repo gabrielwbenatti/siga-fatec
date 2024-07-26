@@ -7,8 +7,8 @@ import loginRouter from "./login.router";
 const router = Router();
 
 router
-  .use("/api/v1", userRouter)
-  .use("/api/v1", teacherRouter)
+  .use("/api/v1/users", userRouter)
+  .use("/api/v1/teachers", teacherRouter)
   .use("/api/v1/login", loginRouter)
   .use("/api/v1/classes", classRouter);
 
