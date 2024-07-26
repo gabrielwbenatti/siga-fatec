@@ -1,8 +1,8 @@
 import { Router } from "express";
 import * as teacher from "../controllers/teacherController";
 
-const teacherRouter = Router();
+const teachersRouter = Router();
 
-teacherRouter.post("/", teacher.store);
+teachersRouter.post("/", teacher.store);
 
-export default teacherRouter;
+export default teachersRouter;
