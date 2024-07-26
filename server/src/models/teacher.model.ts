@@ -1,11 +1,11 @@
 import {
-  CreationOptional,
-  DataTypes,
+  Model,
   InferAttributes,
   InferCreationAttributes,
-  Model,
-} from "npm:sequelize@6.37.3";
-import { client } from "../services/apiConfig.ts";
+  CreationOptional,
+  DataTypes,
+} from "sequelize";
+import client from "../services/db";
 
 class Teacher extends Model<
   InferAttributes<Teacher>,
