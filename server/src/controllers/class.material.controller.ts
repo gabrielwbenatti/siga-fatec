@@ -28,4 +28,31 @@ const index = async (_: Request, res: Response) => {
   }
 };
 
-export { index };
+const store = async (req: Request, res: Response) => {
+  const values = (req.body as Array<ClassMaterial>) || [];
+
+  const newValues = values.map((item, index) => ({
+    ...item,
+    list_index: index + 1,
+  }));
+
+  try {
+    await client.authenticate();
+
+    try {
+      await ClassMaterial.bulkCreate(newValues).then((result) => {
+        if (result) {
+          res.statusCode = 201;
+        }
+      });
+    } catch (error) {
+      res.statusCode = 500;
+      res.send(error);
+    }
+  } finally {
+    client.close();
+    res.end();
+  }
+};
+
+export { index, store };

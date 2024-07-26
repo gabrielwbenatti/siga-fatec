@@ -11,7 +11,7 @@ classRouter
 
 classRouter
   .get("/materials", material.index)
-  .post("/materials", (_, res) => res.send({ route: "POST MATERIALS" }))
+  .post("/materials", material.store)
   .delete("/materials/:id", (_, res) =>
     res.send({ route: "DELETE MATERIALS" })
   );
