@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import client from "../services/db";
 import User from "../models/user.model";
 
-const store = async (req: Request, res: Response): Promise<void> => {
+const store = async (req: Request, res: Response) => {
   const body = req.body;
   const salt = await genSalt(8);
   const nPassword = await hash(body.password, salt);

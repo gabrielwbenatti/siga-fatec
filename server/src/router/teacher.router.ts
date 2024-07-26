@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { store } from "../controllers/teacher.controller";
+import * as teacher from "../controllers/teacher.controller";
 
 const teacherRouter = Router();
 
-teacherRouter.post("/teachers", store);
+teacherRouter.post("/teachers", teacher.store);
 
 export default teacherRouter;
