@@ -1,8 +1,8 @@
 import { Router } from "express";
-import userRouter from "./users.router";
-import teacherRouter from "./teacher.router";
-import classRouter from "./classes.router";
-import loginRouter from "./login.router";
+import userRouter from "./usersRouter";
+import teacherRouter from "./teachersRouter";
+import classRouter from "./classesRouter";
+import loginRouter from "./loginRouter";
 
 const router = Router();
 

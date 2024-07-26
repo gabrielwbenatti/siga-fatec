@@ -1,6 +1,6 @@
 import { Router } from "express";
-import * as planning from "../controllers/class.planning.controller";
-import * as material from "../controllers/class.material.controller";
+import * as planning from "../controllers/classesPlanningController";
+import * as material from "../controllers/classesMaterialsController";
 
 const classRouter = Router();
 

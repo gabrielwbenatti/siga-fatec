@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import client from "../services/db";
-import Teacher from "../models/teacher.model";
+import Teacher from "../models/Teacher";
 import StatusCode from "../utils/http-status-code";
 
 const store = async (req: Request, res: Response) => {

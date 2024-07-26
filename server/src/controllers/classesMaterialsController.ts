@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import ClassMaterial from "../models/class.material.model";
+import ClassMaterial from "../models/ClassMaterial";
 import client from "../services/db";
 import StatusCode from "../utils/http-status-code";
 

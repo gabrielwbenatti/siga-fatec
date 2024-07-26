@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import client from "../services/db";
-import User from "../models/user.model";
+import User from "../models/User";
 import * as bcrypt from "bcrypt";
 import {
   handleException,
