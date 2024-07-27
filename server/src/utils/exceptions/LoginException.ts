@@ -1,5 +1,5 @@
-import CustomException from "./custom.exception";
-import ExceptionType from "./exception.type";
+import CustomException from "./CustomException";
+import ExceptionType from "./exceptionTypes";
 
 class UserNotFoundException extends CustomException {
   constructor() {

@@ -1,4 +1,4 @@
-import ExceptionType from "./exception.type";
+import ExceptionType from "./exceptionTypes";
 
 const exceptionMessages = {
   [ExceptionType.UserNotFound]: "User not found",

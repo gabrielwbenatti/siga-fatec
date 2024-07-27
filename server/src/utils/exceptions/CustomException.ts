@@ -1,5 +1,5 @@
-import exceptionMessages from "./exception.messages";
-import ExceptionType from "./exception.type";
+import exceptionMessages from "./exceptionMessages";
+import ExceptionType from "./exceptionTypes";
 
 class CustomException extends Error {
   constructor(type: ExceptionType) {

@@ -1,11 +1,11 @@
 import { Response } from "express";
 
-import ExceptionType from "./exception.type";
+import ExceptionType from "./exceptionTypes";
 
 import {
   UserNotFoundException,
   InvalidCredentialsException,
-} from "./login.exception";
+} from "./LoginException";
 import StatusCode from "../http-status-code";
 
 function handleException(res: Response, error: Error) {
