@@ -24,7 +24,6 @@ const index = async (_: Request, res: Response) => {
       res.send(error);
     }
   } finally {
-    client.close();
     res.end();
   }
 };
@@ -51,7 +50,6 @@ const store = async (req: Request, res: Response) => {
       res.send(error);
     }
   } finally {
-    client.close();
     res.end();
   }
 };

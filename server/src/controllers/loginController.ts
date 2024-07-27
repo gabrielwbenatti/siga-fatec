@@ -33,7 +33,6 @@ const login = async (req: Request, res: Response) => {
       handleException(res, error);
     })
     .finally(() => {
-      client.close();
       res.end();
     });
 };
