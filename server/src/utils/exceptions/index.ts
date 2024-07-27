@@ -13,10 +13,10 @@ function handleException(res: Response, error: Error) {
 
   switch (errorName) {
     case ExceptionType.UserNotFound:
-      res.statusCode = 400;
+      res.statusCode = StatusCode.Unauthorized;
       res.send({ message: error.message });
     case ExceptionType.InvalidCredentials: {
-      res.statusCode = 400;
+      res.statusCode = StatusCode.Unauthorized;
       res.send({ message: error.message });
     }
     default: {
