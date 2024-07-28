@@ -1,14 +1,20 @@
+import { ChangeEventHandler } from "react";
+
+interface LoginInputProps {
+  label: string;
+  placeholder: string;
+  inputType: "password" | "email";
+  autoComplete?: "true" | "false" | null;
+  onChange?: ChangeEventHandler<HTMLInputElement> | null;
+}
+
 function LoginInput({
   label,
   placeholder = "",
-  inputType = "text",
+  inputType,
   autoComplete = "true",
-}: {
-  label: string;
-  placeholder: string;
-  inputType: "text" | "password" | "email";
-  autoComplete: "true" | "false";
-}) {
+  onChange,
+}: LoginInputProps) {
   return (
     <>
       <div>
@@ -16,9 +22,10 @@ function LoginInput({
           {label}
         </label>
         <input
-          autoComplete={autoComplete}
-          type={inputType}
+          autoComplete={autoComplete!}
+          type={inputType!}
           placeholder={placeholder}
+          onChange={onChange!}
           className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         />
       </div>
