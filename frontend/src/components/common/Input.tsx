@@ -8,10 +8,11 @@ function SigaInput({ label, className, ...rest }: SigaInputProps) {
   return (
     <>
       <div>
-        <label className="block mb-2 text-sm font-medium text-gray-900 ">
-          {label}
-        </label>
-        <input className={"p-2 rounded-lg " + className} {...rest} />
+        <label className="block mb-2 text-sm font-medium">{label}</label>
+        <input
+          className={`px-4 py-2 rounded-lg bg-light-surfaceContainerHighest focus:outline-none ${className}`}
+          {...rest}
+        />
       </div>
     </>
   );

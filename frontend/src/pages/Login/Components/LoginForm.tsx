@@ -1,8 +1,8 @@
 import { FormEvent, useState } from "react";
-import LoginInput from "./LoginInput";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import SigaInput from "../../../components/shared/Input";
+import SigaInput from "../../../components/common/Input";
+import SigaButton from "../../../components/common/Button";
 
 function LoginForm() {
   const [email, setEmail] = useState<string>("");
@@ -39,9 +39,9 @@ function LoginForm() {
 
   return (
     <>
-      <div className="w-full bg-white rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0">
+      <div className="w-full bg-light-surfaceContainerLowest rounded-xl shadow border md:mt-0 sm:max-w-md xl:p-0">
         <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-          <h1 className="text-xl font-bold leading-right tracking-tight ">
+          <h1 className="text-xl font-bold leading-right tracking-tight text-light-onSurface">
             Bem vindo(a), professor(a)
           </h1>
           <form method="post" className="space-y-4" onSubmit={handleSubmit}>
@@ -61,12 +61,7 @@ function LoginForm() {
               onChange={(e) => setPassword(e.currentTarget.value)}
             />
 
-            <button
-              type="submit"
-              className="w-full text-white bg-primary hover:underline hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-            >
-              Acessar
-            </button>
+            <SigaButton>Acessar</SigaButton>
           </form>
         </div>
       </div>
