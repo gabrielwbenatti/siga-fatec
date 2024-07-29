@@ -1,7 +1,10 @@
+import MaterialsPage from "./Materials";
+import PlanningPage from "./Planning";
+
 function HomePage() {
   return (
     <>
-      <h3>Home Page </h3>
+      <MaterialsPage />
     </>
   );
 }
