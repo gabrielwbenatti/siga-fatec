@@ -15,6 +15,7 @@ const store = async (req: Request, res: Response) => {
     try {
       await User.create({
         username: body.username,
+        email: body.email,
         password: nPassword,
       }).then((user) => {
         if (user) {

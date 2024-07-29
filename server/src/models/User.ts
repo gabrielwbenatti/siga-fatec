@@ -10,6 +10,7 @@ import client from "../services/db";
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare id: CreationOptional<number>;
   declare username: string;
+  declare email: string;
   declare password: string;
 }
 
@@ -22,6 +23,11 @@ User.init(
       allowNull: false,
     },
     username: {
+      type: DataTypes.STRING(63),
+      allowNull: false,
+      unique: true,
+    },
+    email: {
       type: DataTypes.STRING(63),
       allowNull: false,
       unique: true,
