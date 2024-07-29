@@ -2,6 +2,7 @@ import { FormEvent, useState } from "react";
 import LoginInput from "./LoginInput";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import SigaInput from "../../../components/shared/Input";
 
 function LoginForm() {
   const [email, setEmail] = useState<string>("");
@@ -44,18 +45,17 @@ function LoginForm() {
             Bem vindo(a), professor(a)
           </h1>
           <form method="post" className="space-y-4" onSubmit={handleSubmit}>
-            <LoginInput
+            <SigaInput
               label="Seu e-mail"
-              inputType="email"
-              autoComplete="true"
               placeholder="E-mail"
+              type="email"
               onChange={(e) => setEmail(e.currentTarget.value)}
             />
-            <LoginInput
+
+            <SigaInput
               label="Senha"
-              placeholder="***"
-              inputType="password"
-              autoComplete="true"
+              placeholder="Senha"
+              type="password"
               onChange={(e) => setPassword(e.currentTarget.value)}
             />
 
