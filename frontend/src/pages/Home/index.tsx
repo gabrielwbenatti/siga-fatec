@@ -1,11 +1,8 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { SigaSideBarItem, SigaSideMenu } from "./components/SideMenu";
 import { BookOpen, ChartColumn, Library } from "lucide-react";
-import { useState } from "react";
 
 function HomePage() {
-  const navigate = useNavigate();
-  const [currentIndex, setCurrentIndex] = useState(0);
   const items = [
     {
       icon: <Library />,
@@ -24,6 +21,8 @@ function HomePage() {
     },
   ];
 
+  const navigate = useNavigate();
+
   return (
     <>
       <div className="flex h-screen">
@@ -33,11 +32,8 @@ function HomePage() {
               key={index}
               icon={item.icon}
               text={item.text}
-              onClick={() => {
-                navigate(item.path);
-                setCurrentIndex(index);
-              }}
-              active={index === currentIndex}
+              path={item.path}
+              onClick={(path) => navigate(path)}
             />
           ))}
         </SigaSideMenu>

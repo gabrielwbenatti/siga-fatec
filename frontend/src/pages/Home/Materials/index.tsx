@@ -15,6 +15,7 @@ function MaterialsPage() {
     { title: "Template (DOCX)", desc: "Template do trabalho" },
     { title: "Revisão (PPTX)", desc: "Conteúdo para P1" },
   ];
+
   const navigate = useNavigate();
 
   const handleNewButtonClick = () => {

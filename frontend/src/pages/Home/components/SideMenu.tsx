@@ -1,5 +1,6 @@
 import { MenuIcon } from "lucide-react";
 import { createContext, useContext, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const SigaSideBarContext = createContext({ expanded: true });
 
@@ -35,18 +36,25 @@ function SigaSideBar({ children }: { children?: JSX.Element[] }) {
   );
 }
 
-function SigaSideBarItem({
-  icon,
-  text,
-  active = false,
-  onClick,
-}: {
+interface SigaSideBarItemProps {
   icon: JSX.Element;
   text: string;
-  active?: boolean;
-  onClick?: () => void;
-}) {
+  path: string;
+  onClick?: (path: string) => void;
+}
+
+function SigaSideBarItem({ ...props }: SigaSideBarItemProps) {
   const { expanded } = useContext(SigaSideBarContext);
+
+  const location = useLocation();
+
+  const isActive = (path: string) => {
+    return path === location.pathname || location.pathname.startsWith(path);
+  };
+
+  const handleClick = () => {
+    if (props.onClick) props.onClick(props.path);
+  };
 
   return (
     <>
@@ -55,24 +63,24 @@ function SigaSideBarItem({
         relative flex items-center py-2 px-3 my-1
         font-medium rounded-lg cursor-pointer 
         transition-colors group max-h-14 ${
-          active
+          isActive(props.path)
             ? "bg-light-primaryContainer text-light-onPrimaryContainer"
             : "hover:bg-light-surfaceTint/5 text-light-onSurfaceVariant"
         }
         `}
-        onClick={onClick}
+        onClick={handleClick}
       >
-        {icon}
+        {props.icon}
         <span
           className={`overflow-hidden transition-all ${
             expanded ? "w-52 ml-3" : "w-0"
           }`}
         >
-          {text}
+          {props.text}
         </span>
         {!expanded && (
           <div className="absolute left-full rounded-md px-2 py-1 ml-6 bg-gray-200 text-sm invisible opacity-20 -translate-x-3 transition-all group-hover:visible group-hover:opacity-100 group-hover:translate-x-0">
-            {text}
+            {props.text}
           </div>
         )}
       </li>
