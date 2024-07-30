@@ -1,13 +1,9 @@
 import { ChevronFirst, ChevronLast } from "lucide-react";
 import { createContext, useContext, useState } from "react";
 
-const SideBarContext = createContext({ expanded: true });
+const SigaSideBarContext = createContext({ expanded: true });
 
-function SigaSideMenu({
-  children,
-}: {
-  children?: JSX.Element | JSX.Element[];
-}) {
+function SigaSideBar({ children }: { children?: JSX.Element[] }) {
   const [expanded, setExpanded] = useState(true);
 
   return (
@@ -24,15 +20,15 @@ function SigaSideMenu({
             </p>
             <button
               onClick={() => setExpanded((curr) => !curr)}
-              className="p-1.5 rounded-md bg-light-surface hover:bg-light-surfaceTint/5"
+              className="p-1.5 rounded-lg bg-light-surface hover:bg-light-surfaceTint/5"
             >
               {expanded ? <ChevronFirst /> : <ChevronLast />}
             </button>
           </div>
 
-          <SideBarContext.Provider value={{ expanded }}>
+          <SigaSideBarContext.Provider value={{ expanded }}>
             <ul className="flex-1 px-3">{children}</ul>
-          </SideBarContext.Provider>
+          </SigaSideBarContext.Provider>
         </nav>
       </aside>
     </>
@@ -43,25 +39,28 @@ function SigaSideBarItem({
   icon,
   text,
   active = false,
+  onClick,
 }: {
   icon: JSX.Element;
   text: string;
   active?: boolean;
+  onClick?: () => void;
 }) {
-  const { expanded } = useContext(SideBarContext);
+  const { expanded } = useContext(SigaSideBarContext);
 
   return (
     <>
       <li
         className={`
         relative flex items-center py-2 px-3 my-1
-        font-medium rounded-md cursor-pointer
-        transition-colors group ${
+        font-medium rounded-lg cursor-pointer 
+        transition-colors group h-14 ${
           active
             ? "bg-light-primaryContainer text-light-onPrimaryContainer"
             : "hover:bg-light-surfaceTint/5 text-light-onSurfaceVariant"
         }
         `}
+        onClick={onClick}
       >
         {icon}
         <span
@@ -81,4 +80,4 @@ function SigaSideBarItem({
   );
 }
 
-export { SigaSideMenu, SigaSideBarItem };
+export { SigaSideBar as SigaSideMenu, SigaSideBarItem };

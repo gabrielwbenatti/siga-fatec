@@ -22,18 +22,18 @@ function PlanningPage() {
   return (
     <>
       <div className="space-y-4">
-        <div>
+        <div className="flex justify-between">
           <h1>IRC100 - Laboratório de Redes</h1>
           <button>Novo Arquivo</button>
         </div>
 
         <div>
-          {items.map((e) => (
+          {items.map((item) => (
             <SigaListItem>
               <div className="flex flex-col">
-                <span className="text-sm">{e.data}</span>
-                <h3 className="font-semibold text-lg">{e.title}</h3>
-                <span>{e.desc}</span>
+                <span className="text-sm">{item.data}</span>
+                <h3 className="font-semibold text-lg">{item.title}</h3>
+                <span>{item.desc}</span>
               </div>
             </SigaListItem>
           ))}
