@@ -54,7 +54,7 @@ function SigaSideBarItem({
         className={`
         relative flex items-center py-2 px-3 my-1
         font-medium rounded-lg cursor-pointer 
-        transition-colors group h-14 ${
+        transition-colors group max-h-14 ${
           active
             ? "bg-light-primaryContainer text-light-onPrimaryContainer"
             : "hover:bg-light-surfaceTint/5 text-light-onSurfaceVariant"

@@ -8,6 +8,11 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <div>Hello world </div>,
+    errorElement: (
+      <>
+        <h1>Página não encontrada</h1>
+      </>
+    ),
   },
   {
     path: "/login",

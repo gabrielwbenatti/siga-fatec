@@ -11,30 +11,31 @@ function LoginForm() {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
+    navigate("/home/planning");
 
-    await axios
-      .post("http://localhost:8000/api/v1/login", {
-        email,
-        password,
-      })
-      .then((res) => {
-        const statusCode = res.status;
+    // await axios
+    //   .post("http://localhost:8000/api/v1/login", {
+    //     email,
+    //     password,
+    //   })
+    //   .then((res) => {
+    //     const statusCode = res.status;
 
-        switch (statusCode) {
-          case 200: {
-            navigate("/home");
-            break;
-          }
-          case 401: {
-            const message = res.data.message;
-            console.log(message);
-            break;
-          }
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    //     switch (statusCode) {
+    //       case 200: {
+    //         navigate("/home");
+    //         break;
+    //       }
+    //       case 401: {
+    //         const message = res.data.message;
+    //         console.log(message);
+    //         break;
+    //       }
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.error(err);
+    //   });
   };
 
   return (

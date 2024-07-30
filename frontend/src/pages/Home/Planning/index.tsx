@@ -1,7 +1,15 @@
+import SigaButton from "../../../components/common/Button";
 import SigaListItem from "../../../components/common/ListItem";
+import SigaListWrapper from "../../../components/common/ListWrapper";
+import SigaTitleBar from "../components/TitleBar";
 
 function PlanningPage() {
   const items = [
+    {
+      data: "16/06/2024",
+      title: "Introdução ao Conteúdo",
+      desc: "Introdução ao conteúdo \nDefinição das ferramentas utilizadas",
+    },
     {
       data: "16/06/2024",
       title: "Introdução ao Conteúdo",
@@ -22,12 +30,12 @@ function PlanningPage() {
   return (
     <>
       <div className="space-y-4">
-        <div className="flex justify-between">
-          <h1>IRC100 - Laboratório de Redes</h1>
-          <button>Novo Arquivo</button>
-        </div>
+        <SigaTitleBar>
+          <h1 className="text-lg font-bold">IRC100 - Laboratório de Redes</h1>
+          <SigaButton>Novo Planejamento</SigaButton>
+        </SigaTitleBar>
 
-        <div>
+        <SigaListWrapper showCount>
           {items.map((item) => (
             <SigaListItem>
               <div className="flex flex-col">
@@ -37,9 +45,7 @@ function PlanningPage() {
               </div>
             </SigaListItem>
           ))}
-        </div>
-
-        <div>3 arquivos disponibilizados</div>
+        </SigaListWrapper>
       </div>
     </>
   );

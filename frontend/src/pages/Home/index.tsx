@@ -1,6 +1,6 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { SigaSideBarItem, SigaSideMenu } from "./components/SideMenu";
-import { BookOpen, Library } from "lucide-react";
+import { BookOpen, ChartColumn, Library } from "lucide-react";
 import { useState } from "react";
 
 function HomePage() {
@@ -16,6 +16,11 @@ function HomePage() {
       icon: <BookOpen />,
       text: "Materiais",
       path: "/home/materials",
+    },
+    {
+      icon: <ChartColumn />,
+      text: "Análises",
+      path: "/home/analytics",
     },
   ];
 

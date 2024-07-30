@@ -1,5 +1,8 @@
 import { StickyNote } from "lucide-react";
 import SigaListItem from "../../../components/common/ListItem";
+import SigaListWrapper from "../../../components/common/ListWrapper";
+import SigaButton from "../../../components/common/Button";
+import SigaTitleBar from "../components/TitleBar";
 
 function MaterialsPage() {
   const items = [
@@ -14,12 +17,12 @@ function MaterialsPage() {
   return (
     <>
       <div className="space-y-4 ">
-        <div className="flex justify-between">
-          <h1>IRC100 - Laboratório de Redes</h1>
-          <button>Novo Arquivo</button>
-        </div>
+        <SigaTitleBar>
+          <h1 className="text-lg font-bold">IRC100 - Laboratório de Redes</h1>
+          <SigaButton>Novo Arquivo</SigaButton>
+        </SigaTitleBar>
 
-        <div className="bg-clip-border rounded-lg ">
+        <SigaListWrapper showCount>
           {items.map((item) => (
             <SigaListItem>
               <StickyNote />
@@ -29,9 +32,7 @@ function MaterialsPage() {
               </div>
             </SigaListItem>
           ))}
-        </div>
-
-        <div>3 arquivos disponibilizados</div>
+        </SigaListWrapper>
       </div>
     </>
   );
