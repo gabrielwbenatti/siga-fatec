@@ -1,7 +1,8 @@
 import SigaButton from "../../../components/common/Button";
 import SigaListItem from "../../../components/common/ListItem";
-import SigaListWrapper from "../../../components/common/ListWrapper";
-import SigaTitleBar from "../components/TitleBar";
+import SigaListWrapper from "../../../components/common/wrapper/ListWrapper";
+import SigaTitleBar from "../../../components/common/TitleBar";
+import ContentWrapper from "../../../components/common/wrapper/ContentWrapper";
 
 function PlanningPage() {
   const items = [
@@ -29,15 +30,14 @@ function PlanningPage() {
 
   return (
     <>
-      <div className="space-y-4">
-        <SigaTitleBar>
-          <h1 className="text-lg font-bold">IRC100 - Laboratório de Redes</h1>
+      <ContentWrapper>
+        <SigaTitleBar title="IRC100 - Laboratório de Redes">
           <SigaButton>Novo Planejamento</SigaButton>
         </SigaTitleBar>
 
         <SigaListWrapper showCount>
-          {items.map((item) => (
-            <SigaListItem>
+          {items.map((item, index) => (
+            <SigaListItem key={index}>
               <div className="flex flex-col">
                 <span className="text-sm">{item.data}</span>
                 <h3 className="font-semibold text-lg">{item.title}</h3>
@@ -46,7 +46,7 @@ function PlanningPage() {
             </SigaListItem>
           ))}
         </SigaListWrapper>
-      </div>
+      </ContentWrapper>
     </>
   );
 }

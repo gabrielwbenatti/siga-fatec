@@ -1,3 +1,4 @@
 export interface JsxChildrenProps {
-  children: JSX.Element | JSX.Element[];
+  key?: string | number | undefined;
+  children?: JSX.Element | JSX.Element[] | undefined;
 }

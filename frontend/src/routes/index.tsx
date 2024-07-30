@@ -1,23 +1,13 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, RouteObject } from "react-router-dom";
 import LoginPage from "../pages/Login";
 import HomePage from "../pages/Home";
 import MaterialsPage from "../pages/Home/Materials";
 import PlanningPage from "../pages/Home/Planning";
+import MaterialCreatePage from "../pages/Home/Materials/Create";
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <div>Hello world </div>,
-    errorElement: (
-      <>
-        <h1>Página não encontrada</h1>
-      </>
-    ),
-  },
-  {
-    path: "/login",
-    element: <LoginPage />,
-  },
+  { path: "/", element: <div>Hello world </div> },
+  { path: "/login", element: <LoginPage /> },
   {
     path: "/home",
     element: <HomePage />,
@@ -29,6 +19,10 @@ const router = createBrowserRouter([
       {
         path: "/home/materials",
         element: <MaterialsPage />,
+      },
+      {
+        path: "/home/materials/create",
+        element: <MaterialCreatePage />,
       },
     ],
   },

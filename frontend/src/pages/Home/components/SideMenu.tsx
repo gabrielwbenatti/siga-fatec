@@ -1,4 +1,4 @@
-import { ChevronFirst, ChevronLast } from "lucide-react";
+import { MenuIcon } from "lucide-react";
 import { createContext, useContext, useState } from "react";
 
 const SigaSideBarContext = createContext({ expanded: true });
@@ -22,7 +22,7 @@ function SigaSideBar({ children }: { children?: JSX.Element[] }) {
               onClick={() => setExpanded((curr) => !curr)}
               className="p-1.5 rounded-lg bg-light-surface hover:bg-light-surfaceTint/5"
             >
-              {expanded ? <ChevronFirst /> : <ChevronLast />}
+              <MenuIcon />
             </button>
           </div>
 

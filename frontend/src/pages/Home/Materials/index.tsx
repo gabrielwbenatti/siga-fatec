@@ -1,8 +1,10 @@
 import { StickyNote } from "lucide-react";
 import SigaListItem from "../../../components/common/ListItem";
-import SigaListWrapper from "../../../components/common/ListWrapper";
+import SigaListWrapper from "../../../components/common/wrapper/ListWrapper";
 import SigaButton from "../../../components/common/Button";
-import SigaTitleBar from "../components/TitleBar";
+import SigaTitleBar from "../../../components/common/TitleBar";
+import { useNavigate } from "react-router-dom";
+import ContentWrapper from "../../../components/common/wrapper/ContentWrapper";
 
 function MaterialsPage() {
   const items = [
@@ -13,18 +15,21 @@ function MaterialsPage() {
     { title: "Template (DOCX)", desc: "Template do trabalho" },
     { title: "Revisão (PPTX)", desc: "Conteúdo para P1" },
   ];
+  const navigate = useNavigate();
+
+  const handleNewButtonClick = () => {
+    navigate("/home/materials/create");
+  };
 
   return (
     <>
-      <div className="space-y-4 ">
-        <SigaTitleBar>
-          <h1 className="text-lg font-bold">IRC100 - Laboratório de Redes</h1>
-          <SigaButton>Novo Arquivo</SigaButton>
+      <ContentWrapper>
+        <SigaTitleBar title="IRC100 - Laboratório de Redes">
+          <SigaButton onClick={handleNewButtonClick}>Novo Arquivo</SigaButton>
         </SigaTitleBar>
-
         <SigaListWrapper showCount>
-          {items.map((item) => (
-            <SigaListItem>
+          {items.map((item, index) => (
+            <SigaListItem key={index}>
               <StickyNote />
               <div className="flex flex-col">
                 <h3 className="font-semibold text-lg">{item.title}</h3>
@@ -33,7 +38,7 @@ function MaterialsPage() {
             </SigaListItem>
           ))}
         </SigaListWrapper>
-      </div>
+      </ContentWrapper>
     </>
   );
 }
