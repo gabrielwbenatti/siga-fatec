@@ -1,20 +1,16 @@
-import { useState } from "react";
-import { SigaSideMenu, SigaSideMenuItem } from "./components/SideMenu";
+import { SigaSideBarItem, SigaSideMenu } from "./components/SideMenu";
 import MaterialsPage from "./Materials";
-import PlanningPage from "./Planning";
+import { BookOpen, ChartColumn, Library } from "lucide-react";
 
 function HomePage() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const items: SigaSideMenuItem[] = [
-    { title: "Planning", selected: true },
-    { title: "Materials", selected: false },
-    { title: "Analytics", selected: false },
-  ];
-
   return (
     <>
       <div className="flex h-screen">
-        <SigaSideMenu items={items} currentIndex={currentIndex} />
+        <SigaSideMenu>
+          <SigaSideBarItem icon={<Library />} text="Planejar" active />
+          <SigaSideBarItem icon={<BookOpen />} text="Materiais" />
+          <SigaSideBarItem icon={<ChartColumn />} text="Análises" />
+        </SigaSideMenu>
 
         <MaterialsPage />
       </div>
