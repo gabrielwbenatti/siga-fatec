@@ -1,4 +1,5 @@
 export interface JsxChildrenProps {
   key?: string | number | undefined;
-  children?: JSX.Element | JSX.Element[] | undefined;
+  className?: string | undefined;
+  children?: JSX.Element | JSX.Element[] | string;
 }
