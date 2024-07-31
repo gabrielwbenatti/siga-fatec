@@ -1,17 +1,15 @@
-import { ButtonHTMLAttributes } from "react";
+import { HTMLAttributes } from "react";
 
-interface SigaButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  children: string | JSX.Element | JSX.Element[];
-}
+interface SigaButtonProps extends HTMLAttributes<HTMLButtonElement> {}
 
-function SigaButton({ children, className, ...rest }: SigaButtonProps) {
+function SigaButton({ ...props }: SigaButtonProps) {
   return (
     <>
       <button
-        {...rest}
-        className={`rounded-full bg-light-primary text-light-onPrimary px-6 py-2 flex gap-2 ${className}`}
+        {...props}
+        className={`rounded-full bg-light-primary text-light-onPrimary px-6 py-2 flex gap-2 ${props.className}`}
       >
-        {children}
+        {props.children}
       </button>
     </>
   );

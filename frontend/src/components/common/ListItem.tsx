@@ -1,11 +1,14 @@
-import { JsxChildrenProps } from "../../types/props";
+import { HTMLAttributes } from "react";
 
-function SigaListItem({ ...props }: JsxChildrenProps) {
+interface SigaListItemProps extends HTMLAttributes<HTMLLIElement> {}
+
+function SigaListItem({ ...props }: SigaListItemProps) {
   return (
     <>
       <li
-        key={props.key}
-        className="flex items-center gap-4 py-2 ps-4 pe-8 cursor-pointer bg-light-surfaceContainerLow hover:bg-light-onSurface/5"
+        {...props}
+        className={`
+flex items-center gap-4 py-2 ps-4 pe-8 cursor-pointer bg-light-surfaceContainerLow hover:bg-light-onSurface/5 ${props.className}`}
       >
         {props.children}
       </li>

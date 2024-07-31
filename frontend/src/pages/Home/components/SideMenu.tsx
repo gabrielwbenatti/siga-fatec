@@ -1,15 +1,19 @@
 import { MenuIcon } from "lucide-react";
-import { createContext, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 const SigaSideBarContext = createContext({ expanded: true });
 
-function SigaSideBar({ children }: { children?: JSX.Element[] }) {
+interface SigaSideBarProps {
+  children: ReactNode;
+}
+
+function SigaSideBar({ ...props }: SigaSideBarProps) {
   const [expanded, setExpanded] = useState(true);
 
   return (
     <>
-      <aside className="h-screen ">
+      <aside className="">
         <nav className="h-full flex flex-col bg-light-surface border-r shadow-sm">
           <div className="p-4 pb-2 flex justify-between items-center ">
             <p
@@ -28,7 +32,7 @@ function SigaSideBar({ children }: { children?: JSX.Element[] }) {
           </div>
 
           <SigaSideBarContext.Provider value={{ expanded }}>
-            <ul className="flex-1 px-3">{children}</ul>
+            <ul className="flex-1 px-3">{props.children}</ul>
           </SigaSideBarContext.Provider>
         </nav>
       </aside>

@@ -1,17 +1,17 @@
-import { InputHTMLAttributes } from "react";
+import { HTMLAttributes } from "react";
 
-interface SigaInputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface SigaInputProps extends HTMLAttributes<HTMLInputElement> {
   label: string;
 }
 
-function SigaInput({ label, className, ...rest }: SigaInputProps) {
+function SigaInput({ label, ...rest }: SigaInputProps) {
   return (
     <>
       <div>
         <label className="block mb-2 text-sm font-medium">{label}</label>
         <input
-          className={`px-4 py-2 rounded-lg bg-light-surfaceContainerHighest focus:outline-none ${className}`}
           {...rest}
+          className={`px-4 py-2 rounded-lg bg-light-surfaceContainerHighest focus:outline-none ${rest.className}`}
         />
       </div>
     </>

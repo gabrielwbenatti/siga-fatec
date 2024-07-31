@@ -1,9 +1,13 @@
 import { JsxChildrenProps } from "../../../types/props";
 
-function ContentWrapper({ children }: JsxChildrenProps) {
+interface ContentWrapperProps extends JsxChildrenProps {}
+
+function ContentWrapper({ ...props }: ContentWrapperProps) {
   return (
     <>
-      <div className="space-y-4">{children}</div>
+      <div {...props} className={`space-y-4 mb-8 ${props.className}`}>
+        {props.children}
+      </div>
     </>
   );
 }

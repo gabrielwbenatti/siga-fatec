@@ -25,7 +25,7 @@ function HomePage() {
 
   return (
     <>
-      <div className="flex h-screen">
+      <div className="flex min-h-screen">
         <SigaSideMenu>
           {items.map((item, index) => (
             <SigaSideBarItem
