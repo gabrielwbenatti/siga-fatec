@@ -44,7 +44,7 @@ interface SigaSideBarItemProps {
   icon: JSX.Element;
   text: string;
   path: string;
-  onClick?: (path: string) => void;
+  onClick?: () => void;
 }
 
 function SigaSideBarItem({ ...props }: SigaSideBarItemProps) {
@@ -54,10 +54,6 @@ function SigaSideBarItem({ ...props }: SigaSideBarItemProps) {
 
   const isActive = (path: string) => {
     return path === location.pathname || location.pathname.startsWith(path);
-  };
-
-  const handleClick = () => {
-    if (props.onClick) props.onClick(props.path);
   };
 
   return (
@@ -72,7 +68,7 @@ function SigaSideBarItem({ ...props }: SigaSideBarItemProps) {
             : "hover:bg-light-surfaceTint/5 text-light-onSurfaceVariant"
         }
         `}
-        onClick={handleClick}
+        onClick={props.onClick}
       >
         {props.icon}
         <span

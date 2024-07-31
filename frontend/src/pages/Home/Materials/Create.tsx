@@ -9,6 +9,7 @@ import SigaDropzone from "../components/SigaDropzone";
 import { SaveAll } from "lucide-react";
 import SContainer from "../../../components/common/wrapper/SContainer";
 import SigaTextButton from "../../../components/common/SigaTextButton";
+import SigaInput from "../../../components/common/SigaInput";
 
 function MaterialCreatePage() {
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
@@ -39,7 +40,9 @@ function MaterialCreatePage() {
           <SListWrapper>
             {uploadedFiles.map((file, index) => (
               <SListItem key={index}>
-                <span className="select-none">{file.name}</span>
+                <SContainer className="flex flex-col w-full">
+                  <SigaInput label={file.name} className="flex w-full " />
+                </SContainer>
               </SListItem>
             ))}
           </SListWrapper>

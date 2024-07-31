@@ -33,7 +33,7 @@ function HomePage() {
               icon={item.icon}
               text={item.text}
               path={item.path}
-              onClick={(path) => navigate(path)}
+              onClick={() => navigate(item.path)}
             />
           ))}
         </SigaSideMenu>
