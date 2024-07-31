@@ -26,10 +26,8 @@ function SigaDropzone({
         <p className="mb-4">{paragraphText}</p>
 
         <div
-          {...getRootProps({
-            className:
-              "w-full h-40 bg-light-surfaceContainer rounded-lg border-2 border-light-primary border-dashed",
-          })}
+          {...getRootProps()}
+          className="w-full h-40 bg-light-surfaceContainer rounded-lg border-2 border-light-primary border-dashed"
         >
           <div className="flex flex-col justify-center h-full items-center select-none cursor-pointer">
             <input {...getInputProps()} />
