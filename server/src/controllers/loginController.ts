@@ -2,11 +2,7 @@ import { Request, Response } from "express";
 import client from "../services/db";
 import User from "../models/User";
 import * as bcrypt from "bcrypt";
-import {
-  handleException,
-  InvalidCredentialsException,
-  UserNotFoundException,
-} from "../utils/exceptions";
+import StatusCode from "../utils/http-status-code";
 
 const login = async (req: Request, res: Response) => {
   const body = req.body;
@@ -14,23 +10,26 @@ const login = async (req: Request, res: Response) => {
   await client
     .authenticate()
     .then(async () => {
-      const user = await User.findOne({ where: { username: body.username } });
+      const user = await User.findOne({ where: { email: body.email } });
 
       if (!user) {
-        throw new UserNotFoundException();
+        res.statusCode = StatusCode.Unauthorized;
+        throw new Error("User not found");
       }
 
       const isMatch = await bcrypt.compare(body.password, user.password);
 
       if (!isMatch) {
-        throw new InvalidCredentialsException();
+        res.statusCode = StatusCode.Unauthorized;
+        throw new Error("Invalid Credentials");
       }
 
       const payload = { id: user.id };
       res.send({ data: payload });
     })
     .catch((error) => {
-      handleException(res, error);
+      res.send({ message: error.message });
+      res.end();
     })
     .finally(() => {
       res.end();
