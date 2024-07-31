@@ -11,8 +11,12 @@ function SigaTitleBar({ ...props }: SigaTitleBarProps) {
         {...props}
         className={`flex h-10 items-center justify-between ${props.className}`}
       >
-        {props.title && <h1 className="text-lg font-bold">{props.title}</h1>}
-        {props.children && props.children}
+        {props.title && (
+          <h1 className="text-lg flex-1 font-bold line-clamp-1">
+            {props.title}
+          </h1>
+        )}
+        {props.children}
       </div>
     </>
   );

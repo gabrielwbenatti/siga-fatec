@@ -3,6 +3,7 @@ import SigaListItem from "../../../components/common/SigaListItem";
 import SigaListWrapper from "../../../components/common/wrapper/SigaListWrapper";
 import SigaTitleBar from "../../../components/common/SigaTitleBar";
 import ContentWrapper from "../../../components/common/wrapper/SigaContentWrapper";
+import { LucidePlus } from "lucide-react";
 
 function PlanningPage() {
   const items = [
@@ -32,7 +33,9 @@ function PlanningPage() {
     <>
       <ContentWrapper>
         <SigaTitleBar title="IRC100 - Laboratório de Redes">
-          <SigaButton>Novo Planejamento</SigaButton>
+          <SigaButton>
+            <LucidePlus size={20} /> Novo
+          </SigaButton>
         </SigaTitleBar>
 
         <SigaListWrapper showCount>
@@ -40,8 +43,10 @@ function PlanningPage() {
             <SigaListItem key={index}>
               <div className="flex flex-col">
                 <span className="text-sm">{item.data}</span>
-                <h3 className="font-semibold text-lg">{item.title}</h3>
-                <span>{item.desc}</span>
+                <h3 className="font-semibold text-lg line-clamp-2">
+                  {item.title}
+                </h3>
+                <span className="line-clamp-2">{item.desc}</span>
               </div>
             </SigaListItem>
           ))}

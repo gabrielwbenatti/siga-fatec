@@ -1,4 +1,4 @@
-import { StickyNote } from "lucide-react";
+import { LucidePlus, StickyNote } from "lucide-react";
 import SigaListItem from "../../../components/common/SigaListItem";
 import SigaListWrapper from "../../../components/common/wrapper/SigaListWrapper";
 import SigaButton from "../../../components/common/SigaButton";
@@ -26,8 +26,11 @@ function MaterialsPage() {
     <>
       <ContentWrapper>
         <SigaTitleBar title="IRC100 - Laboratório de Redes">
-          <SigaButton onClick={handleNewButtonClick}>Novo Arquivo</SigaButton>
+          <SigaButton onClick={handleNewButtonClick}>
+            <LucidePlus size={20} /> Novo
+          </SigaButton>
         </SigaTitleBar>
+
         <SigaListWrapper showCount>
           {items.map((item, index) => (
             <SigaListItem key={index}>

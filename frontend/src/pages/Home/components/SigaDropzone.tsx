@@ -3,10 +3,14 @@ import { useState } from "react";
 import { useDropzone } from "react-dropzone";
 
 interface SigaDropzoneProps {
+  paragraphText?: string;
   onFilesSelected: (files: File[]) => void;
 }
 
-function SigaDropzone({ onFilesSelected }: SigaDropzoneProps) {
+function SigaDropzone({
+  paragraphText = "Clique no espaço abaixo ou arraste para realizar o upload",
+  onFilesSelected,
+}: SigaDropzoneProps) {
   const [files, setFiles] = useState<File[]>([]);
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -19,9 +23,7 @@ function SigaDropzone({ onFilesSelected }: SigaDropzoneProps) {
   return (
     <>
       <div className="flex flex-col">
-        <p className="mb-4">
-          Clique no espaço abaixo ou arraste os arquivos para realizar o upload
-        </p>
+        <p className="mb-4">{paragraphText}</p>
 
         <div
           {...getRootProps({

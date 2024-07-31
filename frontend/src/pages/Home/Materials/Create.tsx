@@ -6,6 +6,8 @@ import SigaListItem from "../../../components/common/SigaListItem";
 import SigaButton from "../../../components/common/SigaButton";
 import { useNavigate } from "react-router-dom";
 import SigaDropzone from "../components/SigaDropzone";
+import { SaveAll } from "lucide-react";
+import SigaWrapper from "../../../components/common/wrapper/SigaWrapper";
 
 function MaterialCreatePage() {
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
@@ -29,15 +31,23 @@ function MaterialCreatePage() {
       <ContentWrapper>
         <SigaDropzone onFilesSelected={handleSelectedFiles} />
 
-        <SigaListWrapper>
-          {uploadedFiles.map((file, index) => (
-            <SigaListItem key={index}>
-              <span className="select-none">{file.name}</span>
-            </SigaListItem>
-          ))}
-        </SigaListWrapper>
+        {uploadedFiles.length > 0 && (
+          <SigaListWrapper>
+            {uploadedFiles.map((file, index) => (
+              <SigaListItem key={index}>
+                <span className="select-none">{file.name}</span>
+              </SigaListItem>
+            ))}
+          </SigaListWrapper>
+        )}
 
-        <SigaButton onClick={handleOnClick}>Salvar</SigaButton>
+        <SigaWrapper className="flex w-full justify-between">
+          <SigaButton onClick={handleOnClick}>
+            <SaveAll size={20} /> Salvar
+          </SigaButton>
+
+          <SigaButton onClick={handleOnClick}>Cancelar</SigaButton>
+        </SigaWrapper>
       </ContentWrapper>
     </>
   );
