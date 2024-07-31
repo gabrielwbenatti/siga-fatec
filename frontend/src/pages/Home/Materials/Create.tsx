@@ -1,11 +1,11 @@
 import { useState } from "react";
-import SigaTitleBar from "../../../components/common/TitleBar";
-import ContentWrapper from "../../../components/common/wrapper/ContentWrapper";
-import SigaListWrapper from "../../../components/common/wrapper/ListWrapper";
-import SigaListItem from "../../../components/common/ListItem";
-import SigaButton from "../../../components/common/Button";
+import SigaTitleBar from "../../../components/common/SigaTitleBar";
+import ContentWrapper from "../../../components/common/wrapper/SigaContentWrapper";
+import SigaListWrapper from "../../../components/common/wrapper/SigaListWrapper";
+import SigaListItem from "../../../components/common/SigaListItem";
+import SigaButton from "../../../components/common/SigaButton";
 import { useNavigate } from "react-router-dom";
-import SigaDropzone from "../components/Dropzone";
+import SigaDropzone from "../components/SigaDropzone";
 
 function MaterialCreatePage() {
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);

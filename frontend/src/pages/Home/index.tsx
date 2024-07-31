@@ -1,5 +1,5 @@
 import { Outlet, useNavigate } from "react-router-dom";
-import { SigaSideBarItem, SigaSideMenu } from "./components/SideMenu";
+import { SigaSideBarItem, SigaSideMenu } from "./components/SigaSideMenu";
 import { BookOpen, ChartColumn, Library } from "lucide-react";
 
 function HomePage() {

@@ -1,8 +1,8 @@
-import SigaButton from "../../../components/common/Button";
-import SigaListItem from "../../../components/common/ListItem";
-import SigaListWrapper from "../../../components/common/wrapper/ListWrapper";
-import SigaTitleBar from "../../../components/common/TitleBar";
-import ContentWrapper from "../../../components/common/wrapper/ContentWrapper";
+import SigaButton from "../../../components/common/SigaButton";
+import SigaListItem from "../../../components/common/SigaListItem";
+import SigaListWrapper from "../../../components/common/wrapper/SigaListWrapper";
+import SigaTitleBar from "../../../components/common/SigaTitleBar";
+import ContentWrapper from "../../../components/common/wrapper/SigaContentWrapper";
 
 function PlanningPage() {
   const items = [

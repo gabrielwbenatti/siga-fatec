@@ -1,10 +1,10 @@
 import { StickyNote } from "lucide-react";
-import SigaListItem from "../../../components/common/ListItem";
-import SigaListWrapper from "../../../components/common/wrapper/ListWrapper";
-import SigaButton from "../../../components/common/Button";
-import SigaTitleBar from "../../../components/common/TitleBar";
+import SigaListItem from "../../../components/common/SigaListItem";
+import SigaListWrapper from "../../../components/common/wrapper/SigaListWrapper";
+import SigaButton from "../../../components/common/SigaButton";
+import SigaTitleBar from "../../../components/common/SigaTitleBar";
 import { useNavigate } from "react-router-dom";
-import ContentWrapper from "../../../components/common/wrapper/ContentWrapper";
+import ContentWrapper from "../../../components/common/wrapper/SigaContentWrapper";
 
 function MaterialsPage() {
   const items = [

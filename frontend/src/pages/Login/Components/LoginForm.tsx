@@ -1,8 +1,8 @@
 import { FormEvent, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import SigaInput from "../../../components/common/Input";
-import SigaButton from "../../../components/common/Button";
+import SigaInput from "../../../components/common/SigaInput";
+import SigaButton from "../../../components/common/SigaButton";
 
 function LoginForm() {
   const [email, setEmail] = useState<string>("");
