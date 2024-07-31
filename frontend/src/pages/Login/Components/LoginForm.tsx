@@ -2,7 +2,7 @@ import { FormEvent, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import SigaInput from "../../../components/common/SigaInput";
-import SigaButton from "../../../components/common/SigaButton";
+import SigaFilledButton from "../../../components/common/SigaFilledButton";
 
 function LoginForm() {
   const [email, setEmail] = useState<string>("");
@@ -62,7 +62,7 @@ function LoginForm() {
               onChange={(e) => setPassword(e.currentTarget.value)}
             />
 
-            <SigaButton>Acessar</SigaButton>
+            <SigaFilledButton>Acessar</SigaFilledButton>
           </form>
         </div>
       </div>

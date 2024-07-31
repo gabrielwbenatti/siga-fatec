@@ -3,7 +3,7 @@ import SigaTitleBar from "../../../components/common/SigaTitleBar";
 import ContentWrapper from "../../../components/common/wrapper/SigaContentWrapper";
 import SigaListWrapper from "../../../components/common/wrapper/SigaListWrapper";
 import SigaListItem from "../../../components/common/SigaListItem";
-import SigaButton from "../../../components/common/SigaButton";
+import SigaFilledButton from "../../../components/common/SigaFilledButton";
 import { useNavigate } from "react-router-dom";
 import SigaDropzone from "../components/SigaDropzone";
 import { SaveAll } from "lucide-react";
@@ -42,11 +42,11 @@ function MaterialCreatePage() {
         )}
 
         <SigaWrapper className="flex w-full justify-between">
-          <SigaButton onClick={handleOnClick}>
+          <SigaFilledButton onClick={handleOnClick}>
             <SaveAll size={20} /> Salvar
-          </SigaButton>
+          </SigaFilledButton>
 
-          <SigaButton onClick={handleOnClick}>Cancelar</SigaButton>
+          <SigaFilledButton onClick={handleOnClick}>Cancelar</SigaFilledButton>
         </SigaWrapper>
       </ContentWrapper>
     </>

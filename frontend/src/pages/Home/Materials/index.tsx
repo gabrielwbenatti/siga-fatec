@@ -1,7 +1,7 @@
 import { LucidePlus, StickyNote } from "lucide-react";
 import SigaListItem from "../../../components/common/SigaListItem";
 import SigaListWrapper from "../../../components/common/wrapper/SigaListWrapper";
-import SigaButton from "../../../components/common/SigaButton";
+import SigaFilledButton from "../../../components/common/SigaFilledButton";
 import SigaTitleBar from "../../../components/common/SigaTitleBar";
 import { useNavigate } from "react-router-dom";
 import ContentWrapper from "../../../components/common/wrapper/SigaContentWrapper";
@@ -26,9 +26,9 @@ function MaterialsPage() {
     <>
       <ContentWrapper>
         <SigaTitleBar title="IRC100 - Laboratório de Redes">
-          <SigaButton onClick={handleNewButtonClick}>
+          <SigaFilledButton onClick={handleNewButtonClick}>
             <LucidePlus size={20} /> Novo
-          </SigaButton>
+          </SigaFilledButton>
         </SigaTitleBar>
 
         <SigaListWrapper showCount>

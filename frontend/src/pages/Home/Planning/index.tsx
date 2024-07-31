@@ -1,4 +1,4 @@
-import SigaButton from "../../../components/common/SigaButton";
+import SigaFilledButton from "../../../components/common/SigaFilledButton";
 import SigaListItem from "../../../components/common/SigaListItem";
 import SigaListWrapper from "../../../components/common/wrapper/SigaListWrapper";
 import SigaTitleBar from "../../../components/common/SigaTitleBar";
@@ -33,9 +33,9 @@ function PlanningPage() {
     <>
       <ContentWrapper>
         <SigaTitleBar title="IRC100 - Laboratório de Redes">
-          <SigaButton>
+          <SigaFilledButton>
             <LucidePlus size={20} /> Novo
-          </SigaButton>
+          </SigaFilledButton>
         </SigaTitleBar>
 
         <SigaListWrapper showCount>
