@@ -9,7 +9,6 @@ import SigaDropzone from "../components/SigaDropzone";
 import { SaveAll } from "lucide-react";
 import SigaWrapper from "../../../components/common/wrapper/SigaWrapper";
 import SigaTextButton from "../../../components/common/SigaTextButton";
-import SigaOutlineButton from "../../../components/common/SigaOutlineButton";
 
 function MaterialCreatePage() {
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
@@ -50,8 +49,6 @@ function MaterialCreatePage() {
           <SigaFilledButton onClick={handleSaveClick}>
             <SaveAll size={20} /> Salvar
           </SigaFilledButton>
-
-          <SigaOutlineButton>Button 2</SigaOutlineButton>
 
           <SigaTextButton onClick={handleCancelClick}>Cancelar</SigaTextButton>
         </SigaWrapper>
