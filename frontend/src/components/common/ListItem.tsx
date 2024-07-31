@@ -1,6 +1,6 @@
-import { HTMLAttributes } from "react";
+import { LiHTMLAttributes } from "react";
 
-interface SigaListItemProps extends HTMLAttributes<HTMLLIElement> {}
+interface SigaListItemProps extends LiHTMLAttributes<HTMLLIElement> {}
 
 function SigaListItem({ ...props }: SigaListItemProps) {
   return (

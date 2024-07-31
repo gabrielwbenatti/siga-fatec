@@ -1,6 +1,6 @@
-import { HTMLAttributes } from "react";
+import { ButtonHTMLAttributes } from "react";
 
-interface SigaButtonProps extends HTMLAttributes<HTMLButtonElement> {}
+interface SigaButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
 
 function SigaButton({ ...props }: SigaButtonProps) {
   return (

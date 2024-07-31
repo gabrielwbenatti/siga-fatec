@@ -1,6 +1,6 @@
-import { HTMLAttributes } from "react";
+import { InputHTMLAttributes } from "react";
 
-interface SigaInputProps extends HTMLAttributes<HTMLInputElement> {
+interface SigaInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
 }
 
