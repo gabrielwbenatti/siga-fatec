@@ -1,13 +1,13 @@
 import { useState } from "react";
 import SigaTitleBar from "../../../components/common/SigaTitleBar";
 import ContentWrapper from "../../../components/common/wrapper/SigaContentWrapper";
-import SigaListWrapper from "../../../components/common/wrapper/SigaListWrapper";
-import SigaListItem from "../../../components/common/SigaListItem";
+import SListWrapper from "../../../components/common/wrapper/SListWrapper";
+import SListItem from "../../../components/common/SListItem";
 import SigaFilledButton from "../../../components/common/SigaFilledButton";
 import { useNavigate } from "react-router-dom";
 import SigaDropzone from "../components/SigaDropzone";
 import { SaveAll } from "lucide-react";
-import SigaWrapper from "../../../components/common/wrapper/SigaWrapper";
+import SContainer from "../../../components/common/wrapper/SContainer";
 import SigaTextButton from "../../../components/common/SigaTextButton";
 
 function MaterialCreatePage() {
@@ -36,22 +36,22 @@ function MaterialCreatePage() {
         <SigaDropzone onFilesSelected={handleSelectedFiles} />
 
         {uploadedFiles.length > 0 && (
-          <SigaListWrapper>
+          <SListWrapper>
             {uploadedFiles.map((file, index) => (
-              <SigaListItem key={index}>
+              <SListItem key={index}>
                 <span className="select-none">{file.name}</span>
-              </SigaListItem>
+              </SListItem>
             ))}
-          </SigaListWrapper>
+          </SListWrapper>
         )}
 
-        <SigaWrapper className="flex w-full ">
+        <SContainer className="flex w-full ">
           <SigaFilledButton onClick={handleSaveClick}>
             <SaveAll size={20} /> Salvar
           </SigaFilledButton>
 
           <SigaTextButton onClick={handleCancelClick}>Cancelar</SigaTextButton>
-        </SigaWrapper>
+        </SContainer>
       </ContentWrapper>
     </>
   );

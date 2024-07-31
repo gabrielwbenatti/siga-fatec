@@ -2,7 +2,7 @@ import { HTMLAttributes } from "react";
 
 interface SigaRowWrapperProps extends HTMLAttributes<HTMLDivElement> {}
 
-function SigaWrapper({ ...props }: SigaRowWrapperProps) {
+function SContainer({ ...props }: SigaRowWrapperProps) {
   return (
     <>
       <div {...props}>{props.children}</div>
@@ -10,4 +10,4 @@ function SigaWrapper({ ...props }: SigaRowWrapperProps) {
   );
 }
 
-export default SigaWrapper;
+export default SContainer;

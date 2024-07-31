@@ -3,10 +3,7 @@ interface SigaListWrapperProps {
   children: JSX.Element[];
 }
 
-function SigaListWrapper({
-  children,
-  showCount = false,
-}: SigaListWrapperProps) {
+function SListWrapper({ showCount = false, children }: SigaListWrapperProps) {
   const lbl =
     children.length === 0
       ? "Nenhum registro"
@@ -16,8 +13,14 @@ function SigaListWrapper({
 
   return (
     <>
-      <div className="rounded-3xl overflow-hidden">
-        <ul>{children}</ul>
+      <div className="rounded-3xl overflow-hidden bg-light-surfaceContainerLow">
+        <ul>
+          {children.map((child, index) => (
+            <>
+              {child} {index !== children.length - 1 && <hr />}
+            </>
+          ))}
+        </ul>
       </div>
 
       {showCount && children.length > 0 && <div className="text-sm">{lbl}</div>}
@@ -25,4 +28,4 @@ function SigaListWrapper({
   );
 }
 
-export default SigaListWrapper;
+export default SListWrapper;
