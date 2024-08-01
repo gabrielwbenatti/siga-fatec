@@ -40,32 +40,29 @@ function MaterialsPage() {
           )}
         </SigaTitleBar>
 
-        <SListWrapper showCount>
-          {uploadedFiles.map((file, index) => (
-            <SListItem key={index}>
-              <SContainer className="flex items-center gap-2 w-full">
-                <StickyNote />
-                <SContainer className="flex flex-col w-full">
-                  <h3 className="font-semibold text-lg">{file.name}</h3>
-                  {isEditing ? (
-                    <SigaInput
-                      className="w-full"
-                      value={file.description}
-                      onChange={(event) => {
-                        file.description = event.currentTarget.value;
-                      }}
-                    />
-                  ) : (
-                    <span>{file.description}</span>
-                  )}
-                </SContainer>
-              </SContainer>
-            </SListItem>
-          ))}
-        </SListWrapper>
-
-        {isEditing && (
+        {isEditing ? (
           <>
+            <SListWrapper>
+              {uploadedFiles.map((file, index) => (
+                <li key={index}>
+                  <SContainer className="flex items-center gap-2 w-full px-4 py-2 ">
+                    <StickyNote />
+                    <SContainer className="flex flex-col w-full">
+                      <h3 className="font-semibold text-lg">{file.name}</h3>
+
+                      <SigaInput
+                        className="w-full"
+                        value={file.description}
+                        onChange={(event) => {
+                          file.description = event.currentTarget.value;
+                        }}
+                      />
+                    </SContainer>
+                  </SContainer>
+                </li>
+              ))}
+            </SListWrapper>
+
             <SigaDropzone onFilesSelected={handleSelectedFiles} />
 
             <SContainer className="flex flex-row gap-2 ">
@@ -77,6 +74,22 @@ function MaterialsPage() {
                 Cancelar
               </SigaTextButton>
             </SContainer>
+          </>
+        ) : (
+          <>
+            <SListWrapper>
+              {uploadedFiles.map((item, index) => (
+                <SListItem key={index}>
+                  <SContainer className="flex items-center gap-2 w-full">
+                    <StickyNote />
+                    <SContainer className="flex flex-col w-full">
+                      <h3 className="font-semibold text-lg">{item.name}</h3>
+                      <span>{item.description}</span>
+                    </SContainer>
+                  </SContainer>
+                </SListItem>
+              ))}
+            </SListWrapper>
           </>
         )}
       </ContentWrapper>

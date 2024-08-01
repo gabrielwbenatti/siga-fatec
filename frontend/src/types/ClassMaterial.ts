@@ -1,4 +1,4 @@
-export interface ClassMaterial {
+export class ClassMaterial {
   name?: string;
   description?: string;
   fileIndex?: number;

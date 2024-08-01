@@ -16,13 +16,7 @@ function SListWrapper({ showCount = false, children }: SigaListWrapperProps) {
       {showCount && children.length > 0 && <div className="text-sm">{lbl}</div>}
 
       <div className="rounded-3xl overflow-hidden bg-light-surfaceContainerLow">
-        <ul>
-          {children.map((child, index) => (
-            <>
-              {child} {index !== children.length - 1 && <hr />}
-            </>
-          ))}
-        </ul>
+        <ul>{children}</ul>
       </div>
     </>
   );
