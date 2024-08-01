@@ -7,23 +7,21 @@ interface SigaDropzoneProps {
   onFilesSelected: (files: File[]) => void;
 }
 
-function SigaDropzone({
-  paragraphText = "Clique no espaço abaixo ou arraste para realizar o upload",
-  onFilesSelected,
-}: SigaDropzoneProps) {
+function SigaDropzone({ paragraphText, onFilesSelected }: SigaDropzoneProps) {
   const [files, setFiles] = useState<File[]>([]);
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop(acceptedFiles: File[]) {
-      setFiles(files.concat(acceptedFiles));
-      onFilesSelected(acceptedFiles);
+      let newFiles = files.concat(acceptedFiles);
+      setFiles(newFiles);
+      onFilesSelected(newFiles);
     },
   });
 
   return (
     <>
       <div className="flex flex-col">
-        <p className="mb-4">{paragraphText}</p>
+        {paragraphText && <p className="mb-4">{paragraphText}</p>}
 
         <div
           {...getRootProps()}

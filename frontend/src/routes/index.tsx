@@ -6,8 +6,7 @@ import PlanningPage from "../pages/Home/Planning";
 import MaterialCreatePage from "../pages/Home/Materials/Create";
 
 const router = createBrowserRouter([
-  { path: "/", element: <div>Hello world </div> },
-  { path: "/login", element: <LoginPage /> },
+  { path: "/", element: <LoginPage /> },
   {
     path: "/home",
     element: <HomePage />,
