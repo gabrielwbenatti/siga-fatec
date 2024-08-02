@@ -1,23 +1,33 @@
-interface SigaListWrapperProps {
+import React from "react";
+
+interface SigaListWrapperProps<T> {
+  items: T[];
   showCount?: boolean;
-  children: JSX.Element[];
+  renderItem: (item: T) => React.ReactNode;
+  keyExtractor: (item: T, index: number) => React.Key;
 }
 
-function SListWrapper({ showCount = false, children }: SigaListWrapperProps) {
+function SListWrapper<T>({ ...props }: SigaListWrapperProps<T>) {
   const lbl =
-    children.length === 0
+    props.items.length === 0
       ? "Nenhum registro"
-      : children.length === 1
+      : props.items.length === 1
       ? "1 registro"
-      : `${children.length} registros`;
+      : `${props.items.length} registros`;
 
   return (
     <>
-      {showCount && children.length > 0 && <div className="text-sm">{lbl}</div>}
+      {props.showCount && props.items.length > 0 && (
+        <div className="text-sm">{lbl}</div>
+      )}
 
-      <div className="rounded-3xl overflow-hidden bg-light-surfaceContainerLow">
-        <ul>{children}</ul>
-      </div>
+      <ul className="rounded-3xl overflow-hidden bg-light-surfaceContainerLow pb-1">
+        {props.items.map((item, index) => (
+          <li key={props.keyExtractor(item, index)}>
+            {props.renderItem(item)}
+          </li>
+        ))}
+      </ul>
     </>
   );
 }
