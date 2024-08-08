@@ -7,16 +7,19 @@ import { useState } from "react";
 import SigaTextButton from "../../../components/common/SigaTextButton";
 import EditMaterialsPage from "./EditMaterialsPage";
 import SListWrapper from "../../../components/common/wrapper/SListWrapper";
+import { ClassMaterial } from "../../../types/ClassMaterial";
 
 function MaterialsPage() {
   const [isEditing, setIsEditing] = useState(false);
-  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
+  const [materials, setMaterials] = useState<ClassMaterial[]>([]);
 
   const handleNewButtonClick = () => setIsEditing(false);
   const handleCancelClick = () => setIsEditing(false);
   const handleEditButtonClick = () => setIsEditing(true);
 
-  const handleFilesSelected = (files: File[]) => setUploadedFiles(files);
+  const handleFilesSelected = (materials: ClassMaterial[]) => {
+    setMaterials(materials);
+  };
 
   return (
     <>
@@ -34,19 +37,19 @@ function MaterialsPage() {
         {isEditing ? (
           <>
             <EditMaterialsPage
-              files={uploadedFiles}
+              materials={materials}
               onFilesSelected={handleFilesSelected}
             />
           </>
         ) : (
           <SListWrapper
-            items={uploadedFiles}
-            keyExtractor={(item) => item.name}
+            items={materials}
+            keyExtractor={(_, index) => index}
             showCount
             renderItem={(item) => (
               <div className="py-2 px-4 flex flex-col">
                 <span className="text-md ">{item.name}</span>
-                <span className="text-sm ">{item.type}</span>
+                <span className="text-sm ">{item.description}</span>
               </div>
             )}
           />

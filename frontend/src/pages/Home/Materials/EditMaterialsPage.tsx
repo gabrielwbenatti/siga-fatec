@@ -1,22 +1,28 @@
-import { useEffect, useState } from "react";
 import SigaDropzone from "../components/SigaDropzone";
 import SListWrapper from "../../../components/common/wrapper/SListWrapper";
 import SigaInput from "../../../components/common/SigaInput";
+import { ClassMaterial } from "../../../types/ClassMaterial";
+import { useState } from "react";
 
 interface EditMaterialsPageProps {
-  files: File[];
-  onFilesSelected: (files: File[]) => void;
+  materials: ClassMaterial[];
+  onFilesSelected: (files: ClassMaterial[]) => void;
 }
 
 function EditMaterialsPage({ ...props }: EditMaterialsPageProps) {
-  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
-
-  useEffect(() => {
-    setUploadedFiles(props.files);
-  }, []);
+  const [uploadedFiles, setUploadedFiles] = useState<ClassMaterial[]>(
+    props.materials
+  );
 
   const handleFilesSelected = (acceptedFiles: File[]): void => {
-    const newFiles = uploadedFiles.concat(acceptedFiles);
+    const newFiles = [...uploadedFiles];
+
+    acceptedFiles.map((accepted) => {
+      if (!props.materials.find((file) => file.name === accepted.name)) {
+        newFiles.push(accepted);
+      }
+    });
+
     setUploadedFiles(newFiles);
     props.onFilesSelected(newFiles);
   };
@@ -27,11 +33,15 @@ function EditMaterialsPage({ ...props }: EditMaterialsPageProps) {
         items={uploadedFiles}
         renderItem={(item) => (
           <div className="py-2 px-4 flex flex-col w-full">
-            <span>{item.name}</span>
-            <SigaInput className="w-full " />
+            <span className="mb-1">{item.name}</span>
+            <SigaInput
+              className="w-full "
+              value={item.description}
+              onChange={(e) => (item.description = e.currentTarget.value)}
+            />
           </div>
         )}
-        keyExtractor={(item) => item.name}
+        keyExtractor={(_, index) => index}
       />
 
       <SigaDropzone onFilesSelected={handleFilesSelected} />
