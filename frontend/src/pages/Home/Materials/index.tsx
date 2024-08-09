@@ -42,17 +42,19 @@ function MaterialsPage() {
             />
           </>
         ) : (
-          <SListWrapper
-            items={materials}
-            keyExtractor={(_, index) => index}
-            showCount
-            renderItem={(item) => (
-              <div className="py-2 px-4 flex flex-col">
-                <span className="text-md ">{item.name}</span>
-                <span className="text-sm ">{item.description}</span>
-              </div>
-            )}
-          />
+          materials.length > 0 && (
+            <SListWrapper
+              items={materials}
+              keyExtractor={(_, index) => index}
+              showCount
+              renderItem={(item) => (
+                <div className="py-2 px-4 flex flex-col">
+                  <span className="text-md ">{item.name}</span>
+                  <span className="text-sm ">{item.description}</span>
+                </div>
+              )}
+            />
+          )
         )}
 
         {isEditing && (
