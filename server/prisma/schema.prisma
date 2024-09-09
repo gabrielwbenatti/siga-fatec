@@ -1,0 +1,97 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  id       Int    @id @default(autoincrement())
+  username String @db.VarChar(63)
+  email    String @db.VarChar(127)
+  password String @db.VarChar(255)
+
+  teacher teachers[]
+}
+
+model teachers {
+  id          Int       @id @default(autoincrement())
+  user_id     Int
+  teach_since DateTime? @db.Date
+  document    String?   @db.VarChar(63)
+  first_name  String    @db.VarChar(255)
+  last_name   String    @db.VarChar(255)
+
+  user    users     @relation(fields: [id], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  classes classes[]
+}
+
+model courses {
+  id           Int    @id @default(autoincrement())
+  name         String @db.VarChar(127)
+  abbreviation String @db.VarChar(15)
+
+  disciplines disciplines[]
+}
+
+model disciplines {
+  id           Int    @id @default(autoincrement())
+  name         String @db.VarChar(127)
+  abbreviation String @db.VarChar(15)
+  course_id    Int
+
+  course  courses   @relation(fields: [course_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  classes classes[]
+}
+
+model classes {
+  id            Int      @id @default(autoincrement())
+  start_date    DateTime @db.Date
+  end_date      DateTime @db.Date
+  teacher_id    Int
+  discipline_id Int
+
+  teacher         teachers          @relation(fields: [teacher_id], references: [id], onUpdate: Cascade)
+  discipline      disciplines       @relation(fields: [discipline_id], references: [id], onUpdate: Cascade)
+  class_materials class_materials[]
+  class_planning  class_planning[]
+  class_exams     class_exams[]
+}
+
+model class_materials {
+  id          Int    @id @default(autoincrement())
+  title       String @db.VarChar(255)
+  description String @db.Text
+  file_format String @db.VarChar(7)
+  file_url    String @db.VarChar(255)
+  list_index  Int    @db.SmallInt
+  class_id    Int
+
+  class classes @relation(fields: [class_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model class_planning {
+  id           Int       @id @default(autoincrement())
+  title        String    @db.VarChar(255)
+  description  String    @db.Text
+  planned_date DateTime  @db.Date
+  applied_date DateTime? @db.Date
+  class_id     Int
+
+  class classes @relation(fields: [class_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model class_exams {
+  id       Int @id @default(autoincrement())
+  class_id Int
+
+  class classes @relation(fields: [class_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
