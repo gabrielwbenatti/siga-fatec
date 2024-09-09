@@ -1,18 +1,18 @@
 import { LiHTMLAttributes } from "react";
 
-interface SigaListItemProps extends LiHTMLAttributes<HTMLLIElement> {}
+interface SigaListItemProps extends LiHTMLAttributes<HTMLDivElement> {}
 
 function SListItem({ ...props }: SigaListItemProps) {
   return (
     <>
-      <li
+      <div
         {...props}
-        className={`flex items-center gap-4 py-2 px-4 cursor-pointer 
+        className={`px-4 py-2 cursor-pointer 
           bg-light-surfaceContainerLow hover:bg-light-onSurface/5 
           ${props.className}`}
       >
         {props.children}
-      </li>
+      </div>
     </>
   );
 }

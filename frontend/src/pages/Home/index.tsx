@@ -16,6 +16,11 @@ function HomePage() {
     },
     {
       icon: <ChartColumn />,
+      text: "Avaliações",
+      path: "/home/exams",
+    },
+    {
+      icon: <ChartColumn />,
       text: "Análises",
       path: "/home/analytics",
     },

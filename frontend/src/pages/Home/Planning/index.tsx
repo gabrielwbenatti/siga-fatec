@@ -41,11 +41,12 @@ function PlanningPage() {
         <SListWrapper
           items={items}
           keyExtractor={(_, index) => index}
+          showCount
           renderItem={(item) => (
             <SListItem>
               <div className="flex flex-col">
                 <span className="text-sm">{item.data}</span>
-                <h3 className="font-semibold text-lg SListItemne-clamp-2">
+                <h3 className="font-semibold text-lg line-clamp-2">
                   {item.title}
                 </h3>
                 <span className="line-clamp-2">{item.desc}</span>

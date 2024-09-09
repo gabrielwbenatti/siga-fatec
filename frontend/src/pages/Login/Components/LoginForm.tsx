@@ -12,29 +12,30 @@ function LoginForm() {
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
-    await api
-      .post("/login", {
-        email,
-        password,
-      })
-      .then((res) => {
-        const statusCode = res.status;
+    // await api
+    //   .post("/login", {
+    //     email,
+    //     password,
+    //   })
+    //   .then((res) => {
+    //     const statusCode = res.status;
 
-        switch (statusCode) {
-          case 200: {
-            navigate("/home/planning");
-            break;
-          }
-          case 401: {
-            const message = res.data.message;
-            console.log(message);
-            break;
-          }
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    //     switch (statusCode) {
+    //       case 200: {
+    //         navigate("/home/planning");
+    //         break;
+    //       }
+    //       case 401: {
+    //         const message = res.data.message;
+    //         console.log(message);
+    //         break;
+    //       }
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.error(err);
+    //   });
+    navigate("/home/planning");
   };
 
   return (
