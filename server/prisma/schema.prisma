@@ -30,8 +30,16 @@ model teachers {
   first_name  String    @db.VarChar(255)
   last_name   String    @db.VarChar(255)
 
-  user    users     @relation(fields: [id], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  user    users     @relation(fields: [user_id], references: [id], onUpdate: Cascade, onDelete: Cascade)
   classes classes[]
+}
+
+model students {
+  id                 Int                  @id @default(autoincrement())
+  first_name         String               @db.VarChar(255)
+  last_name          String               @db.VarChar(255)
+  class_exam_results class_exam_results[]
+  class_students     class_students[]
 }
 
 model courses {
@@ -54,25 +62,27 @@ model disciplines {
 
 model classes {
   id            Int      @id @default(autoincrement())
-  start_date    DateTime @db.Date
-  end_date      DateTime @db.Date
   teacher_id    Int
   discipline_id Int
+  semestrer     Int      @db.SmallInt
+  year          Int      @db.SmallInt
+  finished      Boolean? @default(false)
 
   teacher         teachers          @relation(fields: [teacher_id], references: [id], onUpdate: Cascade)
   discipline      disciplines       @relation(fields: [discipline_id], references: [id], onUpdate: Cascade)
   class_materials class_materials[]
   class_planning  class_planning[]
   class_exams     class_exams[]
+  class_students  class_students[]
 }
 
 model class_materials {
-  id          Int    @id @default(autoincrement())
-  title       String @db.VarChar(255)
-  description String @db.Text
-  file_format String @db.VarChar(7)
-  file_url    String @db.VarChar(255)
-  list_index  Int    @db.SmallInt
+  id          Int     @id @default(autoincrement())
+  title       String  @db.VarChar(255)
+  description String? @db.Text
+  file_format String? @db.VarChar(7)
+  file_url    String? @db.VarChar(255)
+  list_index  Int     @db.SmallInt
   class_id    Int
 
   class classes @relation(fields: [class_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
@@ -90,8 +100,32 @@ model class_planning {
 }
 
 model class_exams {
-  id       Int @id @default(autoincrement())
-  class_id Int
+  id           Int       @id @default(autoincrement())
+  class_id     Int
+  title        String    @db.VarChar(255)
+  description  String?   @db.Text
+  planned_date DateTime  @db.Date
+  applied_date DateTime? @db.Date
 
-  class classes @relation(fields: [class_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  class              classes              @relation(fields: [class_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  class_exam_results class_exam_results[]
+}
+
+model class_exam_results {
+  id            Int     @id @default(autoincrement())
+  class_exam_id Int
+  student_id    Int
+  score         Decimal @default(0.00) @db.Decimal(10, 2)
+
+  class_exam class_exams @relation(fields: [class_exam_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  student    students    @relation(fields: [student_id], references: [id], onUpdate: Cascade)
+}
+
+model class_students {
+  id         Int @id @default(autoincrement())
+  class_id   Int
+  student_id Int
+
+  class   classes  @relation(fields: [class_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  student students @relation(fields: [student_id], references: [id], onUpdate: Cascade)
 }
