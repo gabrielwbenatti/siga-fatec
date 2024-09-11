@@ -1,10 +1,11 @@
 import { Router } from "express";
 import * as planning from "../controllers/classesPlanningController";
 import classesMaterialsController from "../controllers/classes.materials.controller";
+import classesController from "../controllers/classes.controller";
 
 const classesRouter = Router();
 
-classesRouter.get("/classes");
+classesRouter.get("/", classesController.getClasses);
 
 // classesRouter
 //   .get("/planning", planning.index)

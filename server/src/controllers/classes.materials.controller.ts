@@ -3,10 +3,13 @@ import db from "../config/database";
 import classesMaterialsService from "../services/classes.materials.service";
 
 class ClassesMaterialsController {
-  getClassesMaterials = async (_: Request, res: Response) => {
-    const classId = 1;
+  getClassesMaterials = async (req: Request, res: Response) => {
+    if (!req.headers["class-id"]) {
+      res.status(500).json({ message: "Class not defined " });
+    }
 
-    const result = await classesMaterialsService.getClassesMaterials(classId);
+    const classId = req.headers["class-id"];
+    const result = await classesMaterialsService.getClassesMaterials(+classId!);
 
     if (result) {
       res.status(200).json(result);
