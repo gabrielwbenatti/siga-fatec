@@ -1,0 +1,12 @@
+-- public.v_classes source
+
+CREATE OR REPLACE VIEW public.v_classes
+AS SELECT c.discipline_id,
+    d.abbreviation,
+    d.name,
+    (t.first_name::text || ' '::text) || t.last_name::text AS teacher_name,
+    c.teacher_id,
+    c.finished
+   FROM classes c
+     JOIN disciplines d ON d.id = c.discipline_id
+     JOIN teachers t ON t.id = c.teacher_id;
