@@ -4,7 +4,10 @@ import * as bcrypt from "bcrypt";
 class LoginService {
   login = async (body: any) => {
     const result = await db.users.findFirst({
-      where: { OR: [{ username: body.username }, { email: body.email }] },
+      include: { teacher: true },
+      where: {
+        OR: [{ username: body.email }, { email: body.email }],
+      },
     });
 
     if (!result) {

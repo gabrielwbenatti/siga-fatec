@@ -1,14 +1,14 @@
-import { Router } from "express";
-import * as planning from "../controllers/classesPlanningController";
+import { Router } from "express"; 
 import classesMaterialsController from "../controllers/classes.materials.controller";
 import classesController from "../controllers/classes.controller";
+import classesPlanningController from "../controllers/classes.planning.controller";
 
 const classesRouter = Router();
 
 classesRouter.get("/", classesController.getClasses);
 
-// classesRouter
-//   .get("/planning", planning.index)
+classesRouter
+  .get("/planning", classesPlanningController.getClassesPlanning)
 //   .post("/planning", (_, res) => res.send({ route: "POST PLANNING" }))
 //   .delete("/planning/:id", (_, res) => res.send({ route: "DELETE PLANNING" }));
 
