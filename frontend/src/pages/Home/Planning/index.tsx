@@ -15,12 +15,16 @@ function PlanningPage() {
   useEffect(() => {
     const loadPlanning = async () => {
       try {
-        const teacherId = localStorage.getItem("teacher-id");
+        // const teacherId = localStorage.getItem("teacher-id");
 
-        if (teacherId) {
-          const res = await getClassesPlanning(+teacherId);
-          setPlanning(res.data);
-        }
+        // if (teacherId) {
+        //   const res = await getClassesPlanning(+teacherId);
+        //   setPlanning(res.data);
+        // }
+
+        const teacherId = 1;
+        const res = await getClassesPlanning(+teacherId);
+        setPlanning(res.data);
       } catch (e) {
         console.error("err", e);
       }
@@ -53,7 +57,9 @@ function PlanningPage() {
                 <h3 className="font-semibold text-lg line-clamp-2">
                   {item.title}
                 </h3>
-                <span className="line-clamp-2">{item.desc}</span>
+                {item.description && (
+                  <span className="line-clamp-2">{item.description}</span>
+                )}
               </div>
             </SListItem>
           )}
