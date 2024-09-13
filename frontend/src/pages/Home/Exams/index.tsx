@@ -1,3 +1,5 @@
+import { LucidePlus } from "lucide-react";
+import SigaFilledButton from "../../../components/common/SigaFilledButton";
 import SigaTitleBar from "../../../components/common/SigaTitleBar";
 import SListItem from "../../../components/common/SListItem";
 import ContentWrapper from "../../../components/common/wrapper/SigaContentWrapper";
@@ -25,7 +27,11 @@ export default function ExamsPage() {
   return (
     <>
       <ContentWrapper>
-        <SigaTitleBar title="IRC100 - Laboratório de Redes" />
+        <SigaTitleBar title="IRC100 - Laboratório de Redes">
+          <SigaFilledButton>
+            <LucidePlus /> Novo
+          </SigaFilledButton>
+        </SigaTitleBar>
 
         <SListWrapper
           items={items}

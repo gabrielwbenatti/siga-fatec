@@ -5,6 +5,7 @@ import MaterialsPage from "../pages/Home/Materials";
 import PlanningPage from "../pages/Home/Planning";
 import MaterialCreatePage from "../pages/Home/Materials/Create";
 import ExamsPage from "../pages/Home/Exams";
+import PlanningCreatePage from "../pages/Home/Planning/Create";
 
 const router = createBrowserRouter([
   { path: "/", element: <LoginPage /> },
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
       {
         path: "/home/planning",
         element: <PlanningPage />,
+      },
+      {
+        path: "/home/planning/create",
+        element: <PlanningCreatePage />,
       },
       {
         path: "/home/materials",
