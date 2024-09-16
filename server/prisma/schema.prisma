@@ -41,9 +41,9 @@ model students {
   last_name          String               @db.VarChar(255)
   class_exam_results class_exam_results[]
   class_students     class_students[]
-  user_id Int 
+  user_id            Int
 
-  user users @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade) 
+  user users @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model courses {

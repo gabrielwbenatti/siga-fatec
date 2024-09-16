@@ -6,9 +6,24 @@ import PlanningPage from "../pages/Home/Planning";
 import MaterialCreatePage from "../pages/Home/Materials/Create";
 import ExamsPage from "../pages/Home/Exams";
 import PlanningCreatePage from "../pages/Home/Planning/Create";
+import ChooseClassPage from "../pages/Login/ChosseClass";
+import LoginFormPage from "../pages/Login/Form";
 
 const router = createBrowserRouter([
-  { path: "/", element: <LoginPage /> },
+  {
+    path: "/",
+    element: <LoginPage />,
+    children: [
+      {
+        path: "/",
+        element: <LoginFormPage />,
+      },
+      {
+        path: "/choose-class",
+        element: <ChooseClassPage />,
+      },
+    ],
+  },
   {
     path: "/home",
     element: <HomePage />,
