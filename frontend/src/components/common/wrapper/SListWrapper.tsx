@@ -16,7 +16,7 @@ function SListWrapper<T>({ ...props }: SigaListWrapperProps<T>) {
       ? "1 registro"
       : `${props.items.length} registros`;
 
-  return (
+  return props.items.length > 0 ? (
     <>
       {/* Label de quantidade de registros */}
       {props.showCount && props.items.length > 0 && (
@@ -35,6 +35,8 @@ function SListWrapper<T>({ ...props }: SigaListWrapperProps<T>) {
         ))}
       </ul>
     </>
+  ) : (
+    <h3>Nenhuma informação</h3>
   );
 }
 

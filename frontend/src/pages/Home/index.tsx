@@ -1,6 +1,7 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { SigaSideBarItem, SigaSideMenu } from "./components/SigaSideMenu";
 import { BookOpen, ChartColumn, Library } from "lucide-react";
+import { Toaster } from "react-hot-toast";
 
 function HomePage() {
   const items = [
@@ -30,6 +31,8 @@ function HomePage() {
 
   return (
     <>
+      <Toaster />
+
       <div className="flex min-h-screen">
         <SigaSideMenu>
           {items.map((item, index) => (

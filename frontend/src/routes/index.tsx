@@ -8,6 +8,7 @@ import ExamsPage from "../pages/Home/Exams";
 import PlanningCreatePage from "../pages/Home/Planning/Create";
 import ChooseClassPage from "../pages/Login/ChosseClass";
 import LoginFormPage from "../pages/Login/Form";
+import PlanningEditPage from "../pages/Home/Planning/Edit";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: "/home/planning/create",
         element: <PlanningCreatePage />,
+      },
+      {
+        path: "/home/planning/edit/:id",
+        element: <PlanningEditPage />,
       },
       {
         path: "/home/materials",

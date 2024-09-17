@@ -24,6 +24,24 @@ class ClassesPlanningController {
       res.status(201).json(result);
     }
   };
+
+  showClassPlanning = async (req: Request, res: Response) => {
+    const id = req.params.id;
+    const result = await classesPlanningService.showClassPlanning(+id);
+
+    if (result) {
+      res.status(200).json(result);
+    }
+  };
+
+  updateClassPlaning = async (req: Request, res: Response) => {
+    const body = req.body;
+    const result = await classesPlanningService.updateClassPlaning(body);
+
+    if (result) {
+      res.status(200).json(result);
+    }
+  };
 }
 
 export default new ClassesPlanningController();

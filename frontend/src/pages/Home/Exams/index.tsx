@@ -7,20 +7,18 @@ import SListWrapper from "../../../components/common/wrapper/SListWrapper";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { getClassExams } from "../../../services/classes.exams.service";
+import HomeTitleBarComp from "../components/HomeTitleBar";
+import { getClassObj } from "../../../utils";
 
 export default function ExamsPage() {
   const [exams, setExams] = useState([]);
 
   useEffect(() => {
     const internalExams = async () => {
-      const classStorage = localStorage.getItem("class-info");
+      const classObj = getClassObj();
 
-      if (!classStorage) {
-        toast.error("Class undefined, try again");
-        return;
-      }
+      if (!classObj) return;
 
-      const classObj = JSON.parse(classStorage);
       const id = String(classObj.id);
 
       const response = await getClassExams(id);
@@ -33,11 +31,11 @@ export default function ExamsPage() {
   return (
     <>
       <ContentWrapper>
-        <SigaTitleBar title="IRC100 - Laboratório de Redes">
+        <HomeTitleBarComp>
           <SigaFilledButton>
             <LucidePlus /> Novo
           </SigaFilledButton>
-        </SigaTitleBar>
+        </HomeTitleBarComp>
 
         {/* <SListWrapper
           items={ex}

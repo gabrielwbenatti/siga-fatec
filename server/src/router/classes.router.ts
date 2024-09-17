@@ -9,14 +9,12 @@ classesRouter.get("/", classesController.getClasses);
 
 classesRouter
   .get("/planning", classesPlanningController.getClassesPlanning)
-  .post("/planning", classesPlanningController.storeClassPlanning);
-//   .delete("/planning/:id", (_, res) => res.send({ route: "DELETE PLANNING" }));
+  .post("/planning", classesPlanningController.storeClassPlanning)
+  .get("/planning/:id", classesPlanningController.showClassPlanning)
+  .put("/planning", classesPlanningController.updateClassPlaning);
 
 classesRouter
   .get("/materials", classesMaterialsController.getClassesMaterials)
-  .post("/materials", classesMaterialsController.createClassesMaterials)
-  .delete("/materials/:id", (_, res) =>
-    res.send({ route: "DELETE MATERIALS" })
-  );
+  .post("/materials", classesMaterialsController.createClassesMaterials);
 
 export default classesRouter;

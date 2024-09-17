@@ -8,6 +8,7 @@ import SigaTextButton from "../../../components/common/SigaTextButton";
 import EditMaterialsPage from "./EditMaterialsPage";
 import SListWrapper from "../../../components/common/wrapper/SListWrapper";
 import { ClassMaterial } from "../../../types/ClassMaterial";
+import HomeTitleBarComp from "../components/HomeTitleBar";
 
 function MaterialsPage() {
   const [isEditing, setIsEditing] = useState(false);
@@ -24,7 +25,7 @@ function MaterialsPage() {
   return (
     <>
       <ContentWrapper>
-        <SigaTitleBar title="IRC100 - Laboratório de Redes">
+        <HomeTitleBarComp>
           {!isEditing && (
             <>
               <SigaFilledButton onClick={handleEditButtonClick}>
@@ -32,7 +33,7 @@ function MaterialsPage() {
               </SigaFilledButton>
             </>
           )}
-        </SigaTitleBar>
+        </HomeTitleBarComp>
 
         {isEditing ? (
           <>
@@ -42,19 +43,17 @@ function MaterialsPage() {
             />
           </>
         ) : (
-          materials.length > 0 && (
-            <SListWrapper
-              items={materials}
-              keyExtractor={(_, index) => index}
-              showCount
-              renderItem={(item) => (
-                <div className="py-2 px-4 flex flex-col">
-                  <span className="text-md ">{item.name}</span>
-                  <span className="text-sm ">{item.description}</span>
-                </div>
-              )}
-            />
-          )
+          <SListWrapper
+            items={materials}
+            keyExtractor={(_, index) => index}
+            showCount
+            renderItem={(item) => (
+              <div className="py-2 px-4 flex flex-col">
+                <span className="text-md ">{item.name}</span>
+                <span className="text-sm ">{item.description}</span>
+              </div>
+            )}
+          />
         )}
 
         {isEditing && (

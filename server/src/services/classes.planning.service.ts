@@ -35,6 +35,31 @@ class ClassesPlanningServices {
 
     return result;
   };
+
+  showClassPlanning = async (planningId: number) => {
+    const result = await db.class_planning.findFirst({
+      where: { id: planningId },
+    });
+
+    return result;
+  };
+
+  updateClassPlaning = async (body: any) => {
+    const result = await db.class_planning.update({
+      data: {
+        class_id: body.class_id,
+        title: body.title,
+        description: body.description ? body.description : "",
+        planned_date: new Date(body.planned_date),
+        applied_date: body.applied_date ? new Date(body.applied_date) : null,
+      },
+      where: {
+        id: body.id,
+      },
+    });
+
+    return result;
+  };
 }
 
 export default new ClassesPlanningServices();

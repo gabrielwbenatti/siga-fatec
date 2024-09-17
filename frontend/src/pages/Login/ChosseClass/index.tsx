@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { getClasses } from "../../../services/classes.service";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { Class } from "../../../types/Class";
-import { Button, Form, Radio } from "@prismane/core";
+import { Box, Button, Form, fr, Radio, Text } from "@prismane/core";
 import { useNavigate } from "react-router-dom";
+import SigaTitleBar from "../../../components/common/SigaTitleBar";
 
 export default function ChooseClassPage() {
   const [classes, setClasses] = useState<Class[]>([]);
@@ -37,8 +38,8 @@ export default function ChooseClassPage() {
   };
 
   return (
-    <>
-      <Toaster />
+    <Box p={fr(6)} mx={fr(6)}>
+      <SigaTitleBar title="Escolha uma turma abaixo" className="mb-3" />
 
       <Form>
         <Radio.Group
@@ -63,6 +64,6 @@ export default function ChooseClassPage() {
           Prosseguir
         </Button>
       </Form>
-    </>
+    </Box>
   );
 }

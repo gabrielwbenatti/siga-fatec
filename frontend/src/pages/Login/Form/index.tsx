@@ -1,7 +1,7 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../../services/api";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import SigaInput from "../../../components/common/SigaInput";
 import LoginFormComp from "../Components/LoginForm";
 
@@ -9,6 +9,11 @@ export default function LoginFormPage() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    localStorage.removeItem("user-info");
+    localStorage.removeItem("class-info");
+  }, []);
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -67,7 +72,6 @@ export default function LoginFormPage() {
           />
         </LoginFormComp>
       </div>
-      <Toaster />
     </section>
   );
 }

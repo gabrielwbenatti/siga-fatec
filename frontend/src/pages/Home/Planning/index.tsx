@@ -1,48 +1,48 @@
 import SigaFilledButton from "../../../components/common/SigaFilledButton";
 import SListItem from "../../../components/common/SListItem";
 import SListWrapper from "../../../components/common/wrapper/SListWrapper";
-import SigaTitleBar from "../../../components/common/SigaTitleBar";
 import ContentWrapper from "../../../components/common/wrapper/SigaContentWrapper";
 import { LucidePlus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { getClassesPlanning } from "../../../services/classes.planning.service";
 import { useNavigate } from "react-router-dom";
 import { ClassPlanning } from "../../../types/ClassPlanning";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
+import HomeTitleBarComp from "../components/HomeTitleBar";
+import { getClassObj } from "../../../utils";
 
 function PlanningPage() {
   const [planning, setPlanning] = useState<ClassPlanning[]>([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     const loadPlanning = async () => {
-      const classStorage = localStorage.getItem("class-info");
+      const classObj = getClassObj();
 
-      if (!classStorage) {
-        toast.error("Class undefined, try again");
-        return;
-      }
+      if (!classObj) return;
 
-      const classObj = JSON.parse(classStorage);
-      const id = String(classObj.id);
-
-      const response = await getClassesPlanning(id);
+      const response = await getClassesPlanning(classObj.id);
       setPlanning(response.data);
     };
 
     loadPlanning();
   }, []);
 
+  const handleSelect = (id: number) => {
+    navigate(`/home/planning/edit/${id}`);
+  };
+
   return (
     <>
       <Toaster />
 
       <ContentWrapper>
-        <SigaTitleBar title="IRC100 - Laboratório de Redes">
+        <HomeTitleBarComp>
           <SigaFilledButton onClick={() => navigate("/home/planning/create")}>
             <LucidePlus size={20} /> Novo
           </SigaFilledButton>
-        </SigaTitleBar>
+        </HomeTitleBarComp>
 
         <SListWrapper
           items={planning}
@@ -50,7 +50,10 @@ function PlanningPage() {
           showCount
           renderItem={(item) => (
             <SListItem>
-              <div className="flex flex-col">
+              <div
+                className="flex flex-col"
+                onClick={() => handleSelect(item.id!)}
+              >
                 {item.applied_date && (
                   <span className="text-sm">
                     {new Date(item.applied_date).toLocaleDateString()}
