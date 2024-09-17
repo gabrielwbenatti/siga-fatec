@@ -4,25 +4,31 @@ import SigaTitleBar from "../../../components/common/SigaTitleBar";
 import SListItem from "../../../components/common/SListItem";
 import ContentWrapper from "../../../components/common/wrapper/SigaContentWrapper";
 import SListWrapper from "../../../components/common/wrapper/SListWrapper";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { getClassExams } from "../../../services/classes.exams.service";
 
 export default function ExamsPage() {
-  const items: { title: string; date: Date; description?: string }[] = [
-    {
-      title: "P1",
-      date: new Date("2024-09-30"),
-      description: "Avaliação 1",
-    },
-    {
-      title: "T1",
-      date: new Date("2024-10-31"),
-      description: "Trabalho em grupo",
-    },
-    {
-      title: "P2",
-      date: new Date("2024-12-31"),
-      description: "Avaliação 2",
-    },
-  ];
+  const [exams, setExams] = useState([]);
+
+  useEffect(() => {
+    const internalExams = async () => {
+      const classStorage = localStorage.getItem("class-info");
+
+      if (!classStorage) {
+        toast.error("Class undefined, try again");
+        return;
+      }
+
+      const classObj = JSON.parse(classStorage);
+      const id = String(classObj.id);
+
+      const response = await getClassExams(id);
+      setExams(response.data);
+    };
+
+    internalExams();
+  }, []);
 
   return (
     <>
@@ -33,8 +39,8 @@ export default function ExamsPage() {
           </SigaFilledButton>
         </SigaTitleBar>
 
-        <SListWrapper
-          items={items}
+        {/* <SListWrapper
+          items={ex}
           keyExtractor={(_, index) => index}
           showCount
           renderItem={(item: any) => (
@@ -47,7 +53,7 @@ export default function ExamsPage() {
             </SListItem>
           )}
           onItemClick={(item) => console.log(item.title)}
-        />
+        /> */}
       </ContentWrapper>
     </>
   );

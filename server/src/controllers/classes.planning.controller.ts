@@ -1,20 +1,29 @@
-import { Request, Response } from "express"; 
+import { Request, Response } from "express";
 import StatusCode from "../utils/http-status-code";
 import classesPlanningService from "../services/classes.planning.service";
 
 class ClassesPlanningController {
   getClassesPlanning = async (req: Request, res: Response) => {
-    if (!req.headers["class-id"]) { 
+    if (!req.headers["class-id"]) {
       res.status(500).json({ message: "Class not defined" });
     }
 
     const classId = req.headers["class-id"];
-    const result = await classesPlanningService.getClassesPlanning(+classId!)
+    const result = await classesPlanningService.getClassesPlanning(+classId!);
 
-    if(result) {
-      res.status(200).json(result)
+    if (result) {
+      res.status(200).json(result);
     }
-  }
-} 
- 
-export default new ClassesPlanningController()
+  };
+
+  storeClassPlanning = async (req: Request, res: Response) => {
+    const body = req.body;
+    const result = await classesPlanningService.storeClassPlanning(body);
+
+    if (result) {
+      res.status(201).json(result);
+    }
+  };
+}
+
+export default new ClassesPlanningController();

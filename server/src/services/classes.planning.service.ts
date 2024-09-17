@@ -21,6 +21,20 @@ class ClassesPlanningServices {
 
     return result;
   };
+
+  storeClassPlanning = async (body: any) => {
+    const result = await db.class_planning.create({
+      data: {
+        class_id: body.class_id,
+        title: body.title,
+        description: body.description ? body.description : "",
+        planned_date: new Date(body.planned_date),
+        applied_date: body.applied_date ? new Date(body.applied_date) : null,
+      },
+    });
+
+    return result;
+  };
 }
 
 export default new ClassesPlanningServices();

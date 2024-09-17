@@ -3,10 +3,12 @@ import { getClasses } from "../../../services/classes.service";
 import toast, { Toaster } from "react-hot-toast";
 import { Class } from "../../../types/Class";
 import { Button, Form, Radio } from "@prismane/core";
+import { useNavigate } from "react-router-dom";
 
 export default function ChooseClassPage() {
   const [classes, setClasses] = useState<Class[]>([]);
   const [selectedClass, setSelectedClass] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const internalGetClasses = async () => {
@@ -21,7 +23,6 @@ export default function ChooseClassPage() {
       const id = String(userObj.teacher[0].id);
 
       const response = await getClasses(id!);
-
       setClasses(response.data);
     };
 
@@ -29,7 +30,10 @@ export default function ChooseClassPage() {
   }, []);
 
   const onSubmit = () => {
-    localStorage.setItem("class-id", String(selectedClass));
+    const clss = classes.filter((e) => e.id == selectedClass);
+    localStorage.setItem("class-info", JSON.stringify(clss[0]));
+
+    navigate("/home/planning");
   };
 
   return (

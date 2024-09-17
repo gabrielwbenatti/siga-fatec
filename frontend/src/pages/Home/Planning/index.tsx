@@ -7,27 +7,27 @@ import { LucidePlus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { getClassesPlanning } from "../../../services/classes.planning.service";
 import { useNavigate } from "react-router-dom";
+import { ClassPlanning } from "../../../types/ClassPlanning";
+import toast, { Toaster } from "react-hot-toast";
 
 function PlanningPage() {
-  const [planning, setPlanning] = useState<any[]>([]);
-  const nav = useNavigate();
+  const [planning, setPlanning] = useState<ClassPlanning[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadPlanning = async () => {
-      try {
-        // const teacherId = localStorage.getItem("teacher-id");
+      const classStorage = localStorage.getItem("class-info");
 
-        // if (teacherId) {
-        //   const res = await getClassesPlanning(+teacherId);
-        //   setPlanning(res.data);
-        // }
-
-        const teacherId = 1;
-        const res = await getClassesPlanning(+teacherId);
-        setPlanning(res.data);
-      } catch (e) {
-        console.error("err", e);
+      if (!classStorage) {
+        toast.error("Class undefined, try again");
+        return;
       }
+
+      const classObj = JSON.parse(classStorage);
+      const id = String(classObj.id);
+
+      const response = await getClassesPlanning(id);
+      setPlanning(response.data);
     };
 
     loadPlanning();
@@ -35,9 +35,11 @@ function PlanningPage() {
 
   return (
     <>
+      <Toaster />
+
       <ContentWrapper>
         <SigaTitleBar title="IRC100 - Laboratório de Redes">
-          <SigaFilledButton onClick={() => nav("/home/planning/create")}>
+          <SigaFilledButton onClick={() => navigate("/home/planning/create")}>
             <LucidePlus size={20} /> Novo
           </SigaFilledButton>
         </SigaTitleBar>
