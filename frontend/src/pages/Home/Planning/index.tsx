@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import { getClassesPlanning } from "../../../services/classes.planning.service";
 import { useNavigate } from "react-router-dom";
 import { ClassPlanning } from "../../../types/ClassPlanning";
-import { Toaster } from "react-hot-toast";
 import HomeTitleBarComp from "../components/HomeTitleBar";
 import { getClassObj } from "../../../utils";
 
@@ -35,8 +34,6 @@ function PlanningPage() {
 
   return (
     <>
-      <Toaster />
-
       <ContentWrapper>
         <HomeTitleBarComp>
           <SigaFilledButton onClick={() => navigate("/home/planning/create")}>
@@ -54,11 +51,8 @@ function PlanningPage() {
                 className="flex flex-col"
                 onClick={() => handleSelect(item.id!)}
               >
-                {item.applied_date && (
-                  <span className="text-sm">
-                    {new Date(item.applied_date).toLocaleDateString()}
-                  </span>
-                )}
+                <span className="text-sm">{item.planned_date}</span>
+
                 <h3 className="font-semibold text-lg line-clamp-2">
                   {item.title}
                 </h3>

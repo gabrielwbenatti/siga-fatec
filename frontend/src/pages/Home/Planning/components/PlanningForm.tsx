@@ -25,6 +25,7 @@ const PlanningForm: React.FC<PlanningFormProps> = ({
       | React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     const { name, value } = element.target;
+
     setFormValues((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -51,6 +52,7 @@ const PlanningForm: React.FC<PlanningFormProps> = ({
         <SigaTextArea
           className="w-full"
           name="description"
+          rows={6}
           value={formValues.description}
           onChange={handleChange}
         />
