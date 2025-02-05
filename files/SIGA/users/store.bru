@@ -1,0 +1,24 @@
+meta {
+  name: store
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/users
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  User-Agent: insomnia/9.2.0
+}
+
+body:json {
+  {
+    "username": "gabriel.benatti",
+    "email": "gabriel.benatti@fatec.sp.gov.br",
+    "password": "123456"
+  }
+}

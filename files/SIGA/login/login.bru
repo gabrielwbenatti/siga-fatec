@@ -1,0 +1,23 @@
+meta {
+  name: login
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/login
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  User-Agent: insomnia/9.3.1
+}
+
+body:json {
+  {
+    "email": "gabriel.benatti",
+    "password": "123456"
+  }
+}
