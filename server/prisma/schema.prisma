@@ -68,7 +68,7 @@ model classes {
   id            Int      @id @default(autoincrement())
   teacher_id    Int
   discipline_id Int
-  semestrer     Int      @db.SmallInt
+  semester      Int      @db.SmallInt
   year          Int      @db.SmallInt
   finished      Boolean? @default(false)
 

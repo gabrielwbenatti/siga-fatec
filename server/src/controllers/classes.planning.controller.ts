@@ -6,6 +6,7 @@ class ClassesPlanningController {
   getClassesPlanning = async (req: Request, res: Response) => {
     if (!req.headers["class-id"]) {
       res.status(500).json({ message: "Class not defined" });
+      return;
     }
 
     const classId = req.headers["class-id"];

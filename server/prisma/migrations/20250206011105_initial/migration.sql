@@ -54,7 +54,7 @@ CREATE TABLE "classes" (
     "id" SERIAL NOT NULL,
     "teacher_id" INTEGER NOT NULL,
     "discipline_id" INTEGER NOT NULL,
-    "semestrer" SMALLINT NOT NULL,
+    "semester" SMALLINT NOT NULL,
     "year" SMALLINT NOT NULL,
     "finished" BOOLEAN DEFAULT false,
 
