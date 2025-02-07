@@ -36,14 +36,16 @@ model teachers {
 }
 
 model students {
-  id                 Int                  @id @default(autoincrement())
-  first_name         String               @db.VarChar(255)
-  last_name          String               @db.VarChar(255)
-  class_exam_results class_exam_results[]
-  class_students     class_students[]
-  user_id            Int
+  id         Int    @id @default(autoincrement())
+  first_name String @db.VarChar(255)
+  last_name  String @db.VarChar(255)
+  user_id    Int
 
   user users @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  exam_submissions    exam_submissions[]
+  class_students      class_students[]
+  planning_attendance planning_attendances[]
 }
 
 model courses {
@@ -72,12 +74,26 @@ model classes {
   year          Int      @db.SmallInt
   finished      Boolean? @default(false)
 
-  teacher         teachers          @relation(fields: [teacher_id], references: [id], onUpdate: Cascade)
-  discipline      disciplines       @relation(fields: [discipline_id], references: [id], onUpdate: Cascade)
-  class_materials class_materials[]
-  class_planning  class_planning[]
-  class_exams     class_exams[]
-  class_students  class_students[]
+  teacher    teachers    @relation(fields: [teacher_id], references: [id], onUpdate: Cascade)
+  discipline disciplines @relation(fields: [discipline_id], references: [id], onUpdate: Cascade)
+
+  class_materials      class_materials[]
+  class_plans          class_plans[]
+  exams                exams[]
+  class_students       class_students[]
+  class_schedules      class_schedules[]
+  planning_attendances planning_attendances[]
+}
+
+model class_schedules {
+  id          Int      @id @default(autoincrement())
+  class_id    Int
+  day_of_week Int
+  start_time  DateTime @db.Time()
+  end_time    DateTime @db.Time()
+
+  class               classes                @relation(fields: [class_id], references: [id])
+  planning_attendance planning_attendances[]
 }
 
 model class_materials {
@@ -92,7 +108,7 @@ model class_materials {
   class classes @relation(fields: [class_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
-model class_planning {
+model class_plans {
   id           Int       @id @default(autoincrement())
   title        String    @db.VarChar(255)
   description  String    @db.Text
@@ -103,7 +119,21 @@ model class_planning {
   class classes @relation(fields: [class_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
-model class_exams {
+model planning_attendances {
+  id                Int     @id @default(autoincrement())
+  class_id          Int
+  class_schedule_id Int
+  student_id        Int
+  is_present        Boolean @default(true)
+
+  class          classes         @relation(fields: [class_id], references: [id])
+  class_schedule class_schedules @relation(fields: [class_schedule_id], references: [id])
+  student        students        @relation(fields: [student_id], references: [id])
+
+  @@unique([class_id, class_schedule_id, student_id])
+}
+
+model exams {
   id           Int       @id @default(autoincrement())
   class_id     Int
   title        String    @db.VarChar(255)
@@ -111,18 +141,18 @@ model class_exams {
   planned_date DateTime  @db.Date
   applied_date DateTime? @db.Date
 
-  class              classes              @relation(fields: [class_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  class_exam_results class_exam_results[]
+  class            classes            @relation(fields: [class_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  exam_submissions exam_submissions[]
 }
 
-model class_exam_results {
+model exam_submissions {
   id            Int     @id @default(autoincrement())
   class_exam_id Int
   student_id    Int
   score         Decimal @default(0.00) @db.Decimal(10, 2)
 
-  class_exam class_exams @relation(fields: [class_exam_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  student    students    @relation(fields: [student_id], references: [id], onUpdate: Cascade)
+  class_exam exams    @relation(fields: [class_exam_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  student    students @relation(fields: [student_id], references: [id], onUpdate: Cascade)
 }
 
 model class_students {

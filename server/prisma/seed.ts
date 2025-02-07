@@ -138,97 +138,72 @@ async function main() {
             email: "rita.catini@fatec.sp.gov.br",
             password: pass,
             username: "rita.catini",
-          },
-        })
-        .then(async (usr) => {
-          await prisma.teachers.create({
-            data: {
-              first_name: "Rita",
-              last_name: "Catini",
-              user_id: usr.id,
+            teacher: {
+              create: {
+                first_name: "Rita",
+                last_name: "Catini",
+              },
             },
-          });
-        });
-
-      await prisma.users
-        .create({
-          data: {
-            email: "paulo.cesar@fatec.sp.gov.br",
-            password: pass,
-            username: "paulo.cesar",
           },
         })
-        .then(async (usr) => {
-          await prisma.teachers.create({
+        .then(async () => {
+          await prisma.users.create({
             data: {
-              first_name: "Paulo",
-              last_name: "Cesar",
-              user_id: usr.id,
+              email: "paulo.cesar@fatec.sp.gov.br",
+              password: pass,
+              username: "paulo.cesar",
+              teacher: {
+                create: {
+                  first_name: "Paulo",
+                  last_name: "Cesar",
+                },
+              },
             },
           });
         });
     })
     .then(async () => {
-      await prisma.users
-        .create({
-          data: {
-            email: "gabriel.benatti@fatec.sp.gov.br",
-            username: "gabriel.benatti",
-            password: pass,
-          },
-        })
-        .then(async (usr) => {
-          await prisma.students.create({
-            data: {
+      await prisma.users.create({
+        data: {
+          email: "gabriel.benatti@fatec.sp.gov.br",
+          username: "gabriel.benatti",
+          password: pass,
+          student: {
+            create: {
               first_name: "Gabriel",
               last_name: "Benatti",
-              user_id: usr.id,
             },
-          });
-        });
-
-      await prisma.users
-        .create({
-          data: {
-            email: "matheus.figueiredo@fatec.sp.gov.br",
-            username: "matheus.figueiredo",
-            password: pass,
           },
-        })
-        .then(async (usr) => {
-          await prisma.students.create({
-            data: {
+        },
+      });
+
+      await prisma.users.create({
+        data: {
+          email: "matheus.figueiredo@fatec.sp.gov.br",
+          username: "matheus.figueiredo",
+          password: pass,
+          student: {
+            create: {
               first_name: "Matheus",
               last_name: "Figueiredo",
-              user_id: usr.id,
             },
-          });
-        });
-
-      await prisma.users
-        .create({
-          data: {
-            email: "olavo.kawano@fatec.sp.gov.br",
-            username: "olavo.kawano",
-            password: pass,
           },
-        })
-        .then(async (usr) => {
-          await prisma.students.create({
-            data: { first_name: "Olavo", last_name: "Kawano", user_id: usr.id },
-          });
-        });
-    });
+        },
+      });
 
-  await prisma.courses
-    .createMany({
-      data: [
-        { name: "Fabricação Mecânica", abbreviation: "FM" },
-        { name: "Mecânica Industrial", abbreviation: "MI" },
-      ],
-    })
-    .then((result) => {
-      if (result) console.log("[OK] COURSES");
+      await prisma.users.create({
+        data: {
+          email: "olavo.kawano@fatec.sp.gov.br",
+          username: "olavo.kawano",
+          password: pass,
+          student: {
+            create: {
+              first_name: "Olavo",
+              last_name: "Kawano",
+            },
+          },
+        },
+      });
     });
 }
 
