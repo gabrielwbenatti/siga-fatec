@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { ROUTES } from "@/config/routes";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -60,7 +61,7 @@ const ClassSelectionPage = () => {
   };
 
   const handleSubmit = () => {
-    router.push("/home");
+    router.push(ROUTES.HOME);
   };
 
   return (

@@ -11,13 +11,14 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { ROUTES } from "@/config/routes";
 import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
   const router = useRouter();
 
   const handleSubmit = () => {
-    router.push("/class-selection");
+    router.push(ROUTES.CLASS_SELECTION);
   };
 
   return (
