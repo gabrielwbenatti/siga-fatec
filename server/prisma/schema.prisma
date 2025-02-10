@@ -86,11 +86,11 @@ model classes {
 }
 
 model class_schedules {
-  id          Int      @id @default(autoincrement())
+  id          Int    @id @default(autoincrement())
   class_id    Int
   day_of_week Int
-  start_time  DateTime @db.Time()
-  end_time    DateTime @db.Time()
+  start_time  String @db.Char(5) // HH:mm
+  end_time    String @db.Char(5) // HH:mm
 
   class               classes                @relation(fields: [class_id], references: [id])
   planning_attendance planning_attendances[]

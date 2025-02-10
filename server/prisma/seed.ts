@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import * as bcrypt from "bcrypt";
+import * as bcrypt from "bcrypt"; 
 
 const prisma = new PrismaClient();
 
@@ -15,191 +15,99 @@ async function main() {
       },
     })
     .then(async (adsCourse) => {
-      await prisma.disciplines.createMany({
-        data: [
-          //semester 1
-          {
-            course_id: adsCourse.id,
-            name: "Administração Geral",
-            abbreviation: "AAG001",
-          },
-          {
-            course_id: adsCourse.id,
-            name: "Arquitetura e Organização de Computadores",
-            abbreviation: "IAC001",
-          },
-          {
-            course_id: adsCourse.id,
-            name: "Algoritmos e Lógica de Programação",
-            abbreviation: "IAL002",
-          },
-          {
-            course_id: adsCourse.id,
-            name: "Laboratório de Hardware",
-            abbreviation: "IHW100",
-          },
-          { course_id: adsCourse.id, name: "Inglês VI", abbreviation: "IVI" },
-          {
-            course_id: adsCourse.id,
-            name: "Programação em Microinformática",
-            abbreviation: "ILM001",
-          },
-          {
-            course_id: adsCourse.id,
-            name: "Inglês I",
-            abbreviation: "LIN100",
-          },
-          {
-            course_id: adsCourse.id,
-            name: "Matemática Discreta",
-            abbreviation: "MMD001",
-          },
+      const courseId = adsCourse.id;
 
-          //semester 2
-          {
-            course_id: adsCourse.id,
-            name: "Contabilidade",
-            abbreviation: "CCG001",
-          },
-          {
-            course_id: adsCourse.id,
-            name: "Engenharia de Software I",
-            abbreviation: "IES100",
-          },
-          {
-            course_id: adsCourse.id,
-            name: "Linguagem de Programação",
-            abbreviation: "ILP010",
-          },
-          {
-            course_id: adsCourse.id,
-            name: "Sistemas de Informação",
-            abbreviation: "ISI002",
-          },
-          {
-            course_id: adsCourse.id,
-            name: "Inglês II",
-            abbreviation: "LIN200",
-          },
-          {
-            course_id: adsCourse.id,
-            name: "Comunicação e Expressão",
-            abbreviation: "LPO001",
-          },
-          {
-            course_id: adsCourse.id,
-            name: "Cálculo",
-            abbreviation: "MCA002",
-          },
-
-          //semester 3
-          {
-            course_id: adsCourse.id,
-            name: "Banco de Dados",
-            abbreviation: "IBD002",
-          },
-          {
-            course_id: adsCourse.id,
-            name: "Estruturas de Dados",
-            abbreviation: "IED001",
-          },
-          {
-            course_id: adsCourse.id,
-            name: "Engenharia de Software II",
-            abbreviation: "IES200",
-          },
-          {
-            course_id: adsCourse.id,
-            name: "Interação Humano Computador",
-            abbreviation: "IHC001",
-          },
-          {
-            course_id: adsCourse.id,
-            name: "Redes de Computadores",
-            abbreviation: "IRC008",
-          },
-          {
-            course_id: adsCourse.id,
-            name: "Sistemas Operacionais I",
-            abbreviation: "ISO100",
-          },
-          {
-            course_id: adsCourse.id,
-            name: "Inglês III",
-            abbreviation: "LIN300",
-          },
-        ],
-      });
-    })
-    .then(async () => {
-      await prisma.users
-        .create({
-          data: {
-            email: "rita.catini@fatec.sp.gov.br",
-            password: pass,
-            username: "rita.catini",
-            teacher: {
-              create: {
-                first_name: "Rita",
-                last_name: "Catini",
-              },
+      const pc = await prisma.teachers.create({
+        data: {
+          first_name: "Paulo",
+          last_name: "Cesar",
+          user: {
+            create: {
+              email: "paulo.cesar@fatec.sp.gov.br",
+              username: "paulo.cesar",
+              password: pass,
             },
           },
-        })
-        .then(async () => {
-          await prisma.users.create({
-            data: {
-              email: "paulo.cesar@fatec.sp.gov.br",
-              password: pass,
-              username: "paulo.cesar",
-              teacher: {
-                create: {
-                  first_name: "Paulo",
-                  last_name: "Cesar",
+        },
+      });
+
+      await prisma.disciplines.create({
+        data: {
+          abbreviation: "pweb",
+          name: "Programação Web",
+          course_id: courseId,
+          classes: {
+            create: {
+              teacher_id: pc.id,
+              semester: 1,
+              year: 2025,
+              class_schedules: {
+                createMany: {
+                  data: [
+                    {
+                      day_of_week: 6,
+                      start_time: "19:00",
+                      end_time: "19:50",
+                    },
+                    {
+                      day_of_week: 6,
+                      start_time: "19:50",
+                      end_time: "20:40",
+                    },
+                    {
+                      day_of_week: 6,
+                      start_time: "20:50",
+                      end_time: "21:40",
+                    },
+                    {
+                      day_of_week: 6,
+                      start_time: "21:40",
+                      end_time: "22:30",
+                    },
+                  ],
                 },
               },
             },
-          });
-        });
-    })
-    .then(async () => {
-      await prisma.users.create({
-        data: {
-          email: "gabriel.benatti@fatec.sp.gov.br",
-          username: "gabriel.benatti",
-          password: pass,
-          student: {
-            create: {
-              first_name: "Gabriel",
-              last_name: "Benatti",
-            },
           },
         },
       });
 
-      await prisma.users.create({
+      await prisma.disciplines.create({
         data: {
-          email: "matheus.figueiredo@fatec.sp.gov.br",
-          username: "matheus.figueiredo",
-          password: pass,
-          student: {
+          abbreviation: "engsoft",
+          name: "Engenharia de Software",
+          course_id: courseId,
+          classes: {
             create: {
-              first_name: "Matheus",
-              last_name: "Figueiredo",
-            },
-          },
-        },
-      });
-
-      await prisma.users.create({
-        data: {
-          email: "olavo.kawano@fatec.sp.gov.br",
-          username: "olavo.kawano",
-          password: pass,
-          student: {
-            create: {
-              first_name: "Olavo",
-              last_name: "Kawano",
+              teacher_id: pc.id,
+              semester: 1,
+              year: 2025,
+              class_schedules: {
+                createMany: {
+                  data: [
+                    {
+                      day_of_week: 2,
+                      start_time: "19:00",
+                      end_time: "19:50",
+                    },
+                    {
+                      day_of_week: 2,
+                      start_time: "19:50",
+                      end_time: "20:40",
+                    },
+                    {
+                      day_of_week: 2,
+                      start_time: "20:50",
+                      end_time: "21:40",
+                    },
+                    {
+                      day_of_week: 2,
+                      start_time: "21:40",
+                      end_time: "22:30",
+                    },
+                  ],
+                },
+              },
             },
           },
         },
