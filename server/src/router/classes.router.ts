@@ -1,7 +1,7 @@
 import { Router } from "express";
 import classesMaterialsController from "../controllers/classes.materials.controller";
 import classesController from "../controllers/classes.controller";
-import classesPlanningController from "../controllers/classes.planning.controller";
+import classesPlansController from "../controllers/classes.plans.controller";
 import classesStudentsController from "../controllers/classes.students.controller";
 
 const classesRouter = Router();
@@ -11,10 +11,10 @@ classesRouter
   .post("/", classesController.createClass);
 
 classesRouter
-  .get("/planning", classesPlanningController.getClassesPlanning)
-  .post("/planning", classesPlanningController.storeClassPlanning)
-  .get("/planning/:id", classesPlanningController.showClassPlanning)
-  .put("/planning", classesPlanningController.updateClassPlaning);
+  .get("/planning", classesPlansController.getClassesPlans)
+  .post("/planning", classesPlansController.storeClassPlans)
+  .get("/planning/:id", classesPlansController.showClassPlans)
+  .put("/planning", classesPlansController.updateClassPlaning);
 
 classesRouter
   .get("/materials", classesMaterialsController.getClassesMaterials)

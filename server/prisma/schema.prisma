@@ -43,9 +43,9 @@ model students {
 
   user users @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
-  exam_submissions    exam_submissions[]
-  class_students      class_students[]
-  planning_attendance planning_attendances[]
+  exam_submissions exam_submissions[]
+  class_students   class_students[]
+  plans_attendance plans_attendances[]
 }
 
 model courses {
@@ -77,12 +77,12 @@ model classes {
   teacher    teachers    @relation(fields: [teacher_id], references: [id], onUpdate: Cascade)
   discipline disciplines @relation(fields: [discipline_id], references: [id], onUpdate: Cascade)
 
-  class_materials      class_materials[]
-  class_plans          class_plans[]
-  exams                exams[]
-  class_students       class_students[]
-  class_schedules      class_schedules[]
-  planning_attendances planning_attendances[]
+  class_materials   class_materials[]
+  class_plans       class_plans[]
+  exams             exams[]
+  class_students    class_students[]
+  class_schedules   class_schedules[]
+  plans_attendances plans_attendances[]
 }
 
 model class_schedules {
@@ -92,8 +92,8 @@ model class_schedules {
   start_time  String @db.Char(5) // HH:mm
   end_time    String @db.Char(5) // HH:mm
 
-  class               classes                @relation(fields: [class_id], references: [id])
-  planning_attendance planning_attendances[]
+  class            classes             @relation(fields: [class_id], references: [id])
+  plans_attendance plans_attendances[]
 }
 
 model class_materials {
@@ -119,7 +119,7 @@ model class_plans {
   class classes @relation(fields: [class_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
-model planning_attendances {
+model plans_attendances {
   id                Int     @id @default(autoincrement())
   class_id          Int
   class_schedule_id Int
@@ -140,6 +140,7 @@ model exams {
   description  String?   @db.Text
   planned_date DateTime  @db.Date
   applied_date DateTime? @db.Date
+  weight       Decimal   @default(0) @db.Decimal(10, 2)
 
   class            classes            @relation(fields: [class_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   exam_submissions exam_submissions[]
