@@ -10,57 +10,56 @@ import {
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import api from "@/config/axiosInstance";
 import { ROUTES } from "@/config/routes";
+import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+interface ClassDTO {
+  id: number;
+  discipline: {
+    id: number;
+    name: string;
+    abbreviation: string;
+    course_id: number;
+  };
+  semester: number;
+  year: number;
+}
 
 const ClassSelectionPage = () => {
-  const data = [
-    {
-      id: 1,
-      discipline: {
-        id: 7,
-        name: "Laboratório de Redes",
-        abbreviation: "LR",
-        course_id: 1,
-      },
-      semestrer: 1,
-      year: 2025,
-    },
-    {
-      id: 2,
-      discipline: {
-        id: 9,
-        name: "Sociedade e Tecnollgia",
-        abbreviation: "HST002",
-        course_id: 1,
-      },
-      semestrer: 1,
-      year: 2025,
-    },
-    {
-      id: 3,
-      discipline: {
-        id: 10,
-        name: "Metodologia da Pesquisa Científico-Tecnológica",
-        abbreviation: "TTG001",
-        course_id: 1,
-      },
-      semestrer: 1,
-      year: 2025,
-    },
-  ];
   const router = useRouter();
-  const [selected, setSelected] = useState<number | undefined>(undefined);
+  const auth = useAuth();
 
-  const handleSelectItem = (index: number) => {
-    if (index != selected) {
-      setSelected(index);
-      console.log(data[index]);
+  const [selected, setSelected] = useState<ClassDTO | null>(null);
+  const [data, setData] = useState<ClassDTO[] | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await api.get("/classes", {
+          headers: { "teacher-id": auth.teacher?.id },
+        });
+
+        if (res.status === 200) {
+          console.log(res.data);
+          setData(res.data);
+        }
+      } catch (error) {}
+    };
+
+    fetchData();
+  }, []);
+
+  const handleSelectItem = (e: ClassDTO) => {
+    if (e != selected) {
+      setSelected(e);
     }
   };
 
   const handleSubmit = () => {
+    auth.setClass();
     router.push(ROUTES.HOME);
   };
 
@@ -73,13 +72,13 @@ const ClassSelectionPage = () => {
       </CardHeader>
       <CardContent>
         <RadioGroup defaultValue={selected?.toString()}>
-          {data.map((e, i) => (
+          {data?.map((e) => (
             <div
-              onClick={() => handleSelectItem(i)}
-              key={i}
+              onClick={() => handleSelectItem(e)}
+              key={e.id}
               className="flex items-center gap-2 py-1.5"
             >
-              <RadioGroupItem id={e.id.toString()} value={i.toString()} />
+              <RadioGroupItem id={e.id.toString()} value={e.id.toString()} />
               <Label
                 htmlFor={e.id.toString()}
               >{`${e.discipline.abbreviation} - ${e.discipline.name}`}</Label>

@@ -5,6 +5,7 @@ class ClassesController {
   getClasses = async (req: Request, res: Response) => {
     if (!req.headers["teacher-id"]) {
       res.status(500).json({ message: "Techer not defined " });
+      return;
     }
 
     const teacherId = req.headers["teacher-id"];

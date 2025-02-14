@@ -7,7 +7,7 @@ const HomeLayout = ({
   children: ReactNode;
 }>) => {
   const routes = [
-    { caption: "Início", href: "/home" },
+    { caption: "Início", href: ROUTES.HOME },
     { caption: "Planejamento", href: ROUTES.PLANNING.LIST },
     { caption: "Materiais de Aula", href: ROUTES.MATERIALS.LIST },
   ];
