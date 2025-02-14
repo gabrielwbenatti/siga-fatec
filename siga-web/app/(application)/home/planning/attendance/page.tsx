@@ -1,5 +1,24 @@
+"use client";
+
+import { Checkbox } from "@/components/ui/checkbox";
+import { useState } from "react";
+
+interface DataDTO {
+  schedule: {
+    id: number;
+    class_id: number;
+    day_of_week: number;
+    start_time: string;
+    end_time: string;
+  }[];
+  students: {
+    student: { name: string; id: number };
+    attendances: { isPresent: boolean; student_id: number; time: string }[];
+  }[];
+}
+
 const HomePlanningAttendancePage = () => {
-  const data = {
+  const [data, setData] = useState({
     schedule: [
       {
         id: 5,
@@ -32,14 +51,85 @@ const HomePlanningAttendancePage = () => {
     ],
     students: [
       {
-        studentName: { name: "Matheus Figueiredo", id: 2 },
-        attendances: [true, true, true, true],
+        student: {
+          name: "Aluno 123",
+          id: 2,
+        },
+        attendances: [
+          {
+            isPresent: false,
+            student_id: 2,
+            time: "19:00",
+          },
+          {
+            isPresent: false,
+            student_id: 2,
+            time: "19:50",
+          },
+          {
+            isPresent: false,
+            student_id: 2,
+            time: "20:50",
+          },
+          {
+            isPresent: false,
+            student_id: 2,
+            time: "21:40",
+          },
+        ],
       },
       {
-        studentName: { name: "Gabriel Benatti", id: 1 },
-        attendances: [true, true, true, true],
+        student: {
+          name: "Aluno 234",
+          id: 1,
+        },
+        attendances: [
+          {
+            isPresent: false,
+            student_id: 1,
+            time: "19:00",
+          },
+          {
+            isPresent: false,
+            student_id: 1,
+            time: "19:50",
+          },
+          {
+            isPresent: false,
+            student_id: 1,
+            time: "20:50",
+          },
+          {
+            isPresent: false,
+            student_id: 1,
+            time: "21:40",
+          },
+        ],
       },
     ],
+  });
+
+  const handleAttendanceChange = (studentId: number, time: string) => {
+    setData((prevData) => ({
+      ...prevData,
+      students: prevData.students.map((studentData) => {
+        if (studentData.student.id === studentId) {
+          return {
+            ...studentData,
+            attendances: studentData.attendances.map((attendance) => {
+              if (attendance.time === time) {
+                return {
+                  ...attendance,
+                  isPresent: !attendance.isPresent,
+                };
+              }
+              return attendance;
+            }),
+          };
+        }
+        return studentData;
+      }),
+    }));
   };
 
   return (
@@ -49,16 +139,32 @@ const HomePlanningAttendancePage = () => {
       </div>
 
       <table className="flex flex-col divide-y">
-        <th>
-          <td>Aluno</td>
-          {data.schedule.map((e, i) => (
-            <td key={i}>{`${e.start_time}-${e.end_time}`}</td>
-          ))}
-        </th>
+        <thead>
+          <tr>
+            <th>Aluno</th>
+            {data.schedule.map((e, i) => (
+              <th key={i}>{`${e.start_time}-${e.end_time}`}</th>
+            ))}
+          </tr>
+        </thead>
         <tbody>
-          {data.students.map((student, i) => (
-            <tr key={i}>
-              <td>{student.studentName}</td>
+          {data.students.map((studentData) => (
+            <tr key={studentData.student.id}>
+              <td>{studentData.student.name}</td>
+
+              {studentData.attendances.map((attendance, i) => (
+                <td key={i}>
+                  <Checkbox
+                    checked={attendance.isPresent}
+                    onCheckedChange={() =>
+                      handleAttendanceChange(
+                        studentData.student.id,
+                        attendance.time,
+                      )
+                    }
+                  />
+                </td>
+              ))}
             </tr>
           ))}
         </tbody>

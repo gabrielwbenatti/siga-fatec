@@ -14,9 +14,13 @@ class ClassesAttendanceService {
     const pivot = students.map((stud) => {
       const result = {
         student: { name: `${stud.first_name} ${stud.last_name}`, id: stud.id },
-        attendances: schedule.map((sched) =>
-          stud.plans_attendance.some((p) => p.class_schedule_id === sched.id)
-        ),
+        attendances: schedule.map((sched) => ({
+          isPresent: stud.plans_attendance.some(
+            (p) => p.class_schedule_id === sched.id
+          ),
+          student_id: stud.id,
+          time: sched.start_time,
+        })),
       };
       return result;
     });
