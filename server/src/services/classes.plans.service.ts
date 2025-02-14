@@ -2,7 +2,7 @@ import db from "../config/database";
 
 class ClassesPlansServices {
   getClassesPlans = async (classId: number) => {
-    const result = await db.class_planning.findMany({
+    const result = await db.class_plans.findMany({
       select: {
         id: true,
         planned_date: true,
@@ -23,7 +23,7 @@ class ClassesPlansServices {
   };
 
   storeClassPlans = async (body: any) => {
-    const result = await db.class_planning.create({
+    const result = await db.class_plans.create({
       data: {
         class_id: body.class_id,
         title: body.title,
@@ -36,16 +36,16 @@ class ClassesPlansServices {
     return result;
   };
 
-  showClassPlans = async (planningId: number) => {
-    const result = await db.class_planning.findFirst({
-      where: { id: planningId },
+  showClassPlans = async (plansId: number) => {
+    const result = await db.class_plans.findFirst({
+      where: { id: plansId },
     });
 
     return result;
   };
 
   updateClassPlaning = async (body: any) => {
-    const result = await db.class_planning.update({
+    const result = await db.class_plans.update({
       data: {
         class_id: body.class_id,
         title: body.title,

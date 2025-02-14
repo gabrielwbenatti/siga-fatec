@@ -1,0 +1,15 @@
+meta {
+  name: index attendances
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}{{classesEndpoint}}{{classesAttendancesEndpoint}}
+  body: none
+  auth: none
+}
+
+headers {
+  class-id: 2
+}

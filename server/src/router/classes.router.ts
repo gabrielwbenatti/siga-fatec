@@ -3,6 +3,7 @@ import classesMaterialsController from "../controllers/classes.materials.control
 import classesController from "../controllers/classes.controller";
 import classesPlansController from "../controllers/classes.plans.controller";
 import classesStudentsController from "../controllers/classes.students.controller";
+import classesAttendancesController from "../controllers/classes.attendances.controller";
 
 const classesRouter = Router();
 
@@ -11,15 +12,20 @@ classesRouter
   .post("/", classesController.createClass);
 
 classesRouter
-  .get("/planning", classesPlansController.getClassesPlans)
-  .post("/planning", classesPlansController.storeClassPlans)
-  .get("/planning/:id", classesPlansController.showClassPlans)
-  .put("/planning", classesPlansController.updateClassPlaning);
+  .get("/plans", classesPlansController.getClassesPlans)
+  .post("/plans", classesPlansController.storeClassPlans)
+  .get("/plans/:id", classesPlansController.showClassPlans)
+  .put("/plans", classesPlansController.updateClassPlaning);
 
 classesRouter
   .get("/materials", classesMaterialsController.getClassesMaterials)
   .post("/materials", classesMaterialsController.createClassesMaterials);
 
 classesRouter.get("/students", classesStudentsController.getClassesStudents);
+
+classesRouter.get(
+  "/attendances",
+  classesAttendancesController.getPlansAttendances
+);
 
 export default classesRouter;

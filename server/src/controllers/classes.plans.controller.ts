@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import classesPlansService from "../services/classes.planning.service";
+import classesPlansService from "../services/classes.plans.service";
 
 class ClassesPlansController {
   getClassesPlans = async (req: Request, res: Response) => {
