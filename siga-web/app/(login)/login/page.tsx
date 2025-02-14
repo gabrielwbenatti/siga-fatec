@@ -5,17 +5,14 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import api from "@/config/axiosInstance";
 import { ROUTES } from "@/config/routes";
-import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 
 interface FormData {
   email: string;
@@ -24,19 +21,15 @@ interface FormData {
 
 const LoginPage = () => {
   const router = useRouter();
-  const auth = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // Prevents the form from submitting
+    e.preventDefault();
 
-    await auth.signIn({ email, password }).then(() => {
-      if (auth.teacher !== null) {
-        router.push(ROUTES.CLASS_SELECTION);
-      }
-    });
+    router.push(ROUTES.CLASS_SELECTION);
+    return;
   };
 
   return (

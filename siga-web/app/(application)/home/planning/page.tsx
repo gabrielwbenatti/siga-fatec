@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/config/routes";
-import { CircleChevronRight } from "lucide-react";
+import { CircleChevronRight, ListCheck } from "lucide-react";
 
 const HomePlanningPage = () => {
   const data = [
@@ -45,11 +45,18 @@ const HomePlanningPage = () => {
               <span className="text-sm">{e.description || e.title}</span>
             </div>
 
-            <a href="#">
-              <Button variant="outline" size="icon">
-                <CircleChevronRight />
-              </Button>
-            </a>
+            <div className="flex gap-1">
+              <a href={ROUTES.PLANNING.ATTENDACE}>
+                <Button variant="outline">
+                  <ListCheck /> Registrar Presenças
+                </Button>
+              </a>
+              <a href="#">
+                <Button variant="outline" size="icon">
+                  <CircleChevronRight />
+                </Button>
+              </a>
+            </div>
           </div>
         ))}
       </div>

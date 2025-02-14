@@ -10,11 +10,9 @@ import {
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import api from "@/config/axiosInstance";
 import { ROUTES } from "@/config/routes";
-import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface ClassDTO {
   id: number;
@@ -30,27 +28,32 @@ interface ClassDTO {
 
 const ClassSelectionPage = () => {
   const router = useRouter();
-  const auth = useAuth();
 
   const [selected, setSelected] = useState<ClassDTO | null>(null);
-  const [data, setData] = useState<ClassDTO[] | null>(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await api.get("/classes", {
-          headers: { "teacher-id": auth.teacher?.id },
-        });
-
-        if (res.status === 200) {
-          console.log(res.data);
-          setData(res.data);
-        }
-      } catch (error) {}
-    };
-
-    fetchData();
-  }, []);
+  const data: ClassDTO[] = [
+    {
+      id: 1,
+      discipline: {
+        id: 1,
+        name: "Programação Web",
+        abbreviation: "pweb",
+        course_id: 1,
+      },
+      semester: 1,
+      year: 2025,
+    },
+    {
+      id: 2,
+      discipline: {
+        id: 2,
+        name: "Engenharia de Software",
+        abbreviation: "engsoft",
+        course_id: 1,
+      },
+      semester: 1,
+      year: 2025,
+    },
+  ];
 
   const handleSelectItem = (e: ClassDTO) => {
     if (e != selected) {
@@ -59,7 +62,6 @@ const ClassSelectionPage = () => {
   };
 
   const handleSubmit = () => {
-    auth.setClass();
     router.push(ROUTES.HOME);
   };
 

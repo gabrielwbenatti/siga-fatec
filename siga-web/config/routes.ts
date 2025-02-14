@@ -6,6 +6,8 @@ export const ROUTES = {
   PLANNING: {
     LIST: "/home/planning",
     CREATE: "/home/planning/new",
+
+    ATTENDACE: "/home/planning/attendance",
   },
   MATERIALS: {
     LIST: "/home/materials",
