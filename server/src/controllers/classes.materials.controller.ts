@@ -4,6 +4,8 @@ import classesMaterialsService from "../services/classes.materials.service";
 
 class ClassesMaterialsController {
   getClassesMaterials = async (req: Request, res: Response) => {
+    console.log("getClassesMaterials", req.headers["class-id"]);
+
     if (!req.headers["class-id"]) {
       res.status(500).json({ message: "Class not defined " });
     }
@@ -17,6 +19,8 @@ class ClassesMaterialsController {
   };
 
   createClassesMaterials = async (req: Request, res: Response) => {
+    console.log("createClassesMaterials", req.headers["class-id"]);
+
     const body = req.body;
     const result = await classesMaterialsService.createClassesMaterials(body);
 

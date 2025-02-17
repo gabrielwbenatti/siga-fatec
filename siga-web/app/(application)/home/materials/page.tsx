@@ -1,34 +1,34 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
+import api from "@/config/axiosInstance";
 import { ROUTES } from "@/config/routes";
+import ClassMaterial from "@/types/ClassMaterial";
 import { DownloadCloudIcon } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const HomeMaterialsPage = () => {
-  const data = [
-    {
-      id: 1,
-      title: "Modelo Trabalho",
-      description: "Trabalho de graduação",
-      file_format: "docx",
-      file_url: "",
-      list_index: 0,
-    },
-    {
-      id: 2,
-      title: "Conceitos Básicos",
-      description: "",
-      file_format: "pdf",
-      file_url: "",
-      list_index: 1,
-    },
-    {
-      id: 3,
-      title: "Reforço",
-      description: "",
-      file_format: "docx",
-      file_url: "",
-      list_index: 2,
-    },
-  ];
+  const [loading, setLoading] = useState<boolean>(true);
+  const [data, setData] = useState<ClassMaterial[] | null>(null);
+
+  useEffect(() => {
+    async function loadClassMaterialsData() {
+      try {
+        setLoading(true);
+        const res = await api.get("/classes/materials");
+        setData(res.data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadClassMaterialsData();
+  }, []);
+
+  if (loading) {
+    return <div>Carregando....</div>;
+  }
 
   return (
     <div className="space-y-4 p-4">
@@ -40,7 +40,7 @@ const HomeMaterialsPage = () => {
       </div>
 
       <div className="flex flex-col divide-y">
-        {data.map((e, i) => (
+        {data?.map((e, i) => (
           <div
             className="flex items-center justify-between rounded-lg p-2 hover:bg-primary/10"
             key={i}
