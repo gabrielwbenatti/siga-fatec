@@ -14,6 +14,17 @@ class ClassesMaterialsService {
 
     return result;
   };
+
+  showClassMaterial = async (id: number, classId: number) => {
+    const result = await db.class_materials.findFirst({
+      where: {
+        id: id,
+        class_id: classId,
+      },
+    });
+
+    return result;
+  };
 }
 
 export default new ClassesMaterialsService();

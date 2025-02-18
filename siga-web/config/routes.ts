@@ -12,5 +12,6 @@ export const ROUTES = {
   MATERIALS: {
     LIST: "/home/materials",
     CREATE: "/home/materials/new",
+    EDIT: (id: number) => `/home/materials/${id}/edit`,
   },
 } as const;

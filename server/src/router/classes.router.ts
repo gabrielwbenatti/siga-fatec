@@ -19,7 +19,8 @@ classesRouter
 
 classesRouter
   .get("/materials", classesMaterialsController.getClassesMaterials)
-  .post("/materials", classesMaterialsController.createClassesMaterials);
+  .post("/materials", classesMaterialsController.createClassesMaterials)
+  .get("/materials/:id", classesMaterialsController.showClassMaterial);
 
 classesRouter.get("/students", classesStudentsController.getClassesStudents);
 
