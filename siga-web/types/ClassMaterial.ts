@@ -4,7 +4,7 @@ interface ClassMaterial {
   description?: string;
   file_format?: string;
   file_url?: string;
-  list_index?: number;
+  list_index: number;
   class_id: number;
 }
 
