@@ -4,10 +4,11 @@ import { Button } from "@/components/ui/button";
 import api from "@/config/axiosInstance";
 import { ROUTES } from "@/config/routes";
 import ClassMaterial from "@/types/ClassMaterial";
-import { ArrowDownUp, DownloadCloudIcon } from "lucide-react";
+import { ArrowDownUp, DownloadCloudIcon, Trash2 } from "lucide-react";
 import { FC, ReactNode, Ref, useEffect, useState } from "react";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { toast } from "sonner";
 
 interface DraggableItemProps {
   item: ClassMaterial;
@@ -99,6 +100,19 @@ const HomeMaterialsPage = () => {
     setData(newItems);
   };
 
+  const handleDelete = async (id: number) => {
+    await api.delete(`/classes/materials/${id}`).then((res) => {
+      if (res.status !== 200) return;
+
+      toast("Item removido com sucesso", {
+        position: "top-right",
+      });
+    });
+
+    const res = await api.get("/classes/materials");
+    setData(res.data);
+  };
+
   if (loading) {
     return <div>loading....</div>;
   }
@@ -146,9 +160,19 @@ const HomeMaterialsPage = () => {
                   )}
                 </div>
 
-                <Button variant="outline" size="icon">
-                  <DownloadCloudIcon />
-                </Button>
+                <div className="flex gap-1.5">
+                  <Button
+                    variant="destructive"
+                    size="icon"
+                    onClick={() => handleDelete(e.id!)}
+                  >
+                    <Trash2 />
+                  </Button>
+
+                  <Button variant="outline" size="icon">
+                    <DownloadCloudIcon />
+                  </Button>
+                </div>
               </div>
             ))
           )}
