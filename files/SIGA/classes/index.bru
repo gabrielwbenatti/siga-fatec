@@ -1,0 +1,20 @@
+meta {
+  name: index
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}{{classesEndpoint}}
+  body: none
+  auth: bearer
+}
+
+headers {
+  User-Agent: insomnia/9.3.1
+  teacher-id: 1
+}
+
+auth:bearer {
+  token: 
+}

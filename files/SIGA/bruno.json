@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "SIGA",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

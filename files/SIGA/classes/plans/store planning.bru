@@ -1,0 +1,25 @@
+meta {
+  name: store planning
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseUrl}}{{classesEndpoint}}{{classesPlansEndpoint}}
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  User-Agent: insomnia/9.3.2
+}
+
+body:json {
+  {
+    "class_id": 2,
+    "title": "Introdução de Redes",
+    "description": null,
+    "planned_date": "2025-02-17"
+  }
+}

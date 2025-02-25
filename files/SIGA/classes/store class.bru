@@ -1,0 +1,20 @@
+meta {
+  name: store class
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}{{classesEndpoint}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "teacher_id": 1,
+    "discipline_id": 19,
+    "semester": 1,
+    "year": 2025
+  }
+}

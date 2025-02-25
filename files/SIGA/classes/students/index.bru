@@ -1,0 +1,19 @@
+meta {
+  name: index
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/classes/students
+  body: none
+  auth: none
+}
+
+headers {
+  class-id: 2
+}
+
+body:json {
+  {}
+}

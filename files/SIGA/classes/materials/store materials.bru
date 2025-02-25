@@ -1,0 +1,26 @@
+meta {
+  name: store materials
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/classes/materials
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  User-Agent: insomnia/9.3.2
+}
+
+body:json {
+  {
+    "class_id": 2,
+    "title": "Projeto Reds - pt1",
+    "description": null,
+    "file_format": "pdf",
+    "file_url": null
+  }
+}
