@@ -1,8 +1,8 @@
 import db from "../config/database";
 import * as bcrypt from "bcrypt";
 
-class LoginService {
-  login = async (body: any) => {
+class AuthService {
+  signIn = async (body: any) => {
     const user = await db.users.findFirst({
       include: { teacher: true },
       where: {
@@ -24,4 +24,4 @@ class LoginService {
   };
 }
 
-export default new LoginService();
+export default new AuthService();
