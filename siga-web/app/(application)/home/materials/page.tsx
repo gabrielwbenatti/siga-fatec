@@ -104,17 +104,19 @@ const HomeMaterialsPage = () => {
     await api.delete(`/classes/materials/${id}`).then((res) => {
       if (res.status !== 200) return;
 
-      toast("Item removido com sucesso", {
-        position: "top-right",
-      });
+      toast("Item removido com sucesso");
     });
 
     const res = await api.get("/classes/materials");
     setData(res.data);
   };
 
+  const handleDownload = () => {
+    toast("Em breve");
+  };
+
   if (loading) {
-    return <div>loading....</div>;
+    return <div>Loading....</div>;
   }
 
   return (
@@ -125,7 +127,10 @@ const HomeMaterialsPage = () => {
           <div className="flex gap-1.5">
             <Button
               variant="secondary"
-              onClick={() => setReordering(!reordering)}
+              onClick={() => {
+                toast("Em breve");
+                // setReordering(!reordering);
+              }}
             >
               <ArrowDownUp /> Reordenar
             </Button>
@@ -136,47 +141,55 @@ const HomeMaterialsPage = () => {
           </div>
         </div>
 
-        <div className="flex flex-col divide-y">
-          {reordering ? (
-            <DraggableArea onDrop={() => {}}>
-              {data?.map((e, i) => (
-                <DraggableItem
-                  item={{ ...e, list_index: i }}
-                  moveItem={moveItem}
+        {data?.length === 0 ? (
+          <div>Nenhuma informação para ser exibida.</div>
+        ) : (
+          <div className="flex flex-col divide-y">
+            {reordering ? (
+              <DraggableArea onDrop={() => {}}>
+                {data?.map((e, i) => (
+                  <DraggableItem
+                    item={{ ...e, list_index: i }}
+                    moveItem={moveItem}
+                    key={i}
+                  />
+                ))}
+              </DraggableArea>
+            ) : (
+              data?.map((e, i) => (
+                <div
+                  className="flex items-center justify-between rounded-lg p-2 hover:bg-primary/10"
                   key={i}
-                />
-              ))}
-            </DraggableArea>
-          ) : (
-            data?.map((e, i) => (
-              <div
-                className="flex items-center justify-between rounded-lg p-2 hover:bg-primary/10"
-                key={i}
-              >
-                <div className="flex flex-col gap-1.5">
-                  <a href={ROUTES.MATERIALS.EDIT(e.id!)}>{e.title}</a>
-                  {e.description && (
-                    <span className="text-sm">{e.description}</span>
-                  )}
-                </div>
+                >
+                  <div className="flex flex-col gap-1.5">
+                    <a href={ROUTES.MATERIALS.EDIT(e.id!)}>{e.title}</a>
+                    {e.description && (
+                      <span className="text-sm">{e.description}</span>
+                    )}
+                  </div>
 
-                <div className="flex gap-1.5">
-                  <Button
-                    variant="destructive"
-                    size="icon"
-                    onClick={() => handleDelete(e.id!)}
-                  >
-                    <Trash2 />
-                  </Button>
+                  <div className="flex gap-1.5">
+                    <Button
+                      variant="destructive"
+                      size="icon"
+                      onClick={() => handleDelete(e.id!)}
+                    >
+                      <Trash2 />
+                    </Button>
 
-                  <Button variant="outline" size="icon">
-                    <DownloadCloudIcon />
-                  </Button>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={() => handleDownload()}
+                    >
+                      <DownloadCloudIcon />
+                    </Button>
+                  </div>
                 </div>
-              </div>
-            ))
-          )}
-        </div>
+              ))
+            )}
+          </div>
+        )}
       </div>
     </DndProvider>
   );
