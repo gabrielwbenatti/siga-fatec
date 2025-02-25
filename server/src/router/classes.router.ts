@@ -20,7 +20,9 @@ classesRouter
 classesRouter
   .get("/materials", classesMaterialsController.getClassesMaterials)
   .post("/materials", classesMaterialsController.createClassesMaterials)
-  .get("/materials/:id", classesMaterialsController.showClassMaterial);
+  .get("/materials/:id", classesMaterialsController.showClassMaterial)
+  .delete("/materials/:id", classesMaterialsController.deleteClassMaterial)
+  .put("/materials/:id", classesMaterialsController.updateClassMaterial);
 
 classesRouter.get("/students", classesStudentsController.getClassesStudents);
 
