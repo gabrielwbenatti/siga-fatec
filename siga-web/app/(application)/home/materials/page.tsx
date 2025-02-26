@@ -5,7 +5,7 @@ import api from "@/config/axiosInstance";
 import { ROUTES } from "@/config/routes";
 import ClassMaterial from "@/types/ClassMaterial";
 import { ArrowDownUp, DownloadCloudIcon, Trash2 } from "lucide-react";
-import { FC, ReactNode, Ref, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const HomeMaterialsPage = () => {
@@ -91,7 +91,7 @@ const HomeMaterialsPage = () => {
           {reordering
             ? data?.map((e, i) => (
                 <div
-                  className="flex select-none items-center rounded-lg p-2"
+                  className="flex items-center rounded-lg p-2 select-none"
                   key={i}
                 >
                   {`(${e.list_index}) - ${e.title}`}
@@ -99,7 +99,7 @@ const HomeMaterialsPage = () => {
               ))
             : data?.map((e, i) => (
                 <div
-                  className="flex items-center justify-between rounded-lg p-2 hover:bg-primary/10"
+                  className="hover:bg-primary/10 flex items-center justify-between rounded-lg p-2"
                   key={i}
                 >
                   <div className="flex flex-col gap-1.5">
