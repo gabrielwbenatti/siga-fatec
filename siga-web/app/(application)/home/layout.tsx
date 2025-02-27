@@ -8,7 +8,7 @@ const HomeLayout = ({
 }>) => {
   const routes = [
     { caption: "Início", href: ROUTES.HOME },
-    { caption: "Planejamento", href: ROUTES.PLANNING.LIST },
+    { caption: "Planejamento", href: ROUTES.PLANS.LIST },
     { caption: "Materiais de Aula", href: ROUTES.MATERIALS.LIST },
   ];
 

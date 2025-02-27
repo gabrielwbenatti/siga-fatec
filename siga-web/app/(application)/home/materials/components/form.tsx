@@ -1,6 +1,6 @@
 import InputWrapper from "@/components/Siga/InputWrapper";
 import TitleBar from "@/components/Siga/TitleBar";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -9,9 +9,9 @@ import api from "@/config/axiosInstance";
 import { ROUTES } from "@/config/routes";
 import ClassMaterial from "@/types/ClassMaterial";
 import { extractFileExtension } from "@/utils/file_helper";
-import { AlertCircle } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
+import { toast } from "sonner";
 
 interface HomeMaterialsFormProps {
   isEditMode: boolean;
@@ -21,8 +21,8 @@ const HomeMaterialsForm: FC<HomeMaterialsFormProps> = ({
   isEditMode = true,
 }: HomeMaterialsFormProps) => {
   const { id } = useParams<{ id: string }>();
-
   const router = useRouter();
+
   const [loading, setLoading] = useState<boolean>(isEditMode);
   const [error, setError] = useState<string | null>(null);
 
@@ -78,8 +78,9 @@ const HomeMaterialsForm: FC<HomeMaterialsFormProps> = ({
       }
 
       router.push(ROUTES.MATERIALS.LIST);
+      toast.info("Material cadastrado com sucesso");
     } catch (error) {
-      setError("Erro ao salvar o material. Tente novamente.");
+      toast.error("Erro ao salvar o material. Tente novamente.");
       console.log(error);
     }
   };
