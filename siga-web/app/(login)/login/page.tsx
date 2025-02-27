@@ -14,11 +14,6 @@ import { ROUTES } from "@/config/routes";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 
-interface FormData {
-  email: string;
-  password: string;
-}
-
 const LoginPage = () => {
   const router = useRouter();
 

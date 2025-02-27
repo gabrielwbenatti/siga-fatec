@@ -42,6 +42,7 @@ const HomePlansPage = () => {
       await loadClassPlansData();
     } catch (error) {
       toast.error("Ocorreu um erro ao excluir, tente novamente mais tarde");
+      console.log(error);
     }
   };
 
