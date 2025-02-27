@@ -4,29 +4,36 @@ export function formatDate(
 ): string | undefined {
   if (!date) return undefined;
 
-  let dateObj: Date;
+  let parts: number[] = [];
 
   if (typeof date === "string") {
-    dateObj = new Date(date + "T00:00:00Z");
+    if (date.includes("T") || date.includes("-")) {
+      const dateParts = date.split("T")[0].split("-");
+      if (dateParts.length === 3) {
+        const [year, month, day] = dateParts;
+        parts = [parseInt(year), parseInt(month), parseInt(day)];
+      }
+    }
   } else if (date instanceof Date) {
-    dateObj = date;
-  } else {
+    parts = [
+      date.getUTCFullYear(),
+      date.getUTCMonth() + 1, // Em JS o Mês começa em 0
+      date.getUTCDate(),
+    ];
+  }
+
+  if (parts.length !== 3 || parts.some(isNaN)) {
     return undefined;
   }
 
-  if (format === "input") {
-    const year = dateObj.getFullYear();
-    const month = String(dateObj.getMonth()).padStart(2, "0");
-    const day = String(dateObj.getDate()).padStart(2, "0");
-    return `${year}/${month}/${day}`;
-  }
+  const [year, month, day] = parts;
 
-  if (format === "pt-BR") {
-    const day = String(dateObj.getDate()).padStart(2, "0");
-    const month = String(dateObj.getMonth()).padStart(2, "0");
-    const year = dateObj.getFullYear();
-    return `${day}/${month}/${year}`;
+  switch (format) {
+    case "input": {
+      return `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+    }
+    case "pt-BR": {
+      return `${String(day).padStart(2, "0")}/${String(month).padStart(2, "0")}/${year}`;
+    }
   }
-
-  return undefined;
 }
