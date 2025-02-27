@@ -17,7 +17,7 @@ interface DataDTO {
   }[];
 }
 
-const HomePlanningAttendancePage = () => {
+const HomePlansAttendancePage = () => {
   const [data, setData] = useState({
     schedule: [
       {
@@ -173,4 +173,4 @@ const HomePlanningAttendancePage = () => {
   );
 };
 
-export default HomePlanningAttendancePage;
+export default HomePlansAttendancePage;

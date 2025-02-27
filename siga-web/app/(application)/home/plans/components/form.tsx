@@ -1,11 +1,15 @@
+import TitleBar from "@/components/Siga/TitleBar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import api from "@/config/axiosInstance";
+import { ROUTES } from "@/config/routes";
 import ClassPlan from "@/types/ClassPlan";
+import { formatDate } from "@/utils/string_helper";
 import { useParams, useRouter } from "next/navigation";
-import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
+import { FC, FormEvent, useEffect, useState } from "react";
+import { toast } from "sonner";
 
 interface HomePlansFormProps {
   isEditMode: boolean;
@@ -24,6 +28,7 @@ const HomePlansForm: FC<HomePlansFormProps> = ({
   const [formData, setFormData] = useState<ClassPlan>({
     class_id: 2,
     title: "",
+    planned_date: "",
   });
 
   useEffect(() => {
@@ -47,15 +52,33 @@ const HomePlansForm: FC<HomePlansFormProps> = ({
     }
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    try {
+      e.preventDefault();
 
-    console.log(formData);
+      if (isEditMode) {
+        await api.put(`/classes/plans/${id}`, formData);
+      } else {
+        await api.post("/classes/plans", formData);
+      }
+
+      router.push(ROUTES.PLANS.LIST);
+      toast.info("Planejamento criado com sucesso");
+    } catch (error) {
+      toast.error("Erro ao salvar o planejamento. Tente novamente.");
+      console.log(error);
+    }
   };
+
+  if (loading) {
+    return <h1>Carregando...</h1>;
+  }
 
   return (
     <div className="space-y-4 p-4">
-      <h1 className="text-2xl font-bold">Criar Novo Planejamento</h1>
+      <TitleBar
+        title={isEditMode ? `${plan?.title}` : "Criar Novo Planejamento"}
+      />
 
       <form
         onSubmit={handleSubmit}
@@ -66,6 +89,7 @@ const HomePlansForm: FC<HomePlansFormProps> = ({
           <Label>Título da Aula</Label>
           <Input
             placeholder="Título da Aula"
+            value={formData.title}
             onChange={(e) =>
               setFormData((prev) => ({ ...prev, title: e.target.value }))
             }
@@ -76,6 +100,7 @@ const HomePlansForm: FC<HomePlansFormProps> = ({
           <Label>Descrição da Aula</Label>
           <Textarea
             placeholder="Descrição da Aula"
+            value={formData.description || ""}
             onChange={(e) =>
               setFormData((prev) => ({ ...prev, description: e.target.value }))
             }
@@ -84,12 +109,24 @@ const HomePlansForm: FC<HomePlansFormProps> = ({
 
         <div className="flex flex-col gap-1.5">
           <Label>Data Planejada</Label>
-          <Input type="date" />
+          <Input
+            type="date"
+            value={formatDate(formData.planned_date, "input") || ""}
+            onChange={(e) =>
+              setFormData((prev) => ({ ...prev, planned_date: e.target.value }))
+            }
+          />
         </div>
 
         <div className="flex flex-col gap-1.5">
           <Label>Data Aplicada</Label>
-          <Input type="date" />
+          <Input
+            type="date"
+            value={formatDate(formData.applied_date, "input") || ""}
+            onChange={(e) =>
+              setFormData((prev) => ({ ...prev, applied_date: e.target.value }))
+            }
+          />
         </div>
 
         <div className="flex">

@@ -2,8 +2,8 @@
 
 import HomePlansForm from "../components/form";
 
-const HomePlanningPage = () => {
+const HomePlansPage = () => {
   return <HomePlansForm isEditMode={false} />;
 };
 
-export default HomePlanningPage;
+export default HomePlansPage;
