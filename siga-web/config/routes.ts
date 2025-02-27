@@ -3,11 +3,12 @@ export const ROUTES = {
   CLASS_SELECTION: "/class-selection",
 
   HOME: "/home",
-  PLANNING: {
-    LIST: "/home/planning",
-    CREATE: "/home/planning/new",
+  PLANS: {
+    LIST: "/home/plans",
+    CREATE: "/home/plans/new",
+    EDIT: (id: number) => `/home/plans/${id}/edit`,
 
-    ATTENDACE: "/home/planning/attendance",
+    ATTENDACE: "/home/plans/attendance",
   },
   MATERIALS: {
     LIST: "/home/materials",

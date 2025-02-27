@@ -48,7 +48,7 @@ const HomeMaterialsPage = () => {
     await api.delete(`/classes/materials/${id}`).then((res) => {
       if (res.status !== 200) return;
 
-      toast("Item removido com sucesso");
+      toast.success("Item removido com sucesso");
     });
 
     const res = await api.get("/classes/materials");
@@ -56,7 +56,7 @@ const HomeMaterialsPage = () => {
   };
 
   const handleDownload = () => {
-    toast("Em breve");
+    toast.info("Em breve");
   };
 
   if (loading) {
@@ -71,7 +71,7 @@ const HomeMaterialsPage = () => {
           <Button
             variant="secondary"
             onClick={() => {
-              toast("Em breve");
+              toast.info("Em breve");
               // setReordering(!reordering);
             }}
           >
@@ -91,7 +91,7 @@ const HomeMaterialsPage = () => {
           {reordering
             ? data?.map((e, i) => (
                 <div
-                  className="flex items-center rounded-lg p-2 select-none"
+                  className="flex select-none items-center rounded-lg p-2"
                   key={i}
                 >
                   {`(${e.list_index}) - ${e.title}`}
@@ -99,31 +99,31 @@ const HomeMaterialsPage = () => {
               ))
             : data?.map((e, i) => (
                 <div
-                  className="hover:bg-primary/10 flex items-center justify-between rounded-lg p-2"
+                  className="flex items-center justify-between rounded-lg p-2 hover:bg-primary/10"
                   key={i}
                 >
                   <div className="flex flex-col gap-1.5">
-                    <a href={ROUTES.MATERIALS.EDIT(e.id!)}>{e.title}</a>
+                    <a
+                      className="font-bold"
+                      href={ROUTES.MATERIALS.EDIT(e.id!)}
+                    >
+                      {e.title}
+                    </a>
                     {e.description && (
                       <span className="text-sm">{e.description}</span>
                     )}
                   </div>
 
                   <div className="flex gap-1.5">
+                    <Button variant="outline" onClick={() => handleDownload()}>
+                      <DownloadCloudIcon /> Download
+                    </Button>
                     <Button
                       variant="destructive"
                       size="icon"
                       onClick={() => handleDelete(e.id!)}
                     >
                       <Trash2 />
-                    </Button>
-
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      onClick={() => handleDownload()}
-                    >
-                      <DownloadCloudIcon />
                     </Button>
                   </div>
                 </div>

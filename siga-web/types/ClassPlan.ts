@@ -2,8 +2,8 @@ interface ClassPlan {
   id?: number;
   title: string;
   description?: string;
-  planned_date?: Date;
-  applied_date?: Date;
+  planned_date: string;
+  applied_date?: string;
   class_id: number;
 }
 
