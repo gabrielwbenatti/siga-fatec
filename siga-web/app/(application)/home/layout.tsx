@@ -14,17 +14,21 @@ const HomeLayout = ({
 
   return (
     <div className="flex">
-      <ul className="md:w-[250px]">
-        {routes.map((e, i) => (
-          <li
-            className="text-ellipsis rounded-lg p-1 hover:bg-primary/10"
-            key={i}
-          >
-            <a href={e.href}>{e.caption}</a>
-          </li>
-        ))}
-      </ul>
-      <main className="flex-auto">{children}</main>
+      <nav className="md:w-[300px]">
+        <ul className="p-4">
+          {routes.map((e, i) => (
+            <li
+              className="flex text-ellipsis rounded-lg hover:bg-primary/10"
+              key={i}
+            >
+              <a className="w-full p-2" href={e.href}>
+                {e.caption}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <main className="w-full">{children}</main>
     </div>
   );
 };
