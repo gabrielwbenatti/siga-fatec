@@ -15,7 +15,8 @@ classesRouter
   .get("/plans", classesPlansController.getClassesPlans)
   .post("/plans", classesPlansController.storeClassPlans)
   .get("/plans/:id", classesPlansController.showClassPlans)
-  .put("/plans", classesPlansController.updateClassPlaning);
+  .put("/plans/:id", classesPlansController.updateClassPlan)
+  .delete("/plans/:id", classesPlansController.deleteClassPlan);
 
 classesRouter
   .get("/materials", classesMaterialsController.getClassesMaterials)
