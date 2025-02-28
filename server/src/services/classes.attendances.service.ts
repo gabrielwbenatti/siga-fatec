@@ -1,19 +1,25 @@
 import db from "../config/database";
 
 class ClassesAttendanceService {
-  getPlansAttendances = async (classId: number) => {
+  getPlansAttendances = async (classId: number, planId: number) => {
+    const plan = await db.class_plans.findFirst({
+      select: { id: true, title: true, description: true },
+      where: { class_id: classId, id: planId },
+    });
     const schedule = await db.class_schedules.findMany({
+      select: { id: true, start_time: true, end_time: true },
       where: { class_id: classId },
       orderBy: { start_time: "asc" },
     });
     const students = await db.students.findMany({
-      where: { class_students: { every: { class_id: classId } } },
+      where: { class_students: { some: { class_id: classId } } },
       include: { plans_attendance: { include: { class_schedule: true } } },
     });
 
     const pivot = students.map((stud) => {
       const result = {
-        student: { name: `${stud.first_name} ${stud.last_name}`, id: stud.id },
+        name: `${stud.first_name} ${stud.last_name}`,
+        id: stud.id,
         attendances: schedule.map((sched) => ({
           isPresent: stud.plans_attendance.some(
             (p) => p.class_schedule_id === sched.id
@@ -25,7 +31,7 @@ class ClassesAttendanceService {
       return result;
     });
 
-    return { schedule: schedule, students: pivot };
+    return { plan, schedule, students: pivot };
   };
 }
 

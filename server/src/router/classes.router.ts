@@ -16,7 +16,11 @@ classesRouter
   .post("/plans", classesPlansController.storeClassPlans)
   .get("/plans/:id", classesPlansController.showClassPlans)
   .put("/plans/:id", classesPlansController.updateClassPlan)
-  .delete("/plans/:id", classesPlansController.deleteClassPlan);
+  .delete("/plans/:id", classesPlansController.deleteClassPlan)
+  .get(
+    "/plans/:id/attendances",
+    classesAttendancesController.getPlansAttendances
+  );
 
 classesRouter
   .get("/materials", classesMaterialsController.getClassesMaterials)
@@ -26,10 +30,5 @@ classesRouter
   .put("/materials/:id", classesMaterialsController.updateClassMaterial);
 
 classesRouter.get("/students", classesStudentsController.getClassesStudents);
-
-classesRouter.get(
-  "/attendances",
-  classesAttendancesController.getPlansAttendances
-);
 
 export default classesRouter;
