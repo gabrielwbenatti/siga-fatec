@@ -31,7 +31,7 @@ async function main() {
         },
       });
 
-      await prisma.disciplines.create({
+      const pweb = await prisma.disciplines.create({
         data: {
           abbreviation: "pweb",
           name: "Programação Web",
@@ -54,16 +54,6 @@ async function main() {
                       start_time: "19:50",
                       end_time: "20:40",
                     },
-                    {
-                      day_of_week: 6,
-                      start_time: "20:50",
-                      end_time: "21:40",
-                    },
-                    {
-                      day_of_week: 6,
-                      start_time: "21:40",
-                      end_time: "22:30",
-                    },
                   ],
                 },
               },
@@ -72,7 +62,7 @@ async function main() {
         },
       });
 
-      await prisma.disciplines.create({
+      const esoft = await prisma.disciplines.create({
         data: {
           abbreviation: "engsoft",
           name: "Engenharia de Software",
@@ -108,6 +98,61 @@ async function main() {
                   ],
                 },
               },
+            },
+          },
+        },
+      });
+
+      await prisma.students.create({
+        data: {
+          first_name: "Aluno",
+          last_name: "Silva",
+          user: {
+            create: {
+              email: "alunosilva@fatec.sp.gov.br",
+              password: pass,
+              username: "alunosilva",
+            },
+          },
+          class_students: {
+            createMany: {
+              data: [{ class_id: pweb.id }, { class_id: esoft.id }],
+            },
+          },
+        },
+      });
+      await prisma.students.create({
+        data: {
+          first_name: "Aluno",
+          last_name: "Pires",
+          user: {
+            create: {
+              email: "alunopires@fatec.sp.gov.br",
+              password: pass,
+              username: "alunopires",
+            },
+          },
+          class_students: {
+            createMany: {
+              data: [{ class_id: pweb.id }, { class_id: esoft.id }],
+            },
+          },
+        },
+      });
+      await prisma.students.create({
+        data: {
+          first_name: "Aluno",
+          last_name: "Guedes",
+          user: {
+            create: {
+              email: "alunogudedes@fatec.sp.gov.br",
+              password: pass,
+              username: "alunogudedes",
+            },
+          },
+          class_students: {
+            createMany: {
+              data: [{ class_id: pweb.id }, { class_id: esoft.id }],
             },
           },
         },
