@@ -8,7 +8,7 @@ export const ROUTES = {
     CREATE: "/home/plans/new",
     EDIT: (id: number) => `/home/plans/${id}/edit`,
 
-    ATTENDACE: "/home/plans/attendance",
+    ATTENDACE: (id: number) => `/home/plans/${id}/attendance`,
   },
   MATERIALS: {
     LIST: "/home/materials",
