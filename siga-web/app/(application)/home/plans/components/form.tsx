@@ -100,6 +100,7 @@ const HomePlansForm: FC<HomePlansFormProps> = ({
           <Label>Descrição da Aula</Label>
           <Textarea
             placeholder="Descrição da Aula"
+            rows={6}
             value={formData.description || ""}
             onChange={(e) =>
               setFormData((prev) => ({ ...prev, description: e.target.value }))
