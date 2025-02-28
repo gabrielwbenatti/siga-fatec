@@ -21,9 +21,10 @@ class ClassesAttendanceService {
         name: `${stud.first_name} ${stud.last_name}`,
         id: stud.id,
         attendances: schedule.map((sched) => ({
-          isPresent: stud.plans_attendance.some(
-            (p) => p.class_schedule_id === sched.id
-          ),
+          isPresent:
+            stud.plans_attendance.some(
+              (p) => p.class_schedule_id === sched.id
+            ) || true,
           student_id: stud.id,
           time: sched.start_time,
         })),
