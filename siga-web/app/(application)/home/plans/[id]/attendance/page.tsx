@@ -82,13 +82,13 @@ const HomePlansAttendancePage = () => {
           <p className="line-clamp-1 text-sm">{classAtt.plan.description}</p>
         </>
       )}
-      {data && data.schedule.length > 0 && data.students.length > 0 ? (
+      {data && data.schedules.length > 0 && data.students.length > 0 ? (
         <>
           <Table>
             <TableHeader>
               <TableRow>
                 <TableHead>Aluno</TableHead>
-                {data.schedule.map((schedule) => (
+                {data.schedules.map((schedule) => (
                   <TableHead
                     key={schedule.start_time}
                     className="text-center"

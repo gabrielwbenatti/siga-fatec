@@ -14,6 +14,7 @@ interface Attendance {
   isPresent: boolean;
   student_id: number;
   time: string;
+  schedule_id: number;
 }
 
 interface Student {
@@ -24,7 +25,7 @@ interface Student {
 
 interface ClassAttendance {
   plan: Plan;
-  schedule: Schedule[];
+  schedules: Schedule[];
   students: Student[];
 }
 

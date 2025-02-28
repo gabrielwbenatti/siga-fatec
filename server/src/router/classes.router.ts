@@ -20,6 +20,10 @@ classesRouter
   .get(
     "/plans/:id/attendances",
     classesAttendancesController.getPlansAttendances
+  )
+  .post(
+    "/plans/:id/attendances",
+    classesAttendancesController.storePlanAttendances
   );
 
 classesRouter

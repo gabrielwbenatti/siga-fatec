@@ -6,7 +6,7 @@ class ClassesAttendanceService {
       select: { id: true, title: true, description: true },
       where: { class_id: classId, id: planId },
     });
-    const schedule = await db.class_schedules.findMany({
+    const schedules = await db.class_schedules.findMany({
       select: { id: true, start_time: true, end_time: true },
       where: { class_id: classId },
       orderBy: { start_time: "asc" },
@@ -20,20 +20,25 @@ class ClassesAttendanceService {
       const result = {
         name: `${stud.first_name} ${stud.last_name}`,
         id: stud.id,
-        attendances: schedule.map((sched) => ({
+        attendances: schedules.map((sched) => ({
           isPresent:
             stud.plans_attendance.some(
               (p) => p.class_schedule_id === sched.id
             ) || true,
           student_id: stud.id,
           time: sched.start_time,
+          schedule_id: sched.id,
         })),
       };
       return result;
     });
 
-    return { plan, schedule, students: pivot };
+    return { plan, schedules, students: pivot };
   };
+
+  async storePlanAttendances(classId: number, planId: number, body: any) {
+    const { plan, students } = body;
+  }
 }
 
 export default new ClassesAttendanceService();

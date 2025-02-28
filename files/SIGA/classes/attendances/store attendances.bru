@@ -1,0 +1,127 @@
+meta {
+  name: store attendances
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}{{classesEndpoint}}{{classesPlansEndpoint}}/1{{classesAttendancesEndpoint}}
+  body: json
+  auth: none
+}
+
+headers {
+  class-id: 2
+}
+
+body:json {
+  {
+    "plan": {
+      "id": 1,
+      "title": "Aula inaugural",
+      "description": "Apresentação da ementa e atividades avaliativas"
+    },
+    "schedules": [
+      {
+        "id": 5,
+        "start_time": "19:00",
+        "end_time": "19:50"
+      },
+      {
+        "id": 6,
+        "start_time": "19:50",
+        "end_time": "20:40"
+      },
+      {
+        "id": 7,
+        "start_time": "20:50",
+        "end_time": "21:40"
+      },
+      {
+        "id": 8,
+        "start_time": "21:40",
+        "end_time": "22:30"
+      }
+    ],
+    "students": [
+      {
+        "name": "Aluno Silva",
+        "id": 1,
+        "attendances": [
+          {
+            "isPresent": true,
+            "student_id": 1,
+            "time": "19:00"
+          },
+          {
+            "isPresent": true,
+            "student_id": 1,
+            "time": "19:50"
+          },
+          {
+            "isPresent": false,
+            "student_id": 1,
+            "time": "20:50"
+          },
+          {
+            "isPresent": false,
+            "student_id": 1,
+            "time": "21:40"
+          }
+        ]
+      },
+      {
+        "name": "Aluno Pires",
+        "id": 2,
+        "attendances": [
+          {
+            "isPresent": true,
+            "student_id": 2,
+            "time": "19:00"
+          },
+          {
+            "isPresent": true,
+            "student_id": 2,
+            "time": "19:50"
+          },
+          {
+            "isPresent": true,
+            "student_id": 2,
+            "time": "20:50"
+          },
+          {
+            "isPresent": false,
+            "student_id": 2,
+            "time": "21:40"
+          }
+        ]
+      },
+      {
+        "name": "Aluno Gonçalves",
+        "id": 3,
+        "attendances": [
+          {
+            "isPresent": true,
+            "student_id": 3,
+            "time": "19:00"
+          },
+          {
+            "isPresent": true,
+            "student_id": 3,
+            "time": "19:50"
+          },
+          {
+            "isPresent": true,
+            "student_id": 3,
+            "time": "20:50"
+          },
+          {
+            "isPresent": false,
+            "student_id": 3,
+            "time": "21:40"
+          }
+        ]
+      }
+    ]
+  }
+}
