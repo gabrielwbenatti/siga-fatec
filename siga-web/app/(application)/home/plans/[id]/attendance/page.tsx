@@ -23,6 +23,7 @@ const HomePlansAttendancePage = () => {
   const [classAtt, setClassAtt] = useState<ClassAttendance | undefined>(
     undefined,
   );
+  const [editing, setEditing] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -57,7 +58,7 @@ const HomePlansAttendancePage = () => {
                   ...std,
                   attendances: std.attendances.map((att) => {
                     if (att.time === time) {
-                      return { ...att, isPresent: !att.isPresent };
+                      return { ...att, is_present: !att.is_present };
                     }
                     return att;
                   }),
@@ -106,7 +107,7 @@ const HomePlansAttendancePage = () => {
                       className="text-center"
                     >
                       <Checkbox
-                        checked={attendance.isPresent}
+                        checked={attendance.is_present}
                         onCheckedChange={() =>
                           handleAttendanceClick(student.id, attendance.time)
                         }

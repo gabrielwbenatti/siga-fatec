@@ -1,6 +1,6 @@
 import db from "../config/database";
 
-interface ResponseApi7 {
+interface IClassAttendance {
   plan: {
     id: number;
     title: string;
@@ -26,9 +26,15 @@ interface ResponseApi7 {
 }
 
 class ClassesAttendanceService {
-  getPlansAttendances = async (classId: number, planId: number) => {
+  async getPlansAttendances(classId: number, planId: number) {
     const plan = await db.class_plans.findFirst({
-      select: { id: true, title: true, description: true },
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        planned_date: true,
+        applied_date: true,
+      },
       where: { class_id: classId, id: planId },
     });
     const schedules = await db.class_schedules.findMany({
@@ -38,32 +44,49 @@ class ClassesAttendanceService {
     });
     const students = await db.students.findMany({
       where: { class_students: { some: { class_id: classId } } },
-      include: { plans_attendance: { include: { class_schedule: true } } },
+      include: {
+        plans_attendance: {
+          include: { class_plan: true, class_schedule: true },
+          where: { class_id: classId, class_plan_id: planId },
+        },
+      },
     });
 
-    const pivot = students.map((stud) => {
-      const result = {
-        name: `${stud.first_name} ${stud.last_name}`,
-        id: stud.id,
-        attendances: schedules.map((sched) => ({
-          isPresent:
-            stud.plans_attendance.some(
-              (p) => p.class_schedule_id === sched.id
-            ) || true,
-          student_id: stud.id,
-          time: sched.start_time,
-          schedule_id: sched.id,
-        })),
-      };
-      return result;
-    });
+    const pivot = students.flatMap((stud) => ({
+      id: stud.id,
+      name: `${stud.first_name} ${stud.last_name}`,
+      attendances:
+        stud.plans_attendance.length > 0
+          ? stud.plans_attendance.map((plan) => ({
+              is_present: plan.is_present,
+              time: plan.class_schedule.start_time,
+              schedule_id: plan.class_schedule_id,
+            }))
+          : schedules.flatMap((sched) => ({
+              is_present: true,
+              time: sched.start_time,
+              schedule_id: sched.id,
+            })),
+    }));
+    // const pivot = students.map((stud) => {
+    //   const result = {
+    //     name:
+    //     id: stud.id,
+    //     attendances: stud.plans_attendance.map((att) => ({
+    //       time: att.class_schedule.start_time,
+    //       schedule_id: att.class_schedule.id,
+    //       is_present: att.is_present,
+    //     })),
+    //   };
+    //   return result;
+    // });
 
     return { plan, schedules, students: pivot };
-  };
+  }
 
   async storePlanAttendances(classId: number, planId: number, body: any) {
     try {
-      const { students }: ResponseApi7 = body;
+      const { students }: IClassAttendance = body;
 
       const transactions = students.flatMap((std) =>
         std.attendances.map((att) =>

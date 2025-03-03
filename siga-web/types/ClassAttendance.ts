@@ -8,11 +8,12 @@ interface Plan {
   id: number;
   title: string;
   description: string;
+  planned_date: string;
+  applied_date: string;
 }
 
 interface Attendance {
-  isPresent: boolean;
-  student_id: number;
+  is_present: boolean;
   time: string;
   schedule_id: number;
 }
