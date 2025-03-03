@@ -116,7 +116,7 @@ model plans_attendances {
   class_plan     class_plans     @relation(fields: [class_plan_id], references: [id])
   student        students        @relation(fields: [student_id], references: [id])
 
-  @@unique([class_id, class_schedule_id, student_id])
+  @@unique([class_id, class_schedule_id, class_plan_id, student_id])
 }
 
 model exams {

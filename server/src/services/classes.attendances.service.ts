@@ -1,5 +1,30 @@
 import db from "../config/database";
 
+interface ResponseApi7 {
+  plan: {
+    id: number;
+    title: string;
+    description: string;
+  };
+  schedules: {
+    id: number;
+    start_time: string;
+    end_time: string;
+  }[];
+  students: {
+    name: string;
+    id: number;
+    attendances: [
+      {
+        isPresent: boolean;
+        student_id: number;
+        time: string;
+        schedule_id: number;
+      }
+    ];
+  }[];
+}
+
 class ClassesAttendanceService {
   getPlansAttendances = async (classId: number, planId: number) => {
     const plan = await db.class_plans.findFirst({
@@ -37,7 +62,29 @@ class ClassesAttendanceService {
   };
 
   async storePlanAttendances(classId: number, planId: number, body: any) {
-    const { plan, students } = body;
+    try {
+      const { students }: ResponseApi7 = body;
+
+      const transactions = students.flatMap((std) =>
+        std.attendances.map((att) =>
+          db.plans_attendances.create({
+            data: {
+              class_id: classId,
+              class_schedule_id: att.schedule_id,
+              class_plan_id: planId,
+              student_id: std.id,
+              is_present: att.isPresent,
+            },
+          })
+        )
+      );
+
+      const result = await db.$transaction(transactions);
+
+      return result;
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 

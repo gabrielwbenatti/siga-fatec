@@ -60,6 +60,11 @@ class ClassesAttendanceController {
         planId,
         body
       );
+
+      if (!result) {
+      }
+
+      return res.status(201).json(result);
     } catch (error) {
       console.log(error);
       res.status(StatusCode.INTERNAL_ERROR).json({

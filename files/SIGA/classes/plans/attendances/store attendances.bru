@@ -18,27 +18,27 @@ body:json {
   {
     "plan": {
       "id": 1,
-      "title": "Aula inaugural",
-      "description": "Apresentação da ementa e atividades avaliativas"
+      "title": "aula inaugural ",
+      "description": "aula inaugural "
     },
     "schedules": [
       {
-        "id": 5,
+        "id": 3,
         "start_time": "19:00",
         "end_time": "19:50"
       },
       {
-        "id": 6,
+        "id": 4,
         "start_time": "19:50",
         "end_time": "20:40"
       },
       {
-        "id": 7,
+        "id": 5,
         "start_time": "20:50",
         "end_time": "21:40"
       },
       {
-        "id": 8,
+        "id": 6,
         "start_time": "21:40",
         "end_time": "22:30"
       }
@@ -51,22 +51,26 @@ body:json {
           {
             "isPresent": true,
             "student_id": 1,
-            "time": "19:00"
+            "time": "19:00",
+            "schedule_id": 3
           },
           {
             "isPresent": true,
             "student_id": 1,
-            "time": "19:50"
+            "time": "19:50",
+            "schedule_id": 4
           },
           {
             "isPresent": false,
             "student_id": 1,
-            "time": "20:50"
+            "time": "20:50",
+            "schedule_id": 5
           },
           {
             "isPresent": false,
             "student_id": 1,
-            "time": "21:40"
+            "time": "21:40",
+            "schedule_id": 6
           }
         ]
       },
@@ -77,48 +81,56 @@ body:json {
           {
             "isPresent": true,
             "student_id": 2,
-            "time": "19:00"
+            "time": "19:00",
+            "schedule_id": 3
           },
           {
             "isPresent": true,
             "student_id": 2,
-            "time": "19:50"
-          },
-          {
-            "isPresent": true,
-            "student_id": 2,
-            "time": "20:50"
+            "time": "19:50",
+            "schedule_id": 4
           },
           {
             "isPresent": false,
             "student_id": 2,
-            "time": "21:40"
+            "time": "20:50",
+            "schedule_id": 5
+          },
+          {
+            "isPresent": false,
+            "student_id": 2,
+            "time": "21:40",
+            "schedule_id": 6
           }
         ]
       },
       {
-        "name": "Aluno Gonçalves",
+        "name": "Aluno Guedes",
         "id": 3,
         "attendances": [
           {
             "isPresent": true,
             "student_id": 3,
-            "time": "19:00"
+            "time": "19:00",
+            "schedule_id": 3
           },
           {
             "isPresent": true,
             "student_id": 3,
-            "time": "19:50"
+            "time": "19:50",
+            "schedule_id": 4
           },
           {
             "isPresent": true,
             "student_id": 3,
-            "time": "20:50"
+            "time": "20:50",
+            "schedule_id": 5
           },
           {
-            "isPresent": false,
+            "isPresent": true,
             "student_id": 3,
-            "time": "21:40"
+            "time": "21:40",
+            "schedule_id": 6
           }
         ]
       }
