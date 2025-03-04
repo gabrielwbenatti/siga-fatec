@@ -5,7 +5,7 @@ interface ClassMaterial {
   file_format?: string;
   file_url?: string;
   list_index?: number;
-  class_id?: number;
+  class_id: number;
 }
 
 export default ClassMaterial;
