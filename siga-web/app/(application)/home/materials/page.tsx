@@ -4,7 +4,15 @@ import { Button } from "@/components/ui/button";
 import api from "@/config/axiosInstance";
 import { ROUTES } from "@/config/routes";
 import ClassMaterial from "@/types/ClassMaterial";
-import { ArrowDownUp, DownloadCloudIcon, Trash2 } from "lucide-react";
+import {
+  ArrowDownUp,
+  DownloadCloudIcon,
+  FileText,
+  Trash2,
+  FileSpreadsheet,
+  File,
+  FileMinus,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -59,6 +67,21 @@ const HomeMaterialsPage = () => {
     toast.info("Em breve");
   };
 
+  const getFileIcon = (extension: string) => {
+    switch (extension) {
+      case "doc":
+      case "docx":
+        return <FileText className="text-blue-400" />;
+      case "xls":
+      case "xlsx":
+        return <FileSpreadsheet className="text-green-400" />;
+      case "pdf":
+        return <FileMinus className="text-red-400" />;
+      default:
+        return <File />;
+    }
+  };
+
   if (loading) {
     return <div>Loading....</div>;
   }
@@ -102,16 +125,19 @@ const HomeMaterialsPage = () => {
                   className="flex items-center justify-between rounded-lg p-2 hover:bg-primary/10"
                   key={i}
                 >
-                  <div className="flex flex-col gap-1.5">
-                    <a
-                      className="font-bold"
-                      href={ROUTES.MATERIALS.EDIT(e.id!)}
-                    >
-                      {e.title}
-                    </a>
-                    {e.description && (
-                      <span className="text-sm">{e.description}</span>
-                    )}
+                  <div className="flex gap-1.5">
+                    {getFileIcon(e.file_format!)}
+                    <div className="flex flex-col gap-1.5">
+                      <a
+                        className="font-bold"
+                        href={ROUTES.MATERIALS.EDIT(e.id!)}
+                      >
+                        {`${e.title} (${e.file_format})`}
+                      </a>
+                      {e.description && (
+                        <span className="text-sm">{e.description}</span>
+                      )}
+                    </div>
                   </div>
 
                   <div className="flex gap-1.5">
