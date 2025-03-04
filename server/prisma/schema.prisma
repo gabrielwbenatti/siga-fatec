@@ -89,7 +89,8 @@ model class_materials {
   file_url    String? @db.VarChar(255)
   list_index  Int     @db.SmallInt
   class_id    Int
-  class       classes @relation(fields: [class_id], references: [id], onDelete: Cascade)
+
+  class classes @relation(fields: [class_id], references: [id], onDelete: Cascade)
 }
 
 model class_plans {

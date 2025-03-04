@@ -24,7 +24,9 @@ class ClassesMaterialsService {
           title,
           description,
           file_format,
-          list_index: aggregations._max.list_index || 0,
+          list_index: aggregations._max.list_index
+            ? aggregations._max.list_index + 1
+            : 0,
         },
       });
 
