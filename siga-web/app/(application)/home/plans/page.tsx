@@ -4,10 +4,9 @@ import { Button } from "@/components/ui/button";
 import api from "@/config/axiosInstance";
 import { ROUTES } from "@/config/routes";
 import ClassPlan from "@/types/ClassPlan";
-import { formatDate } from "@/utils/string_helper";
-import { ListCheck, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import HomePlansListItem from "./components/ListItem";
 
 const HomePlansPage = () => {
   const [loading, setLoding] = useState<boolean>(true);
@@ -63,37 +62,12 @@ const HomePlansPage = () => {
         <div>Nenhuma informação para ser exibida.</div>
       ) : (
         <div className="flex flex-col divide-y">
-          {data?.map((e, i) => (
-            <div
-              className="flex w-full items-center justify-between rounded-lg px-2 py-3 hover:bg-primary/10"
-              key={i}
-            >
-              <div className="flex flex-col">
-                <span className="text-sm">
-                  {formatDate(e.planned_date, "pt-BR")}
-                </span>
-                <a href={`${ROUTES.PLANS.EDIT(e.id!)}`} className="font-bold">
-                  {e.title}
-                </a>
-                <span className="text-sm">{e.description || e.title}</span>
-              </div>
-
-              <div className="flex gap-1">
-                <a href={ROUTES.PLANS.ATTENDACE(e.id!)}>
-                  <Button variant="outline">
-                    <ListCheck />
-                    <span>Registrar Presenças</span>
-                  </Button>
-                </a>
-                <Button
-                  variant="destructive"
-                  size="icon"
-                  onClick={() => handleDelete(e.id!)}
-                >
-                  <Trash2 />
-                </Button>
-              </div>
-            </div>
+          {data?.map((plan) => (
+            <HomePlansListItem
+              plan={plan}
+              key={plan.id!}
+              onDelete={handleDelete}
+            />
           ))}
         </div>
       )}

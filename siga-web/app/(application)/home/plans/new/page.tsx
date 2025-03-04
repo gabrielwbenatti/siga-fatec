@@ -1,6 +1,6 @@
 "use client";
 
-import HomePlansForm from "../components/form";
+import HomePlansForm from "../components/Form";
 
 const HomePlansPage = () => {
   return <HomePlansForm isEditMode={false} />;
