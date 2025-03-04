@@ -39,7 +39,7 @@ const HomePlansAttendancePage = () => {
     if (id) {
       fetchAttendances(Number(id));
     }
-  }, []);
+  }, [id]);
 
   const fetchAttendances = async (planId: number) => {
     try {
