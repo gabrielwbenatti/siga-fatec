@@ -1,0 +1,130 @@
+meta {
+  name: store attendances
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}{{classesEndpoint}}{{classesPlansEndpoint}}/1{{classesAttendancesEndpoint}}
+  body: json
+  auth: none
+}
+
+headers {
+  class-id: 2
+}
+
+body:json {
+  {
+    "plan": {
+      "id": 1,
+      "title": "Aula inaugural ",
+      "description": "Aula inaugural ",
+      "planned_date": "2025-03-03T00:00:00.000Z",
+      "applied_date": "2025-03-03",
+      "info_for_absent": "aaaaa"
+    },
+    "schedules": [
+      {
+        "id": 3,
+        "start_time": "19:00",
+        "end_time": "19:50"
+      },
+      {
+        "id": 4,
+        "start_time": "19:50",
+        "end_time": "20:40"
+      },
+      {
+        "id": 5,
+        "start_time": "20:50",
+        "end_time": "21:40"
+      },
+      {
+        "id": 6,
+        "start_time": "21:40",
+        "end_time": "22:30"
+      }
+    ],
+    "students": [
+      {
+        "id": 1,
+        "name": "Aluno Silva",
+        "attendances": [
+          {
+            "is_present": true,
+            "time": "19:00",
+            "schedule_id": 3
+          },
+          {
+            "is_present": true,
+            "time": "19:50",
+            "schedule_id": 4
+          },
+          {
+            "is_present": true,
+            "time": "20:50",
+            "schedule_id": 5
+          },
+          {
+            "is_present": true,
+            "time": "21:40",
+            "schedule_id": 6
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Aluno Pires",
+        "attendances": [
+          {
+            "is_present": false,
+            "time": "19:00",
+            "schedule_id": 3
+          },
+          {
+            "is_present": false,
+            "time": "19:50",
+            "schedule_id": 4
+          },
+          {
+            "is_present": true,
+            "time": "20:50",
+            "schedule_id": 5
+          },
+          {
+            "is_present": true,
+            "time": "21:40",
+            "schedule_id": 6
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "Aluno Guedes",
+        "attendances": [
+          {
+            "is_present": false,
+            "time": "19:00",
+            "schedule_id": 3
+          },
+          {
+            "is_present": false,
+            "time": "19:50",
+            "schedule_id": 4
+          },
+          {
+            "is_present": true,
+            "time": "20:50",
+            "schedule_id": 5
+          },
+          {
+            "is_present": true,
+            "time": "21:40",
+            "schedule_id": 6
+          }
+        ]
+      }
+    ]
+  }
+}

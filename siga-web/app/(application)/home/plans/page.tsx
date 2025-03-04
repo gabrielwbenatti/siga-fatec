@@ -79,12 +79,12 @@ const HomePlansPage = () => {
               </div>
 
               <div className="flex gap-1">
-                <Button
-                  variant="outline"
-                  onClick={() => toast.info("Em breve")}
-                >
-                  <ListCheck /> Registrar Presenças
-                </Button>
+                <a href={ROUTES.PLANS.ATTENDACE(e.id!)}>
+                  <Button variant="outline">
+                    <ListCheck />
+                    <span>Registrar Presenças</span>
+                  </Button>
+                </a>
                 <Button
                   variant="destructive"
                   size="icon"
