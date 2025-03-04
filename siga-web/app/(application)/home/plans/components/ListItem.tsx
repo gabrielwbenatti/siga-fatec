@@ -30,7 +30,7 @@ const HomePlansListItem: FC<HomePlansListItemProps> = ({
         <a href={ROUTES.PLANS.ATTENDACE(plan.id!)}>
           <Button variant="outline">
             <ListCheck />
-            <span>Registrar Presenças</span>
+            <span>Presenças</span>
           </Button>
         </a>
         <Button

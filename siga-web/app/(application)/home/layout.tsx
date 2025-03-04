@@ -1,4 +1,7 @@
+"use client";
+
 import { ROUTES } from "@/config/routes";
+import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
 
 const HomeLayout = ({
@@ -6,6 +9,8 @@ const HomeLayout = ({
 }: Readonly<{
   children: ReactNode;
 }>) => {
+  const pathname = usePathname();
+
   const routes = [
     { caption: "Início", href: ROUTES.HOME },
     { caption: "Planejamento", href: ROUTES.PLANS.LIST },
@@ -18,7 +23,7 @@ const HomeLayout = ({
         <ul className="p-4">
           {routes.map((e, i) => (
             <li
-              className="flex text-ellipsis rounded-lg hover:bg-primary/10"
+              className={`flex text-ellipsis rounded-lg hover:bg-primary/10 ${pathname === e.href ? "font-bold" : ""}`}
               key={i}
             >
               <a className="w-full p-2" href={e.href}>
