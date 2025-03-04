@@ -26,7 +26,6 @@ const HomePlansForm: FC<HomePlansFormProps> = ({
 
   const [plan, setPlan] = useState<ClassPlan | null>(null);
   const [formData, setFormData] = useState<ClassPlan>({
-    class_id: 2,
     title: "",
     planned_date: "",
   });

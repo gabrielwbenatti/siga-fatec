@@ -4,7 +4,7 @@ interface ClassPlan {
   description?: string;
   planned_date: string;
   applied_date?: string;
-  class_id: number;
+  class_id?: number;
   info_for_absent?: string;
 }
 

@@ -28,7 +28,6 @@ const HomeMaterialsForm: FC<HomeMaterialsFormProps> = ({
 
   const [material, setMaterial] = useState<ClassMaterial | null>(null);
   const [formData, setFormData] = useState<ClassMaterial>({
-    class_id: 2,
     title: "",
   });
 
