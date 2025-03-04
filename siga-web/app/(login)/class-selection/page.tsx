@@ -66,7 +66,7 @@ const ClassSelectionPage = () => {
   };
 
   return (
-    <Card className="md:max-w-[500px]">
+    <Card className="mx-auto w-full max-w-sm">
       <CardHeader>
         <CardDescription>
           Selecione a turma abaixo para prosseguir

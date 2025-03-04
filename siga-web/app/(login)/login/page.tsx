@@ -28,7 +28,7 @@ const LoginPage = () => {
   };
 
   return (
-    <Card className="md:max-w-[500px]">
+    <Card className="mx-auto w-full max-w-sm">
       <CardHeader>
         <CardTitle>SIGA Fatec</CardTitle>
         <CardDescription>

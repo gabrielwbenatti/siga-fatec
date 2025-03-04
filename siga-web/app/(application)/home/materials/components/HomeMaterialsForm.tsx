@@ -106,16 +106,15 @@ const HomeMaterialsForm: FC<HomeMaterialsFormProps> = ({
         onSubmit={handleSubmit}
         className="flex flex-col gap-4"
       >
-        {!isEditMode && (
-          <InputWrapper>
-            <Input
-              placeholder="Selecione o arquivo desejado"
-              type="file"
-              required
-              onChange={handleFileSelect}
-            />
-          </InputWrapper>
-        )}
+        <InputWrapper>
+          <Input
+            placeholder="Selecione o arquivo desejado"
+            type="file"
+            required
+            disabled={isEditMode}
+            onChange={handleFileSelect}
+          />
+        </InputWrapper>
 
         <InputWrapper>
           <Label>Título do arquivo</Label>

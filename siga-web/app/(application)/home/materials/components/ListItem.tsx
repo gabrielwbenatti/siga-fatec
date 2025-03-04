@@ -4,6 +4,7 @@ import ClassMaterial from "@/types/ClassMaterial";
 import {
   DownloadCloudIcon,
   File,
+  FileImage,
   FileMinus,
   FileSpreadsheet,
   FileText,
@@ -32,6 +33,11 @@ const HomeMaterialsListItem: FC<HomeMaterialsListItemProps> = ({
         return <FileSpreadsheet className="text-green-400" />;
       case "pdf":
         return <FileMinus className="text-red-400" />;
+      case "png":
+      case "jpg":
+      case "jpeg":
+      case "bmp":
+        return <FileImage className="text-cyan-400" />;
       default:
         return <File />;
     }
