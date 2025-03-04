@@ -19,7 +19,10 @@ body:json {
     "plan": {
       "id": 1,
       "title": "Aula inaugural ",
-      "description": "Aula inaugural "
+      "description": "Aula inaugural ",
+      "planned_date": "2025-03-03T00:00:00.000Z",
+      "applied_date": "2025-03-03",
+      "info_for_absent": "aaaaa"
     },
     "schedules": [
       {
@@ -45,90 +48,78 @@ body:json {
     ],
     "students": [
       {
-        "name": "Aluno Silva",
         "id": 1,
+        "name": "Aluno Silva",
         "attendances": [
           {
-            "isPresent": true,
-            "student_id": 1,
+            "is_present": true,
             "time": "19:00",
             "schedule_id": 3
           },
           {
-            "isPresent": true,
-            "student_id": 1,
+            "is_present": true,
             "time": "19:50",
             "schedule_id": 4
           },
           {
-            "isPresent": false,
-            "student_id": 1,
+            "is_present": true,
             "time": "20:50",
             "schedule_id": 5
           },
           {
-            "isPresent": false,
-            "student_id": 1,
+            "is_present": true,
             "time": "21:40",
             "schedule_id": 6
           }
         ]
       },
       {
-        "name": "Aluno Pires",
         "id": 2,
+        "name": "Aluno Pires",
         "attendances": [
           {
-            "isPresent": true,
-            "student_id": 2,
+            "is_present": false,
             "time": "19:00",
             "schedule_id": 3
           },
           {
-            "isPresent": true,
-            "student_id": 2,
+            "is_present": false,
             "time": "19:50",
             "schedule_id": 4
           },
           {
-            "isPresent": false,
-            "student_id": 2,
+            "is_present": true,
             "time": "20:50",
             "schedule_id": 5
           },
           {
-            "isPresent": false,
-            "student_id": 2,
+            "is_present": true,
             "time": "21:40",
             "schedule_id": 6
           }
         ]
       },
       {
-        "name": "Aluno Guedes",
         "id": 3,
+        "name": "Aluno Guedes",
         "attendances": [
           {
-            "isPresent": true,
-            "student_id": 3,
+            "is_present": false,
             "time": "19:00",
             "schedule_id": 3
           },
           {
-            "isPresent": true,
-            "student_id": 3,
+            "is_present": false,
             "time": "19:50",
             "schedule_id": 4
           },
           {
-            "isPresent": true,
-            "student_id": 3,
+            "is_present": true,
             "time": "20:50",
             "schedule_id": 5
           },
           {
-            "isPresent": true,
-            "student_id": 3,
+            "is_present": true,
             "time": "21:40",
             "schedule_id": 6
           }

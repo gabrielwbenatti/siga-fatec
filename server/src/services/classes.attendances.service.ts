@@ -5,6 +5,9 @@ interface IClassAttendance {
     id: number;
     title: string;
     description: string;
+    planned_date: string;
+    applied_date: string;
+    info_for_absent: string;
   };
   schedules: {
     id: number;
@@ -16,7 +19,7 @@ interface IClassAttendance {
     id: number;
     attendances: [
       {
-        isPresent: boolean;
+        is_present: boolean;
         student_id: number;
         time: string;
         schedule_id: number;
@@ -34,6 +37,7 @@ class ClassesAttendanceService {
         description: true,
         planned_date: true,
         applied_date: true,
+        info_for_absent: true,
       },
       where: { class_id: classId, id: planId },
     });
@@ -68,27 +72,15 @@ class ClassesAttendanceService {
               schedule_id: sched.id,
             })),
     }));
-    // const pivot = students.map((stud) => {
-    //   const result = {
-    //     name:
-    //     id: stud.id,
-    //     attendances: stud.plans_attendance.map((att) => ({
-    //       time: att.class_schedule.start_time,
-    //       schedule_id: att.class_schedule.id,
-    //       is_present: att.is_present,
-    //     })),
-    //   };
-    //   return result;
-    // });
 
     return { plan, schedules, students: pivot };
   }
 
   async storePlanAttendances(classId: number, planId: number, body: any) {
     try {
-      const { students }: IClassAttendance = body;
+      const { plan, students }: IClassAttendance = body;
 
-      const transactions = students.flatMap((std) =>
+      const attendancesTx = students.flatMap((std) =>
         std.attendances.map((att) =>
           db.plans_attendances.create({
             data: {
@@ -96,13 +88,21 @@ class ClassesAttendanceService {
               class_schedule_id: att.schedule_id,
               class_plan_id: planId,
               student_id: std.id,
-              is_present: att.isPresent,
+              is_present: att.is_present,
             },
           })
         )
       );
+      const { applied_date } = plan;
+      const classPlanTx = db.class_plans.update({
+        data: {
+          applied_date: applied_date ? new Date(applied_date) : undefined,
+          info_for_absent: plan.info_for_absent,
+        },
+        where: { class_id: classId, id: plan.id },
+      });
 
-      const result = await db.$transaction(transactions);
+      const result = await db.$transaction([...attendancesTx, classPlanTx]);
 
       return result;
     } catch (error) {

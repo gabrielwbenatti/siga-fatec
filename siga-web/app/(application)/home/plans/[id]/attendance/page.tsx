@@ -15,19 +15,24 @@ import {
 } from "@/components/ui/table";
 import { Textarea } from "@/components/ui/textarea";
 import api from "@/config/axiosInstance";
+import { ROUTES } from "@/config/routes";
 import ClassAttendance, { Attendance } from "@/types/ClassAttendance";
+import { formatDate } from "@/utils/string_helper";
 import { Label } from "@radix-ui/react-label";
 import { SquareCheck, SquareMinus, SquareX } from "lucide-react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 const HomePlansAttendancePage = () => {
   const { id } = useParams<{ id: string }>();
+  const router = useRouter();
 
   const [data, setData] = useState<ClassAttendance | undefined>(undefined);
   const [classAtt, setClassAtt] = useState<ClassAttendance | undefined>(
     undefined,
   );
+  const [editing, setEditing] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -44,6 +49,8 @@ const HomePlansAttendancePage = () => {
       );
       setData(res.data);
       setClassAtt(res.data);
+      console.log(res.data);
+      setEditing(!!res.data.plan.applied_date);
     } catch (error) {
       console.log(error);
     } finally {
@@ -181,6 +188,7 @@ const HomePlansAttendancePage = () => {
             <Label>Informações para alunos ausentes</Label>
             <Textarea
               placeholder="Ex.: conteúdo aplicado será utilizado em avaliações"
+              value={data.plan.info_for_absent || ""}
               onChange={(e) =>
                 setData((prev) =>
                   prev
@@ -191,7 +199,6 @@ const HomePlansAttendancePage = () => {
                     : undefined,
                 )
               }
-              value={data.plan.info_for_absent || ""}
             />
           </InputWrapper>
 
@@ -199,6 +206,7 @@ const HomePlansAttendancePage = () => {
             <Label>Data de realização</Label>
             <Input
               type="date"
+              value={formatDate(data.plan.applied_date, "input") || ""}
               onChange={(e) =>
                 setData((prev) =>
                   prev
@@ -213,7 +221,22 @@ const HomePlansAttendancePage = () => {
           </InputWrapper>
 
           <div className="flex">
-            <Button onClick={() => console.log(data)}>
+            <Button
+              onClick={async () => {
+                try {
+                  if (editing) {
+                    await api.put(`/classes/plans/${id}/attendances`, data);
+                  } else {
+                    await api.post(`/classes/plans/${id}/attendances`, data);
+                  }
+
+                  toast.success("Presenças registradas com sucesso");
+                  router.push(ROUTES.PLANS.LIST);
+                } catch (error) {
+                  console.log(error);
+                }
+              }}
+            >
               Gravar Frequências
             </Button>
           </div>
