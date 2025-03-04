@@ -20,7 +20,6 @@ interface IClassAttendance {
     attendances: [
       {
         is_present: boolean;
-        student_id: number;
         time: string;
         schedule_id: number;
       }
@@ -89,6 +88,42 @@ class ClassesAttendanceService {
               class_plan_id: planId,
               student_id: std.id,
               is_present: att.is_present,
+            },
+          })
+        )
+      );
+      const { applied_date } = plan;
+      const classPlanTx = db.class_plans.update({
+        data: {
+          applied_date: applied_date ? new Date(applied_date) : undefined,
+          info_for_absent: plan.info_for_absent,
+        },
+        where: { class_id: classId, id: plan.id },
+      });
+
+      const result = await db.$transaction([...attendancesTx, classPlanTx]);
+
+      return result;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async updatePlanAttendances(classId: number, planId: number, body: any) {
+    try {
+      const { plan, students }: IClassAttendance = body;
+
+      const attendancesTx = students.flatMap((std) =>
+        std.attendances.map((att) =>
+          db.plans_attendances.update({
+            data: { is_present: att.is_present },
+            where: {
+              class_id_class_schedule_id_class_plan_id_student_id: {
+                class_id: classId,
+                class_schedule_id: att.schedule_id,
+                class_plan_id: planId,
+                student_id: std.id,
+              },
             },
           })
         )

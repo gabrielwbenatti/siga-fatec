@@ -24,6 +24,10 @@ classesRouter
   .post(
     "/plans/:id/attendances",
     classesAttendancesController.storePlanAttendances
+  )
+  .put(
+    "/plans/:id/attendances",
+    classesAttendancesController.updatePlanAttendances
   );
 
 classesRouter

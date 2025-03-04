@@ -73,6 +73,50 @@ class ClassesAttendanceController {
       next?.();
     }
   }
+
+  async updatePlanAttendances(
+    req: Request,
+    res: Response,
+    next?: NextFunction
+  ) {
+    try {
+      const planIdParam = req.params.id;
+      const classIdHeader = req.headers["class-id"];
+
+      if (!classIdHeader) {
+        return res
+          .status(StatusCode.BAD_REQUEST)
+          .json({ message: "Class not defined" });
+      }
+
+      if (!planIdParam) {
+        return res
+          .status(StatusCode.BAD_REQUEST)
+          .json({ message: "Plan not defined" });
+      }
+
+      const { body } = req;
+      const classId = Number(classIdHeader);
+      const planId = Number(planIdParam);
+
+      const result = await classesAttendancesService.updatePlanAttendances(
+        classId,
+        planId,
+        body
+      );
+
+      if (!result) {
+      }
+
+      return res.status(200).json(result);
+    } catch (error) {
+      console.log(error);
+      res.status(StatusCode.INTERNAL_ERROR).json({
+        error: "Não foi possível gravar os dados, tente novamente mais tarde",
+      });
+      next?.();
+    }
+  }
 }
 
 export default new ClassesAttendanceController();

@@ -225,12 +225,23 @@ const HomePlansAttendancePage = () => {
               onClick={async () => {
                 try {
                   if (editing) {
-                    await api.put(`/classes/plans/${id}/attendances`, data);
+                    const res = await api.put(
+                      `/classes/plans/${id}/attendances`,
+                      data,
+                    );
+                    if (res.status !== 200) {
+                    }
+                    toast.success("Presenças atualizadas com sucesso");
                   } else {
-                    await api.post(`/classes/plans/${id}/attendances`, data);
+                    const res = await api.post(
+                      `/classes/plans/${id}/attendances`,
+                      data,
+                    );
+                    if (res.status !== 201) {
+                    }
+                    toast.success("Presenças registradas com sucesso");
                   }
 
-                  toast.success("Presenças registradas com sucesso");
                   router.push(ROUTES.PLANS.LIST);
                 } catch (error) {
                   console.log(error);
