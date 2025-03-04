@@ -3,8 +3,9 @@ import authService from "../services/auth.service";
 
 class AuthController {
   signIn = async (req: Request, res: Response, next?: NextFunction) => {
-    const body = req.body;
     try {
+      const { body } = req;
+
       const result = await authService.signIn(body);
 
       if (result) {
