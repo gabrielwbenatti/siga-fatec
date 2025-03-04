@@ -55,6 +55,7 @@ const HomePlansForm: FC<HomePlansFormProps> = ({
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
+      console.log(error);
 
       if (isEditMode) {
         await api.put(`/classes/plans/${id}`, formData);

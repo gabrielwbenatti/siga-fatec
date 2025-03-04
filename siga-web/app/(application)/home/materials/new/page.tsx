@@ -1,6 +1,6 @@
 "use client";
 
-import HomeMaterialsForm from "../components/Form";
+import HomeMaterialsForm from "../components/HomeMaterialsForm";
 
 const HomeMaterialsNewPage = () => {
   return <HomeMaterialsForm isEditMode={false} />;
