@@ -10,9 +10,10 @@ interface Plan {
   description: string;
   planned_date: string;
   applied_date: string;
+  info_for_absent?: string;
 }
 
-interface Attendance {
+export interface Attendance {
   is_present: boolean;
   time: string;
   schedule_id: number;

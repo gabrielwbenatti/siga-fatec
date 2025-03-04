@@ -1,8 +1,10 @@
 "use client";
 
+import InputWrapper from "@/components/Siga/InputWrapper";
 import TitleBar from "@/components/Siga/TitleBar";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -11,8 +13,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Textarea } from "@/components/ui/textarea";
 import api from "@/config/axiosInstance";
-import ClassAttendance from "@/types/ClassAttendance";
+import ClassAttendance, { Attendance } from "@/types/ClassAttendance";
+import { Label } from "@radix-ui/react-label";
+import { SquareCheck, SquareMinus, SquareX } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -23,7 +28,6 @@ const HomePlansAttendancePage = () => {
   const [classAtt, setClassAtt] = useState<ClassAttendance | undefined>(
     undefined,
   );
-  const [editing, setEditing] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -47,7 +51,7 @@ const HomePlansAttendancePage = () => {
     }
   };
 
-  const handleAttendanceClick = (studentId: number, time: string) => {
+  const handleIndividualAttendanceClick = (studentId: number, time: string) => {
     setData((prev) =>
       prev
         ? {
@@ -70,6 +74,42 @@ const HomePlansAttendancePage = () => {
         : undefined,
     );
   };
+  const handleAllAttendanceClick = (
+    studentId: number,
+    currentValue: boolean,
+  ) => {
+    setData((prev) =>
+      prev
+        ? {
+            ...prev,
+            students: prev.students.map((e) => {
+              if (e.id === studentId) {
+                return {
+                  ...e,
+                  attendances: e.attendances.map((a) => {
+                    return {
+                      ...a,
+                      is_present: !currentValue,
+                    };
+                  }),
+                };
+              }
+              return e;
+            }),
+          }
+        : undefined,
+    );
+  };
+
+  const getIconType = (attendances: Array<Attendance>) => {
+    if (attendances.every((a) => a.is_present)) {
+      return <SquareCheck />; //<ClipboardCheck />;
+    }
+    if (attendances.every((a) => !a.is_present)) {
+      return <SquareX />; //<ClipboardX />;
+    }
+    return <SquareMinus />; // <ClipboardMinus />;
+  };
 
   if (loading) {
     return <h1>Carregando...</h1>;
@@ -88,6 +128,7 @@ const HomePlansAttendancePage = () => {
           <Table>
             <TableHeader>
               <TableRow>
+                <TableHead />
                 <TableHead>Aluno</TableHead>
                 {data.schedules.map((schedule) => (
                   <TableHead
@@ -100,6 +141,20 @@ const HomePlansAttendancePage = () => {
             <TableBody>
               {data.students.map((student) => (
                 <TableRow key={`${student.id}`}>
+                  <TableCell>
+                    <Button
+                      size="icon"
+                      variant="outline"
+                      onClick={() =>
+                        handleAllAttendanceClick(
+                          student.id,
+                          student.attendances[0].is_present,
+                        )
+                      }
+                    >
+                      {getIconType(student.attendances)}
+                    </Button>
+                  </TableCell>
                   <TableCell className="w-[500px]">{student.name}</TableCell>
                   {student.attendances.map((attendance) => (
                     <TableCell
@@ -109,7 +164,10 @@ const HomePlansAttendancePage = () => {
                       <Checkbox
                         checked={attendance.is_present}
                         onCheckedChange={() =>
-                          handleAttendanceClick(student.id, attendance.time)
+                          handleIndividualAttendanceClick(
+                            student.id,
+                            attendance.time,
+                          )
                         }
                       />
                     </TableCell>
@@ -118,6 +176,41 @@ const HomePlansAttendancePage = () => {
               ))}
             </TableBody>
           </Table>
+
+          <InputWrapper>
+            <Label>Informações para alunos ausentes</Label>
+            <Textarea
+              placeholder="Ex.: conteúdo aplicado será utilizado em avaliações"
+              onChange={(e) =>
+                setData((prev) =>
+                  prev
+                    ? {
+                        ...prev,
+                        plan: { ...prev.plan, info_for_absent: e.target.value },
+                      }
+                    : undefined,
+                )
+              }
+              value={data.plan.info_for_absent || ""}
+            />
+          </InputWrapper>
+
+          <InputWrapper>
+            <Label>Data de realização</Label>
+            <Input
+              type="date"
+              onChange={(e) =>
+                setData((prev) =>
+                  prev
+                    ? {
+                        ...prev,
+                        plan: { ...prev.plan, applied_date: e.target.value },
+                      }
+                    : undefined,
+                )
+              }
+            />
+          </InputWrapper>
 
           <div className="flex">
             <Button onClick={() => console.log(data)}>
