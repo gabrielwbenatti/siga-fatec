@@ -20,6 +20,7 @@ const HomeMaterialsPage = () => {
         setLoading(true);
         const res = await api.get("/classes/materials");
         setData(res.data);
+        setReordering(false);
       } catch (error) {
         console.log(error);
       } finally {
@@ -29,21 +30,21 @@ const HomeMaterialsPage = () => {
     loadClassMaterialsData();
   }, []);
 
-  const moveItem = (dragIndex: number, hoverIndex: number) => {
-    if (!data) return;
+  // const moveItem = (dragIndex: number, hoverIndex: number) => {
+  //   if (!data) return;
 
-    console.log(dragIndex);
-    console.log(hoverIndex);
+  //   console.log(dragIndex);
+  //   console.log(hoverIndex);
 
-    const draggedItem = data[dragIndex];
-    const newItems = [...data];
+  //   const draggedItem = data[dragIndex];
+  //   const newItems = [...data];
 
-    newItems.splice(dragIndex, 1);
-    newItems.splice(hoverIndex, 0, draggedItem);
-    newItems.map((e, i) => (e.list_index = i));
+  //   newItems.splice(dragIndex, 1);
+  //   newItems.splice(hoverIndex, 0, draggedItem);
+  //   newItems.map((e, i) => (e.list_index = i));
 
-    setData(newItems);
-  };
+  //   setData(newItems);
+  // };
 
   const handleDelete = async (id: number) => {
     await api.delete(`/classes/materials/${id}`).then((res) => {
@@ -57,6 +58,7 @@ const HomeMaterialsPage = () => {
   };
 
   const handleDownload = (id: number) => {
+    console.log(id);
     toast.info("Em breve");
   };
 
