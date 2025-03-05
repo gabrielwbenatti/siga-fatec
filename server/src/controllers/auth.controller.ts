@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import authService from "../services/auth.service";
+import SigaError from "../erros/SigaError";
 
 class AuthController {
   signIn = async (req: Request, res: Response, next?: NextFunction) => {
@@ -12,7 +13,9 @@ class AuthController {
         res.status(200).json(result);
       }
     } catch (error) {
-      next?.(error);
+      if (error instanceof SigaError) {
+        res.status(error.statusCode).json({ message: error.message });
+      }
     }
   };
 }
