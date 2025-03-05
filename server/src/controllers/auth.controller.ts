@@ -14,7 +14,7 @@ class AuthController {
       }
     } catch (error) {
       if (error instanceof SigaError) {
-        res.status(error.statusCode).json({ message: error.message });
+        return res.status(error.statusCode).json({ message: error.message });
       }
     }
   };

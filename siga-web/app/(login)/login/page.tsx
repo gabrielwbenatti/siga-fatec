@@ -10,21 +10,33 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ROUTES } from "@/config/routes";
+import api from "@/config/axiosInstance";
+import axios from "axios";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
+import { toast } from "sonner";
 
 const LoginPage = () => {
   const router = useRouter();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState<{ email: string; password: string }>(
+    { email: "", password: "" },
+  );
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    router.push(ROUTES.CLASS_SELECTION);
-    return;
+    try {
+      e.preventDefault();
+      await api.post("/auth/login", formData);
+      toast.success("ok");
+      // const res = await api.post("/auth/login", formData);
+      // if (res.status === 200) {
+      //   cookiesStore.set("session", res.data.token);
+      // }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data.message);
+      }
+    }
   };
 
   return (
@@ -46,8 +58,10 @@ const LoginPage = () => {
                 name="email"
                 type="email"
                 placeholder="E-mail"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={formData.email}
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, email: e.target.value }))
+                }
               />
             </div>
 
@@ -58,8 +72,10 @@ const LoginPage = () => {
                 name="password"
                 type="password"
                 placeholder="Senha"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={formData.password}
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, password: e.target.value }))
+                }
               />
             </div>
 

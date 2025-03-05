@@ -7,7 +7,7 @@ enum StatusCode {
   // 4XX - Client error
   BAD_REQUEST = 400,
   UNAUTHORIZED = 401,
-  NOT_FOUNT = 404,
+  NOT_FOUND = 404,
 
   // 5XX - Server error
   INTERNAL_ERROR = 500,

@@ -28,7 +28,7 @@ class ClassesAttendanceController {
     );
 
     if (!result) {
-      return res.status(StatusCode.NOT_FOUNT).json(result);
+      return res.status(StatusCode.NOT_FOUND).json(result);
     }
 
     return res.status(StatusCode.OK).json(result);
