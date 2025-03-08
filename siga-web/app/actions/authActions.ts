@@ -1,0 +1,77 @@
+"use server";
+
+import { createServerApi } from "@/lib/api/server";
+import { ClassesResponse } from "@/types/Class";
+import axios, { AxiosError } from "axios";
+import { cookies } from "next/headers";
+
+async function logIn(
+  formData: FormData,
+): Promise<{ success: boolean; error?: string }> {
+  const email = formData.get("email") as string;
+  const password = formData.get("password") as string;
+  const cookieStore = await cookies();
+
+  try {
+    const api = axios.create({
+      baseURL: process.env.API_URL || "http://localhost:8000/api/v1",
+      headers: { "Content-Type": "application/json" },
+    });
+
+    const res = await api.post("/auth/login", { email, password });
+
+    const { data } = res;
+
+    cookieStore.set("teacher_id", data.teacher_id, {
+      httpOnly: true,
+      path: "/",
+    });
+
+    return { success: true };
+  } catch (error: any) {
+    cookieStore.delete("class_id");
+    cookieStore.delete("teacher_id");
+
+    if (error instanceof AxiosError) {
+      return { success: false, error: "Não foi possível conectar ao servidor" };
+    }
+    console.log(error);
+    return { success: false, error: "Erro ao processar a requisição" };
+  }
+}
+
+async function fetchClasses(): Promise<{
+  success: boolean;
+  error?: string;
+  data: ClassesResponse[];
+}> {
+  try {
+    const api = await createServerApi();
+    const res = await api.get("/classes");
+    const { data } = res;
+
+    return { success: true, data };
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      return {
+        success: false,
+        error: "Não foi possível conectar ao servidor",
+        data: [],
+      };
+    }
+
+    console.log(error);
+    return {
+      success: false,
+      error: "Erro ao processar a requisição",
+      data: [],
+    };
+  }
+}
+
+async function setClassId(classId: string) {
+  const cookieStore = await cookies();
+  cookieStore.set("class_id", classId, { httpOnly: true });
+}
+
+export { logIn, fetchClasses, setClassId };

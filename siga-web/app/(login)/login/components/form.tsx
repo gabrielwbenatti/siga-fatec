@@ -1,15 +1,16 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { logIn } from "@/app/(login)/login/actions";
 import { ROUTES } from "@/config/routes";
 import { useRouter } from "next/navigation";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { logIn } from "@/app/actions/authActions";
 
 const LoginForm = () => {
   const router = useRouter();
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
