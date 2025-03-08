@@ -1,5 +1,7 @@
 import { ROUTES } from "@/config/routes";
+import { LogOut } from "lucide-react";
 import { ReactNode } from "react";
+import SidebarMenuItem from "./_components/SidebarMenuItem";
 
 const HomeLayout = ({
   children,
@@ -13,19 +15,22 @@ const HomeLayout = ({
   ];
 
   return (
-    <div className="flex">
-      <nav className="md:w-[300px]">
-        <ul className="p-4">
-          {routes.map((e, i) => (
-            <li
-              className={`flex text-ellipsis rounded-lg hover:bg-primary/10`}
-              key={i}
-            >
-              <a className="w-full p-2" href={e.href}>
-                {e.caption}
-              </a>
-            </li>
+    <div className="md:flex md:h-screen md:flex-row">
+      <nav className="hidden md:block md:h-full md:w-[300px]">
+        <ul className="flex flex-col gap-2 p-4 md:h-full">
+          {routes.map((item) => (
+            <SidebarMenuItem
+              key={item.href}
+              caption={item.caption}
+              href={item.href}
+            />
           ))}
+          <SidebarMenuItem
+            key={"/logout"}
+            caption={"Sair"}
+            href={"/logout"}
+            icon={<LogOut />}
+          />
         </ul>
       </nav>
       <main className="w-full">{children}</main>

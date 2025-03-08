@@ -8,15 +8,9 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { ROUTES } from "@/config/routes";
 import { useRouter } from "next/navigation";
-import { FC, FormEvent } from "react";
+import { FormEvent } from "react";
 
-interface HomePlansFormProps {
-  isEditMode: boolean;
-}
-
-const PlansForm: FC<HomePlansFormProps> = ({
-  isEditMode,
-}: HomePlansFormProps) => {
+const PlansForm = ({ isEditMode }: Readonly<{ isEditMode: boolean }>) => {
   const router = useRouter();
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {

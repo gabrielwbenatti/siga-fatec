@@ -1,5 +1,3 @@
-"use client";
-
 import HomeMaterialsForm from "../components/HomeMaterialsForm";
 
 const HomeMaterialsNewPage = () => {

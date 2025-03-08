@@ -1,3 +1,6 @@
+"use client";
+
+import { createClassMaterial } from "@/app/actions/materialsActions";
 import InputWrapper from "@/components/Siga/InputWrapper";
 import TitleBar from "@/components/Siga/TitleBar";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -13,13 +16,13 @@ import { useParams, useRouter } from "next/navigation";
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 import { toast } from "sonner";
 
-interface HomeMaterialsFormProps {
-  isEditMode: boolean;
-}
-
-const HomeMaterialsForm: FC<HomeMaterialsFormProps> = ({
+export default function HomeMaterialsForm({
   isEditMode = true,
-}: HomeMaterialsFormProps) => {
+  initialData = undefined,
+}: {
+  isEditMode: boolean;
+  initialData?: ClassMaterial;
+}) {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
 
@@ -27,10 +30,6 @@ const HomeMaterialsForm: FC<HomeMaterialsFormProps> = ({
   const [error, setError] = useState<string | null>(null);
 
   const [material, setMaterial] = useState<ClassMaterial | null>(null);
-  const [formData, setFormData] = useState<ClassMaterial>({
-    class_id: 2,
-    title: "",
-  });
 
   useEffect(() => {
     if (isEditMode && id) {
@@ -43,7 +42,6 @@ const HomeMaterialsForm: FC<HomeMaterialsFormProps> = ({
       setLoading(true);
       const res = await api.get(`/classes/materials/${id}`);
       setMaterial(res.data);
-      setFormData(res.data);
       setError(null);
     } catch (error) {
       setError("Erro ao carregar material. Tente novamente");
@@ -53,35 +51,14 @@ const HomeMaterialsForm: FC<HomeMaterialsFormProps> = ({
     }
   };
 
-  const handleFileSelect = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
-    const extension = extractFileExtension(file.name);
-    setFormData((prev) => ({
-      ...prev,
-      title:
-        prev.title ||
-        file.name.substring(0, file.name.length - (extension.length + 1)),
-      file_format: extension,
-    }));
-  };
+    const formData = new FormData(event.currentTarget);
+    const result = await createClassMaterial(formData);
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    try {
-      e.preventDefault();
-
-      if (isEditMode) {
-        await api.put(`/classes/materials/${id}`, formData);
-      } else {
-        await api.post("/classes/materials", formData);
-      }
-
+    if (result.success) {
       router.push(ROUTES.MATERIALS.LIST);
-      toast.info("Material cadastrado com sucesso");
-    } catch (error) {
-      toast.error("Erro ao salvar o material. Tente novamente.");
-      console.log(error);
     }
   };
 
@@ -101,18 +78,14 @@ const HomeMaterialsForm: FC<HomeMaterialsFormProps> = ({
         </Alert>
       )}
 
-      <form
-        method="post"
-        onSubmit={handleSubmit}
-        className="flex flex-col gap-4"
-      >
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <InputWrapper>
           <Input
             placeholder="Selecione o arquivo desejado"
             type="file"
+            name="file"
             required
             disabled={isEditMode}
-            onChange={handleFileSelect}
           />
         </InputWrapper>
 
@@ -120,12 +93,10 @@ const HomeMaterialsForm: FC<HomeMaterialsFormProps> = ({
           <Label>Título do arquivo</Label>
           <Input
             placeholder="Título do arquivo"
+            defaultValue={initialData?.title}
             type="text"
             required
-            value={formData.title}
-            onChange={(e) =>
-              setFormData((prev) => ({ ...prev, title: e.target.value }))
-            }
+            name="title"
           />
         </InputWrapper>
 
@@ -133,10 +104,8 @@ const HomeMaterialsForm: FC<HomeMaterialsFormProps> = ({
           <Label>Descrição do conteúdo</Label>
           <Textarea
             placeholder="Ex.: material teórico para..."
-            value={formData.description || ""}
-            onChange={(e) =>
-              setFormData((prev) => ({ ...prev, description: e.target.value }))
-            }
+            name="description"
+            defaultValue={initialData?.description}
           />
         </InputWrapper>
 
@@ -146,6 +115,4 @@ const HomeMaterialsForm: FC<HomeMaterialsFormProps> = ({
       </form>
     </div>
   );
-};
-
-export default HomeMaterialsForm;
+}

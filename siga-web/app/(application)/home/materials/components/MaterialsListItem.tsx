@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/config/routes";
 import ClassMaterial from "@/types/ClassMaterial";
@@ -8,9 +10,10 @@ import {
   FileMinus,
   FileSpreadsheet,
   FileText,
+  FileChartPieIcon,
   Trash2,
 } from "lucide-react";
-import { FC } from "react";
+import { toast } from "sonner";
 
 interface HomeMaterialsListItemProps {
   material: ClassMaterial;
@@ -18,11 +21,9 @@ interface HomeMaterialsListItemProps {
   onDownload?: (id: number) => void;
 }
 
-const HomeMaterialsListItem: FC<HomeMaterialsListItemProps> = ({
+export default function HomeMaterialsListItem({
   material,
-  onDelete,
-  onDownload,
-}: HomeMaterialsListItemProps) => {
+}: HomeMaterialsListItemProps) {
   const getFileIcon = (extension: string) => {
     switch (extension) {
       case "doc":
@@ -31,6 +32,9 @@ const HomeMaterialsListItem: FC<HomeMaterialsListItemProps> = ({
       case "xls":
       case "xlsx":
         return <FileSpreadsheet className="text-green-400" />;
+      case "pptx":
+      case "ppt":
+        return <FileChartPieIcon className="text-orange-400" />;
       case "pdf":
         return <FileMinus className="text-red-400" />;
       case "png":
@@ -42,6 +46,15 @@ const HomeMaterialsListItem: FC<HomeMaterialsListItemProps> = ({
         return <File />;
     }
   };
+
+  function handleDownload() {
+    console.log("handleDownload");
+    toast.info("Em breve");
+  }
+  function handleDelete() {
+    console.log("handleDelete");
+    toast.info("Em breve ");
+  }
 
   return (
     <div className="flex items-center justify-between rounded-lg p-2 hover:bg-primary/10">
@@ -58,19 +71,17 @@ const HomeMaterialsListItem: FC<HomeMaterialsListItemProps> = ({
       </div>
 
       <div className="flex gap-1.5">
-        <Button variant="outline" onClick={() => onDownload?.(material.id!)}>
+        <Button variant="outline" onClick={() => handleDownload()}>
           <DownloadCloudIcon /> Download
         </Button>
         <Button
           variant="destructive"
           size="icon"
-          onClick={() => onDelete?.(material.id!)}
+          onClick={() => handleDelete()}
         >
           <Trash2 />
         </Button>
       </div>
     </div>
   );
-};
-
-export default HomeMaterialsListItem;
+}
