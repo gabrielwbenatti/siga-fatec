@@ -2,21 +2,21 @@ import { ROUTES } from "@/config/routes";
 import PlansList from "./components/PlansList";
 import { Button } from "@/components/ui/button";
 import { fetchClassPlans } from "@/app/actions/classPlansActions";
+import TitleBar from "@/components/Siga/TitleBar";
 
 const HomePlansPage = async () => {
   const { data } = await fetchClassPlans();
 
   return (
-    <div className="space-y-4 p-4">
-      <div className="flex justify-between">
-        <h1 className="text-2xl font-bold">Planejamento</h1>
+    <>
+      <TitleBar title="Planejamento">
         <a href={ROUTES.PLANS.CREATE}>
           <Button>Novo</Button>
         </a>
-      </div>
+      </TitleBar>
 
       <PlansList data={data} />
-    </div>
+    </>
   );
 };
 

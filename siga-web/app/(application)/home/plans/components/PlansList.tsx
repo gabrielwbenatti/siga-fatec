@@ -3,7 +3,7 @@ import PlansListItem from "./PlansListItem";
 
 const PlansList = ({ data }: { data: ClassPlan[] }) => {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col divide-y p-4">
       {data.length === 0 ? (
         <div>Nenhuma informação para exibir.</div>
       ) : (

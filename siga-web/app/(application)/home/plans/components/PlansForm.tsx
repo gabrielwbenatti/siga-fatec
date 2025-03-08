@@ -35,7 +35,7 @@ const PlansForm = ({
   }
 
   return (
-    <div className="space-y-4 p-4">
+    <div className="space-y-4">
       <TitleBar title={isEditMode ? "" : "Criar Novo Planejamento"} />
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">

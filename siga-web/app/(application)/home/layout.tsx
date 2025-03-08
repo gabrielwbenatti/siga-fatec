@@ -15,21 +15,24 @@ const HomeLayout = ({
   ];
 
   return (
-    <div className="md:flex md:h-screen md:flex-row">
-      <nav className="hidden md:block md:h-full md:w-[300px]">
-        <ul className="flex flex-col gap-2 p-4 md:h-full">
-          {routes.map((item) => (
-            <SidebarMenuItem
-              key={item.href}
-              caption={item.caption}
-              href={item.href}
-            />
-          ))}
+    <div className="bg-gray-100 md:flex md:h-screen md:flex-row">
+      <nav className="hidden bg-white md:block md:h-full md:w-[300px]">
+        <ul className="flex flex-col justify-between p-4 md:h-full">
+          <div className="flex flex-col gap-2">
+            {routes.map((item) => (
+              <SidebarMenuItem
+                key={item.href}
+                caption={item.caption}
+                href={item.href}
+              />
+            ))}
+          </div>
           <SidebarMenuItem
             key={"/logout"}
             caption={"Sair"}
             href={"/logout"}
             icon={<LogOut />}
+            className="text-red-500"
           />
         </ul>
       </nav>

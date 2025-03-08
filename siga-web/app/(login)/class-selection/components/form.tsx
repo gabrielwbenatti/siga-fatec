@@ -23,9 +23,12 @@ const ClassSelectionForm = ({
 }>) => {
   const router = useRouter();
   const [selectedClass, setSelectedClass] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   async function handleSelectClass(classId: string) {
+    setIsLoading(true);
     await setClassId(classId);
+    setIsLoading(false);
     router.push(ROUTES.HOME);
   }
 
@@ -54,7 +57,7 @@ const ClassSelectionForm = ({
       </CardContent>
       <CardFooter className="flex justify-end">
         <Button onClick={() => handleSelectClass(selectedClass)}>
-          Continuar
+          {isLoading ? "Registrando..." : "Continuar"}
         </Button>
       </CardFooter>
     </Card>

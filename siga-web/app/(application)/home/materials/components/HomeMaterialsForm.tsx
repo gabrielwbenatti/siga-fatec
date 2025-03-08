@@ -38,7 +38,7 @@ export default function HomeMaterialsForm({
   };
 
   return (
-    <div className="space-y-4 p-4">
+    <div className="space-y-4">
       <TitleBar
         title={isEditMode ? `${initialData?.title}` : "Novo Material de Aula"}
       />

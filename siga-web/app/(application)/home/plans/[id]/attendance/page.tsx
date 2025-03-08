@@ -123,7 +123,7 @@ const HomePlansAttendancePage = () => {
   }
 
   return (
-    <div className="space-y-4 p-4">
+    <div className="space-y-4">
       {classAtt && (
         <>
           <TitleBar title={classAtt.plan.title} />
