@@ -1,4 +1,4 @@
-const HomePage = () => {
+const HomePage = async () => {
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold">{`Bem-vindo(a) {{PROFESSOR}}`}</h1>

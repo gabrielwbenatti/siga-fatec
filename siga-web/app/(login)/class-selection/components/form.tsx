@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import Class, { ClassesResponse } from "@/types/Class";
+import { ClassesResponse } from "@/types/Class";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ROUTES } from "@/config/routes";

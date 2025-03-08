@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/config/routes";
 import ClassPlan from "@/types/ClassPlan";
@@ -10,7 +12,7 @@ interface HomePlansListItemProps {
   onDelete?: (id: number) => void;
 }
 
-const HomePlansListItem: FC<HomePlansListItemProps> = ({
+const PlansListItem: FC<HomePlansListItemProps> = ({
   plan,
   onDelete,
 }: HomePlansListItemProps) => {
@@ -45,4 +47,4 @@ const HomePlansListItem: FC<HomePlansListItemProps> = ({
   );
 };
 
-export default HomePlansListItem;
+export default PlansListItem;
