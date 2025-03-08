@@ -1,27 +1,37 @@
 "use client";
 
-import { createClassPlan } from "@/app/actions/classPlansActions";
+import {
+  createClassPlan,
+  updateClassPlan,
+} from "@/app/actions/classPlansActions";
 import TitleBar from "@/components/Siga/TitleBar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { ROUTES } from "@/config/routes";
+import ClassPlan from "@/types/ClassPlan";
 import { useRouter } from "next/navigation";
 import { FormEvent } from "react";
 
-const PlansForm = ({ isEditMode }: Readonly<{ isEditMode: boolean }>) => {
+const PlansForm = ({
+  isEditMode,
+  initialData = undefined,
+}: Readonly<{ isEditMode: boolean; initialData?: ClassPlan }>) => {
   const router = useRouter();
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
-    const result = await createClassPlan(formData);
 
-    if (result.success) {
-      router.push(ROUTES.PLANS.LIST);
+    if (isEditMode) {
+      await updateClassPlan(initialData?.id!, formData);
+    } else {
+      await createClassPlan(formData);
     }
+
+    router.push(ROUTES.PLANS.LIST);
   }
 
   return (
@@ -31,7 +41,12 @@ const PlansForm = ({ isEditMode }: Readonly<{ isEditMode: boolean }>) => {
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <div className="flex flex-col gap-1.5">
           <Label>Título da Aula</Label>
-          <Input placeholder="Título da Aula" name="title" required />
+          <Input
+            placeholder="Título da Aula"
+            name="title"
+            required
+            defaultValue={initialData?.title}
+          />
         </div>
 
         <div className="flex flex-col gap-1.5">
@@ -40,17 +55,27 @@ const PlansForm = ({ isEditMode }: Readonly<{ isEditMode: boolean }>) => {
             placeholder="Descrição da Aula"
             rows={6}
             name="description"
+            defaultValue={initialData?.description}
           />
         </div>
 
         <div className="flex flex-col gap-1.5">
           <Label>Data Planejada</Label>
-          <Input type="date" name="planned_date" required />
+          <Input
+            type="date"
+            name="planned_date"
+            required
+            defaultValue={initialData?.planned_date}
+          />
         </div>
 
         <div className="flex flex-col gap-1.5">
           <Label>Data Aplicada</Label>
-          <Input type="date" name="applied_date" />
+          <Input
+            type="date"
+            name="applied_date"
+            defaultValue={initialData?.applied_date}
+          />
         </div>
 
         <div className="flex">

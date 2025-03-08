@@ -70,4 +70,29 @@ export async function fetchMaterialById(
   return data;
 }
 
-export async function updateeClassMaterial(formData: FormData) {}
+export async function updateeClassMaterial(
+  materialId: number,
+  formData: FormData,
+) {
+  const cookieStore = await cookies();
+
+  const title = formData.get("title") as string;
+  const description = formData.get("description") as string;
+
+  try {
+    const classId = cookieStore.get("class_id")?.value;
+
+    const api = await createServerApi();
+    await api.put(`/classes/materials/${materialId}`, {
+      id: materialId,
+      class_id: Number(classId),
+      title,
+      description,
+    });
+
+    return { success: true };
+  } catch (error) {
+    console.log(error);
+    return { success: false };
+  }
+}
