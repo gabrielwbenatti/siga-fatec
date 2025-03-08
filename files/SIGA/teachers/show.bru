@@ -1,0 +1,25 @@
+meta {
+  name: show
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/teachers/1
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  User-Agent: insomnia/9.3.1
+}
+
+body:json {
+  {
+    "user_id": 1,
+    "document": "50087035871",
+    "first_name": "Gabriel",
+    "last_name": "Benatti"
+  }
+}

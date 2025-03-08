@@ -4,6 +4,7 @@ CREATE TABLE "users" (
     "username" VARCHAR(63) NOT NULL,
     "email" VARCHAR(127) NOT NULL,
     "password" VARCHAR(255) NOT NULL,
+    "last_access" TIMESTAMP,
 
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );
@@ -93,6 +94,7 @@ CREATE TABLE "class_plans" (
     "planned_date" DATE NOT NULL,
     "applied_date" DATE,
     "class_id" INTEGER NOT NULL,
+    "info_for_absent" VARCHAR(255),
 
     CONSTRAINT "class_plans_pkey" PRIMARY KEY ("id")
 );
@@ -102,6 +104,7 @@ CREATE TABLE "plans_attendances" (
     "id" SERIAL NOT NULL,
     "class_id" INTEGER NOT NULL,
     "class_schedule_id" INTEGER NOT NULL,
+    "class_plan_id" INTEGER NOT NULL,
     "student_id" INTEGER NOT NULL,
     "is_present" BOOLEAN NOT NULL DEFAULT true,
 
@@ -141,7 +144,7 @@ CREATE TABLE "class_students" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "plans_attendances_class_id_class_schedule_id_student_id_key" ON "plans_attendances"("class_id", "class_schedule_id", "student_id");
+CREATE UNIQUE INDEX "plans_attendances_class_id_class_schedule_id_class_plan_id__key" ON "plans_attendances"("class_id", "class_schedule_id", "class_plan_id", "student_id");
 
 -- AddForeignKey
 ALTER TABLE "teachers" ADD CONSTRAINT "teachers_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -172,6 +175,9 @@ ALTER TABLE "plans_attendances" ADD CONSTRAINT "plans_attendances_class_id_fkey"
 
 -- AddForeignKey
 ALTER TABLE "plans_attendances" ADD CONSTRAINT "plans_attendances_class_schedule_id_fkey" FOREIGN KEY ("class_schedule_id") REFERENCES "class_schedules"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "plans_attendances" ADD CONSTRAINT "plans_attendances_class_plan_id_fkey" FOREIGN KEY ("class_plan_id") REFERENCES "class_plans"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "plans_attendances" ADD CONSTRAINT "plans_attendances_student_id_fkey" FOREIGN KEY ("student_id") REFERENCES "students"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
