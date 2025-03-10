@@ -1,9 +1,15 @@
-"use client";
+import { fetchClassPlanById } from "@/app/actions/classPlansActions";
+import PlansForm from "../../components/PlansForm";
 
-import HomePlansForm from "../../components/HomePlansForm";
+const HomePlansIDEditPage = async ({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) => {
+  const { id } = await params;
+  const plan = await fetchClassPlanById(id);
 
-const HomePlansIDEditPage = () => {
-  return <HomePlansForm isEditMode={true} />;
+  return <PlansForm isEditMode={true} initialData={plan} />;
 };
 
 export default HomePlansIDEditPage;

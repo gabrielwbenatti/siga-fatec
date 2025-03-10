@@ -1,118 +1,56 @@
+"use client";
+
+import {
+  createClassMaterial,
+  updateeClassMaterial,
+} from "@/app/actions/materialsActions";
 import InputWrapper from "@/components/Siga/InputWrapper";
 import TitleBar from "@/components/Siga/TitleBar";
-import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import api from "@/config/axiosInstance";
 import { ROUTES } from "@/config/routes";
 import ClassMaterial from "@/types/ClassMaterial";
-import { extractFileExtension } from "@/utils/file_helper";
-import { useParams, useRouter } from "next/navigation";
-import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
-import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { FormEvent } from "react";
 
-interface HomeMaterialsFormProps {
-  isEditMode: boolean;
-}
-
-const HomeMaterialsForm: FC<HomeMaterialsFormProps> = ({
+export default function HomeMaterialsForm({
   isEditMode = true,
-}: HomeMaterialsFormProps) => {
-  const { id } = useParams<{ id: string }>();
+  initialData = undefined,
+}: {
+  isEditMode: boolean;
+  initialData?: ClassMaterial;
+}) {
   const router = useRouter();
 
-  const [loading, setLoading] = useState<boolean>(isEditMode);
-  const [error, setError] = useState<string | null>(null);
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
-  const [material, setMaterial] = useState<ClassMaterial | null>(null);
-  const [formData, setFormData] = useState<ClassMaterial>({
-    class_id: 2,
-    title: "",
-  });
+    const formData = new FormData(event.currentTarget);
 
-  useEffect(() => {
-    if (isEditMode && id) {
-      fetchMaterial(+id);
+    if (isEditMode) {
+      await updateeClassMaterial(initialData?.id!, formData);
+    } else {
+      await createClassMaterial(formData);
     }
-  }, [isEditMode, id]);
-
-  const fetchMaterial = async (id: number) => {
-    try {
-      setLoading(true);
-      const res = await api.get(`/classes/materials/${id}`);
-      setMaterial(res.data);
-      setFormData(res.data);
-      setError(null);
-    } catch (error) {
-      setError("Erro ao carregar material. Tente novamente");
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
+    router.push(ROUTES.MATERIALS.LIST);
   };
-
-  const handleFileSelect = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    const extension = extractFileExtension(file.name);
-    setFormData((prev) => ({
-      ...prev,
-      title:
-        prev.title ||
-        file.name.substring(0, file.name.length - (extension.length + 1)),
-      file_format: extension,
-    }));
-  };
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    try {
-      e.preventDefault();
-
-      if (isEditMode) {
-        await api.put(`/classes/materials/${id}`, formData);
-      } else {
-        await api.post("/classes/materials", formData);
-      }
-
-      router.push(ROUTES.MATERIALS.LIST);
-      toast.info("Material cadastrado com sucesso");
-    } catch (error) {
-      toast.error("Erro ao salvar o material. Tente novamente.");
-      console.log(error);
-    }
-  };
-
-  if (loading) {
-    return <h1>Carregando...</h1>;
-  }
 
   return (
-    <div className="space-y-4 p-4">
+    <div className="space-y-4">
       <TitleBar
-        title={isEditMode ? `${material?.title}` : "Novo Material de Aula"}
+        title={isEditMode ? `${initialData?.title}` : "Novo Material de Aula"}
       />
 
-      {error && (
-        <Alert variant="destructive">
-          <AlertDescription>{error}</AlertDescription>
-        </Alert>
-      )}
-
-      <form
-        method="post"
-        onSubmit={handleSubmit}
-        className="flex flex-col gap-4"
-      >
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <InputWrapper>
           <Input
             placeholder="Selecione o arquivo desejado"
             type="file"
+            name="file"
             required
             disabled={isEditMode}
-            onChange={handleFileSelect}
           />
         </InputWrapper>
 
@@ -120,12 +58,10 @@ const HomeMaterialsForm: FC<HomeMaterialsFormProps> = ({
           <Label>Título do arquivo</Label>
           <Input
             placeholder="Título do arquivo"
+            defaultValue={initialData?.title}
             type="text"
             required
-            value={formData.title}
-            onChange={(e) =>
-              setFormData((prev) => ({ ...prev, title: e.target.value }))
-            }
+            name="title"
           />
         </InputWrapper>
 
@@ -133,10 +69,8 @@ const HomeMaterialsForm: FC<HomeMaterialsFormProps> = ({
           <Label>Descrição do conteúdo</Label>
           <Textarea
             placeholder="Ex.: material teórico para..."
-            value={formData.description || ""}
-            onChange={(e) =>
-              setFormData((prev) => ({ ...prev, description: e.target.value }))
-            }
+            name="description"
+            defaultValue={initialData?.description}
           />
         </InputWrapper>
 
@@ -146,6 +80,4 @@ const HomeMaterialsForm: FC<HomeMaterialsFormProps> = ({
       </form>
     </div>
   );
-};
-
-export default HomeMaterialsForm;
+}

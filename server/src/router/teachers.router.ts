@@ -3,6 +3,8 @@ import teachersController from "../controllers/teachers.controller";
 
 const teachersRouter = Router();
 
-teachersRouter.post("/", teachersController.createTeacher);
+teachersRouter
+  .post("/", teachersController.createTeacher)
+  .get("/:id", teachersController.showTeacher);
 
 export default teachersRouter;

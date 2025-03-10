@@ -14,6 +14,12 @@ class TeachersService {
 
     return result;
   };
+
+  async showTeacher(teacherId: number) {
+    const row = await db.teachers.findFirst({ where: { id: teacherId } });
+
+    return row;
+  }
 }
 
 export default new TeachersService();

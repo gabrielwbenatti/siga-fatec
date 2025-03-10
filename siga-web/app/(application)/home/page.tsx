@@ -1,10 +1,18 @@
-const HomePage = () => {
-  return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold">{`Bem-vindo(a) {{PROFESSOR}}`}</h1>
+import { fetchTeacher } from "@/app/actions/teacherActions";
+import TitleBar from "@/components/Siga/TitleBar";
 
-      <div className="flex flex-col"></div>
-    </div>
+const HomePage = async () => {
+  const { data } = await fetchTeacher();
+  const teacherName = data.first_name + " " + data.last_name;
+
+  return (
+    <>
+      <TitleBar title={`Bem vindo(a) ${teacherName}`} />
+
+      <div className="p-4">
+        <span>Em breve informações aqui</span>
+      </div>
+    </>
   );
 };
 

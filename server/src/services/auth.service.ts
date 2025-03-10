@@ -20,6 +20,11 @@ class AuthService {
       throw new Error("Invalid Credentials");
     }
 
+    await db.users.update({
+      data: { last_access: new Date() },
+      where: { id: user.id },
+    });
+
     const [teacher] = user.teacher;
     return { username: user.username, id: user.id, teacher_id: teacher.id };
   };

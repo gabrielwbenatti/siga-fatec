@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import classesPlansService from "../services/classes.plans.service";
+import StatusCode from "../utils/http-status-code";
 
 class ClassesPlansController {
   getClassesPlans = async (req: Request, res: Response) => {
     if (!req.headers["class-id"]) {
-      res.status(500).json({ message: "Class not defined" });
-      return;
+      return res.status(500).json({ message: "Class not defined" });
     }
 
     const classId = req.headers["class-id"];
@@ -16,14 +16,23 @@ class ClassesPlansController {
     }
   };
 
-  storeClassPlans = async (req: Request, res: Response) => {
-    const body = req.body;
+  async storeClassPlans(req: Request, res: Response) {
+    const classIdHead = req.headers["class-id"];
+    if (!classIdHead) {
+      return res
+        .status(StatusCode.BAD_REQUEST)
+        .json({ message: "Class not defined" });
+    }
+
+    const classId = Number(classIdHead);
+    const { body } = req;
+
     const result = await classesPlansService.storeClassPlans(body);
 
     if (result) {
       res.status(201).json(result);
     }
-  };
+  }
 
   showClassPlans = async (req: Request, res: Response) => {
     const id = req.params.id;
