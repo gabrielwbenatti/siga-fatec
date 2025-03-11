@@ -1,7 +1,7 @@
 import { ROUTES } from "@/config/routes";
 import PlansList from "./components/PlansList";
 import { Button } from "@/components/ui/button";
-import { fetchClassPlans } from "@/app/actions/classPlansActions";
+import { fetchClassPlans } from "@/app/actions/plansActions";
 import TitleBar from "@/components/Siga/TitleBar";
 
 const HomePlansPage = async () => {

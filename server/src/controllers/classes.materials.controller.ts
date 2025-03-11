@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import classesMaterialsService from "../services/classes.materials.service";
+import StatusCode from "../utils/http-status-code";
 
 class ClassesMaterialsController {
   getClassesMaterials = async (req: Request, res: Response) => {
@@ -22,8 +23,20 @@ class ClassesMaterialsController {
 
   createClassesMaterials = async (req: Request, res: Response) => {
     try {
-      const body = req.body;
-      const result = await classesMaterialsService.createClassesMaterials(body);
+      const classIdParam = req.headers["class-id"];
+      if (!classIdParam) {
+        return res
+          .status(StatusCode.BAD_REQUEST)
+          .json({ message: "Class not defined " });
+      }
+
+      const classId = Number(classIdParam);
+      const { body } = req;
+
+      const result = await classesMaterialsService.createClassesMaterials(
+        classId,
+        body
+      );
 
       if (result) {
         res.status(201).json(result);
@@ -103,6 +116,31 @@ class ClassesMaterialsController {
       res.status(500).json(error);
     }
   };
+
+  async reorderClassMaterials(req: Request, res: Response) {
+    try {
+      const classIdParam = req.headers["class-id"];
+      if (!classIdParam) {
+        return res
+          .status(StatusCode.BAD_REQUEST)
+          .json({ message: "Class not defined " });
+      }
+
+      const classId = Number(classIdParam);
+      const { body } = req;
+
+      const result = await classesMaterialsService.reorderClassMaterials(
+        classId,
+        body
+      );
+
+      if (result) {
+        return res.status(StatusCode.OK).json(result);
+      }
+    } catch (error) {
+      return res.status(StatusCode.INTERNAL_ERROR).json(error);
+    }
+  }
 }
 
 export default new ClassesMaterialsController();

@@ -1,7 +1,7 @@
 import { ROUTES } from "@/config/routes";
 import { LogOut } from "lucide-react";
 import { ReactNode } from "react";
-import SidebarMenuItem from "./_components/SidebarMenuItem";
+import SidebarMenuItem from "./components/SidebarMenuItem";
 
 const HomeLayout = ({
   children,

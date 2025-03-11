@@ -2,7 +2,7 @@
 
 import {
   createClassMaterial,
-  updateeClassMaterial,
+  updateClassMaterial,
 } from "@/app/actions/materialsActions";
 import InputWrapper from "@/components/Siga/InputWrapper";
 import TitleBar from "@/components/Siga/TitleBar";
@@ -30,7 +30,8 @@ export default function HomeMaterialsForm({
     const formData = new FormData(event.currentTarget);
 
     if (isEditMode) {
-      await updateeClassMaterial(initialData?.id!, formData);
+      if (!initialData) return;
+      await updateClassMaterial(initialData.id!, formData);
     } else {
       await createClassMaterial(formData);
     }
@@ -50,6 +51,7 @@ export default function HomeMaterialsForm({
             type="file"
             name="file"
             required
+            defaultValue={initialData?.title || ""}
             disabled={isEditMode}
           />
         </InputWrapper>
@@ -58,7 +60,7 @@ export default function HomeMaterialsForm({
           <Label>Título do arquivo</Label>
           <Input
             placeholder="Título do arquivo"
-            defaultValue={initialData?.title}
+            defaultValue={initialData?.title || ""}
             type="text"
             required
             name="title"
@@ -70,7 +72,7 @@ export default function HomeMaterialsForm({
           <Textarea
             placeholder="Ex.: material teórico para..."
             name="description"
-            defaultValue={initialData?.description}
+            defaultValue={initialData?.description || ""}
           />
         </InputWrapper>
 

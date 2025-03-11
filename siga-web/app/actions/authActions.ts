@@ -28,7 +28,7 @@ async function logIn(
     });
 
     return { success: true };
-  } catch (error: any) {
+  } catch (error) {
     cookieStore.delete("class_id");
     cookieStore.delete("teacher_id");
 

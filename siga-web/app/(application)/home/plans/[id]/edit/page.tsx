@@ -1,4 +1,4 @@
-import { fetchClassPlanById } from "@/app/actions/classPlansActions";
+import { fetchClassPlanById } from "@/app/actions/plansActions";
 import PlansForm from "../../components/PlansForm";
 
 const HomePlansIDEditPage = async ({

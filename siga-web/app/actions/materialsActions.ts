@@ -70,7 +70,7 @@ export async function fetchMaterialById(
   return data;
 }
 
-export async function updateeClassMaterial(
+export async function updateClassMaterial(
   materialId: number,
   formData: FormData,
 ) {
@@ -89,6 +89,24 @@ export async function updateeClassMaterial(
       title,
       description,
     });
+
+    return { success: true };
+  } catch (error) {
+    console.log(error);
+    return { success: false };
+  }
+}
+
+export async function reorderClassMaterial(
+  data: { id: string; title: string; list_index?: number }[],
+): Promise<{ success: boolean }> {
+  try {
+    const api = await createServerApi();
+    const res = await api.patch("/classes/materials", data);
+
+    if (res.status !== 200) {
+      return { success: false };
+    }
 
     return { success: true };
   } catch (error) {
