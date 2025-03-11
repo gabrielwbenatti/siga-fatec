@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  createClassPlan,
-  updateClassPlan,
-} from "@/app/actions/classPlansActions";
+import { createClassPlan, updateClassPlan } from "@/app/actions/plansActions";
 import TitleBar from "@/components/Siga/TitleBar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -26,7 +23,8 @@ const PlansForm = ({
     const formData = new FormData(event.currentTarget);
 
     if (isEditMode) {
-      await updateClassPlan(initialData?.id!, formData);
+      if (!initialData) return;
+      await updateClassPlan(initialData.id!, formData);
     } else {
       await createClassPlan(formData);
     }
@@ -36,7 +34,9 @@ const PlansForm = ({
 
   return (
     <div className="space-y-4">
-      <TitleBar title={isEditMode ? "" : "Criar Novo Planejamento"} />
+      <TitleBar
+        title={isEditMode ? `${initialData?.title}` : "Criar Novo Planejamento"}
+      />
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <div className="flex flex-col gap-1.5">
@@ -45,7 +45,7 @@ const PlansForm = ({
             placeholder="Título da Aula"
             name="title"
             required
-            defaultValue={initialData?.title}
+            defaultValue={initialData?.title || ""}
           />
         </div>
 
@@ -55,7 +55,7 @@ const PlansForm = ({
             placeholder="Descrição da Aula"
             rows={6}
             name="description"
-            defaultValue={initialData?.description}
+            defaultValue={initialData?.description || ""}
           />
         </div>
 
@@ -65,7 +65,7 @@ const PlansForm = ({
             type="date"
             name="planned_date"
             required
-            defaultValue={initialData?.planned_date}
+            defaultValue={initialData?.planned_date || ""}
           />
         </div>
 
@@ -74,7 +74,7 @@ const PlansForm = ({
           <Input
             type="date"
             name="applied_date"
-            defaultValue={initialData?.applied_date}
+            defaultValue={initialData?.applied_date || ""}
           />
         </div>
 

@@ -12,11 +12,12 @@ export async function fetchClassPlans(): Promise<{
 }> {
   try {
     const api = await createServerApi();
-    const res = await api.get<any>("/classes/plans");
+    const res = await api.get("/classes/plans");
     const { data } = res;
 
     return { success: true, data };
   } catch (error) {
+    console.log(error);
     if (error instanceof AxiosError) {
       return {
         success: false,
@@ -25,7 +26,6 @@ export async function fetchClassPlans(): Promise<{
       };
     }
 
-    console.log(error);
     return {
       success: false,
       error: "Erro ao processar a requisição",
@@ -56,6 +56,7 @@ export async function createClassPlan(formData: FormData) {
 
     return { success: true };
   } catch (error) {
+    console.log(error);
     return { success: false };
   }
 }

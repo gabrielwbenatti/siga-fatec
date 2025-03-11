@@ -14,6 +14,7 @@ export async function fetchTeacher() {
 
     return { success: true, data };
   } catch (error) {
+    console.log(error);
     return { success: false };
   }
 }
