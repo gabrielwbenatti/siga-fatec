@@ -10,21 +10,22 @@ class ClassesMaterialsService {
     return result;
   };
 
-  createClassesMaterials = async (body: any) => {
-    const { class_id, title, description, file_format } = body;
-    const aggregations = await db.class_materials.aggregate({
+  createClassesMaterials = async (classId: number, body: any) => {
+    const { title, description, file_format } = body;
+
+    const { _max } = await db.class_materials.aggregate({
       _max: { list_index: true },
-      where: { class_id },
+      where: { class_id: classId },
     });
 
     try {
       const result = await db.class_materials.create({
         data: {
-          class_id,
+          class_id: classId,
           title,
           description,
           file_format,
-          list_index: aggregations._max.list_index || 0,
+          list_index: _max.list_index !== null ? _max.list_index + 1 : 0,
         },
       });
 
@@ -83,6 +84,26 @@ class ClassesMaterialsService {
       return null;
     }
   };
+
+  async reorderClassMaterials(
+    classId: number,
+    body: {
+      id: string;
+      title: string;
+      list_index: number;
+    }[]
+  ) {
+    const transaction = body.map((m) => {
+      return db.class_materials.update({
+        data: { list_index: m.list_index },
+        where: { id: Number(m.id), class_id: classId },
+      });
+    });
+
+    const res = await db.$transaction(transaction);
+
+    return res;
+  }
 }
 
 export default new ClassesMaterialsService();

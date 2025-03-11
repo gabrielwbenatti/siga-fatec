@@ -33,6 +33,7 @@ classesRouter
 classesRouter
   .get("/materials", classesMaterialsController.getClassesMaterials)
   .post("/materials", classesMaterialsController.createClassesMaterials)
+  .patch("/materials", classesMaterialsController.reorderClassMaterials)
   .get("/materials/:id", classesMaterialsController.showClassMaterial)
   .delete("/materials/:id", classesMaterialsController.deleteClassMaterial)
   .put("/materials/:id", classesMaterialsController.updateClassMaterial);

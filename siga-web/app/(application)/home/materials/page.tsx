@@ -11,9 +11,11 @@ export default async function HomeMaterialsPage() {
   return (
     <>
       <TitleBar title="Materiais de Aula">
-        <Button variant="secondary">
-          <ArrowDownUp /> Reordenar
-        </Button>
+        <a href={ROUTES.MATERIALS.REORDER}>
+          <Button variant="secondary">
+            <ArrowDownUp /> Reordenar
+          </Button>
+        </a>
 
         <a href={ROUTES.MATERIALS.CREATE}>
           <Button>Novo</Button>
