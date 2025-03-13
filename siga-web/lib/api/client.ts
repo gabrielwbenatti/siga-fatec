@@ -4,7 +4,7 @@ import axios, { AxiosInstance } from "axios";
 
 function createClientApi(): AxiosInstance {
   const api = axios.create({
-    baseURL: process.env.API_URL || "http://localhost:8000/api/v1",
+    baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1",
     headers: {
       "Content-Type": "application/json",
     },
