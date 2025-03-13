@@ -3,13 +3,14 @@ import classesService from "../services/classes.service";
 
 class ClassesController {
   getClasses = async (req: Request, res: Response) => {
-    if (!req.headers["teacher-id"]) {
+    const teacherIdParam = req.headers["teacher-id"] as string;
+    if (!teacherIdParam) {
       res.status(500).json({ message: "Techer not defined " });
       return;
     }
 
-    const teacherId = req.headers["teacher-id"];
-    const result = await classesService.getClasses(+teacherId!);
+    const teacherId = Number(teacherIdParam);
+    const result = await classesService.getClasses(teacherId);
 
     if (result) {
       res.status(200).json(result);

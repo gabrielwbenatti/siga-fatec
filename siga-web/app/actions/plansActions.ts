@@ -1,6 +1,7 @@
 "use server";
 
 import { createServerApi } from "@/lib/api/server";
+import ClassAttendance from "@/types/ClassAttendance";
 import ClassPlan from "@/types/ClassPlan";
 import { AxiosError } from "axios";
 import { cookies } from "next/headers";
@@ -95,4 +96,18 @@ export async function fetchClassPlanById(planId: string): Promise<ClassPlan> {
   const { data } = res;
 
   return data;
+}
+
+export async function fetchAttendances(
+  planId: string,
+): Promise<ClassAttendance> {
+  const api = await createServerApi();
+  const res = await api.get(`/classes/plans/${planId}/attendances`);
+  const { data } = res;
+
+  return data;
+}
+
+export async function postAttendances() {
+  return null;
 }

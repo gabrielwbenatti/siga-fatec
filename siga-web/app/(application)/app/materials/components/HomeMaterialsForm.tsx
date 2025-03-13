@@ -4,8 +4,8 @@ import {
   createClassMaterial,
   updateClassMaterial,
 } from "@/app/actions/materialsActions";
-import InputWrapper from "@/components/Siga/InputWrapper";
-import TitleBar from "@/components/Siga/TitleBar";
+import InputWrapper from "@/components/SiGA/InputWrapper";
+import TitleBar from "@/components/SiGA/TitleBar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
