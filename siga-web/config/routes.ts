@@ -2,18 +2,18 @@ export const ROUTES = {
   LOGIN: "/login",
   CLASS_SELECTION: "/class-selection",
 
-  HOME: "/home",
+  HOME: "/app",
   PLANS: {
-    LIST: "/home/plans",
-    CREATE: "/home/plans/new",
-    EDIT: (id: number) => `/home/plans/${id}/edit`,
+    LIST: "/app/plans",
+    CREATE: "/app/plans/new",
+    EDIT: (id: number) => `/app/plans/${id}/edit`,
 
-    ATTENDACE: (id: number) => `/home/plans/${id}/attendance`,
+    ATTENDACE: (id: number) => `/app/plans/${id}/attendance`,
   },
   MATERIALS: {
-    LIST: "/home/materials",
-    CREATE: "/home/materials/new",
-    REORDER: "/home/materials/reorder",
-    EDIT: (id: number) => `/home/materials/${id}/edit`,
+    LIST: "/app/materials",
+    CREATE: "/app/materials/new",
+    REORDER: "/app/materials/reorder",
+    EDIT: (id: number) => `/app/materials/${id}/edit`,
   },
 } as const;
