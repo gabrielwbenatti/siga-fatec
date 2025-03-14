@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import classesAttendancesService from "../services/classes.attendances.service";
 import StatusCode from "../utils/http-status-code";
+import { BadRequestError } from "../errors/api-error";
 
 class ClassesAttendanceController {
   getPlansAttendances = async (req: Request, res: Response) => {
@@ -36,19 +37,15 @@ class ClassesAttendanceController {
 
   async storePlanAttendances(req: Request, res: Response, next?: NextFunction) {
     try {
-      const planIdParam = req.params.id;
+      const planIdParam = req.params["id"];
       const classIdHeader = req.headers["class-id"];
 
       if (!classIdHeader) {
-        return res
-          .status(StatusCode.BAD_REQUEST)
-          .json({ message: "Class not defined" });
+        throw new BadRequestError("Class not defined");
       }
 
       if (!planIdParam) {
-        return res
-          .status(StatusCode.BAD_REQUEST)
-          .json({ message: "Plan not defined" });
+        throw new BadRequestError("Plan not defined");
       }
 
       const { body } = req;
@@ -66,11 +63,7 @@ class ClassesAttendanceController {
 
       return res.status(201).json(result);
     } catch (error) {
-      console.log(error);
-      res.status(StatusCode.INTERNAL_ERROR).json({
-        error: "Não foi possível gravar os dados, tente novamente mais tarde",
-      });
-      next?.();
+      next?.(error);
     }
   }
 
@@ -80,19 +73,15 @@ class ClassesAttendanceController {
     next?: NextFunction
   ) {
     try {
-      const planIdParam = req.params.id;
+      const planIdParam = req.params["id"];
       const classIdHeader = req.headers["class-id"];
 
       if (!classIdHeader) {
-        return res
-          .status(StatusCode.BAD_REQUEST)
-          .json({ message: "Class not defined" });
+        throw new BadRequestError("Class not defined");
       }
 
       if (!planIdParam) {
-        return res
-          .status(StatusCode.BAD_REQUEST)
-          .json({ message: "Plan not defined" });
+        throw new BadRequestError("Plan not defined");
       }
 
       const { body } = req;
@@ -105,16 +94,9 @@ class ClassesAttendanceController {
         body
       );
 
-      if (!result) {
-      }
-
-      return res.status(200).json(result);
+      return res.status(StatusCode.OK).json(result);
     } catch (error) {
-      console.log(error);
-      res.status(StatusCode.INTERNAL_ERROR).json({
-        error: "Não foi possível gravar os dados, tente novamente mais tarde",
-      });
-      next?.();
+      next?.(error);
     }
   }
 }
