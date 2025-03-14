@@ -15,7 +15,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Textarea } from "@/components/ui/textarea";
-import { ROUTES } from "@/config/routes";
+import { ROUTES } from "@/lib/routes";
 import ClassAttendance, { Attendance } from "@/types/ClassAttendance";
 import { formatDate } from "@/utils/string_helper";
 import { SquareCheck, SquareMinus, SquareX } from "lucide-react";

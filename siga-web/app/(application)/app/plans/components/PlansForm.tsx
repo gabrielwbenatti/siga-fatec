@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { ROUTES } from "@/config/routes";
+import { ROUTES } from "@/lib/routes";
 import ClassPlan from "@/types/ClassPlan";
 import { useRouter } from "next/navigation";
 import { FormEvent } from "react";

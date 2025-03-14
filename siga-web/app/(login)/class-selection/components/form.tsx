@@ -13,7 +13,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { ClassesResponse } from "@/types/Class";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { ROUTES } from "@/config/routes";
+import { ROUTES } from "@/lib/routes";
 import { setClassId } from "@/app/actions/authActions";
 
 const ClassSelectionForm = ({

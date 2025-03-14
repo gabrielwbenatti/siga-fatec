@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ROUTES } from "@/config/routes";
+import { ROUTES } from "@/lib/routes";
 import ClassMaterial from "@/types/ClassMaterial";
 import {
   DownloadCloudIcon,

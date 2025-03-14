@@ -19,7 +19,7 @@ import ClassMaterial from "@/types/ClassMaterial";
 import { Button } from "@/components/ui/button";
 import { reorderClassMaterial } from "@/app/actions/materialsActions";
 import { useRouter } from "next/navigation";
-import { ROUTES } from "@/config/routes";
+import { ROUTES } from "@/lib/routes";
 import SortableItem from "./SortableItem";
 
 interface MaterialsReorderListProps {

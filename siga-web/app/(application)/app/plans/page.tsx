@@ -1,4 +1,4 @@
-import { ROUTES } from "@/config/routes";
+import { ROUTES } from "@/lib/routes";
 import PlansList from "./components/PlansList";
 import { Button } from "@/components/ui/button";
 import { fetchClassPlans } from "@/app/actions/plansActions";
