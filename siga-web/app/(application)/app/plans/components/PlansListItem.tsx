@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ROUTES } from "@/config/routes";
+import { ROUTES } from "@/lib/routes";
 import ClassPlan from "@/types/ClassPlan";
 import { formatDate } from "@/utils/string_helper";
 import { ListCheck, Trash2 } from "lucide-react";

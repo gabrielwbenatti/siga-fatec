@@ -1,5 +1,5 @@
 import { fetchTeacher } from "@/app/actions/teacherActions";
-import TitleBar from "@/components/Siga/TitleBar";
+import TitleBar from "@/components/SiGA/TitleBar";
 
 const HomePage = async () => {
   const { data } = await fetchTeacher();

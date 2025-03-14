@@ -1,8 +1,8 @@
-import { ROUTES } from "@/config/routes";
+import { ROUTES } from "@/lib/routes";
 import PlansList from "./components/PlansList";
 import { Button } from "@/components/ui/button";
 import { fetchClassPlans } from "@/app/actions/plansActions";
-import TitleBar from "@/components/Siga/TitleBar";
+import TitleBar from "@/components/SiGA/TitleBar";
 
 const HomePlansPage = async () => {
   const { data } = await fetchClassPlans();

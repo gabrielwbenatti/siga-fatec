@@ -1,5 +1,6 @@
 import db from "../config/database";
 import * as bcrypt from "bcrypt";
+import { BadRequestError } from "../errors/api-error";
 
 class AuthService {
   signIn = async (body: any) => {
@@ -11,13 +12,13 @@ class AuthService {
     });
 
     if (!user) {
-      throw new Error("User not found");
+      throw new BadRequestError("User not found");
     }
 
     const isMatch = await bcrypt.compare(body.password, user.password);
 
     if (!isMatch) {
-      throw new Error("Invalid Credentials");
+      throw new BadRequestError("Invalid Credentials");
     }
 
     await db.users.update({

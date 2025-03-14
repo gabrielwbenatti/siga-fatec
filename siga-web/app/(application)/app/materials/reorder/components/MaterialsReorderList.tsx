@@ -19,7 +19,7 @@ import ClassMaterial from "@/types/ClassMaterial";
 import { Button } from "@/components/ui/button";
 import { reorderClassMaterial } from "@/app/actions/materialsActions";
 import { useRouter } from "next/navigation";
-import { ROUTES } from "@/config/routes";
+import { ROUTES } from "@/lib/routes";
 import SortableItem from "./SortableItem";
 
 interface MaterialsReorderListProps {
@@ -63,7 +63,9 @@ export default function MaterialsReorderList({
   );
 
   return (
-    <div className="w-full space-y-4 overflow-clip p-4">
+    <div className="w-full space-y-3 overflow-clip px-4">
+      <span>Clique e arraste para reordenar</span>
+
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
@@ -73,7 +75,7 @@ export default function MaterialsReorderList({
           items={items.map((m) => m.id)}
           strategy={verticalListSortingStrategy}
         >
-          <ul className="py-2">
+          <ul className="divide-y py-2">
             {items.map((m, i) => (
               <SortableItem
                 key={m.id}

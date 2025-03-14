@@ -1,6 +1,7 @@
 "use server";
 
 import { createServerApi } from "@/lib/api/server";
+import ClassAttendance from "@/types/ClassAttendance";
 import ClassPlan from "@/types/ClassPlan";
 import { AxiosError } from "axios";
 import { cookies } from "next/headers";
@@ -95,4 +96,60 @@ export async function fetchClassPlanById(planId: string): Promise<ClassPlan> {
   const { data } = res;
 
   return data;
+}
+
+export async function fetchAttendances(
+  planId: string,
+): Promise<ClassAttendance> {
+  const api = await createServerApi();
+  const res = await api.get(`/classes/plans/${planId}/attendances`);
+  const { data } = res;
+
+  return data;
+}
+
+export async function postAttendances(
+  planId: number,
+  data: ClassAttendance,
+): Promise<{
+  success: boolean;
+  error?: string;
+}> {
+  try {
+    const api = await createServerApi();
+    await api.post(`/classes/plans/${planId}/attendances`, data);
+
+    return { success: true };
+  } catch (error) {
+    console.log(error);
+
+    if (error instanceof AxiosError && error.response?.data.message) {
+      return { success: false, error: error.response?.data.message };
+    }
+    return { success: false };
+  }
+}
+
+export async function updateAttendances(
+  planId: number,
+  data: ClassAttendance,
+): Promise<{
+  success: boolean;
+  error?: string;
+}> {
+  console.log(planId, " ", data);
+
+  try {
+    const api = await createServerApi();
+    await api.put(`/classes/plans/${planId}/attendances`, data);
+
+    return { success: true };
+  } catch (error) {
+    console.log(error);
+
+    if (error instanceof AxiosError && error.response?.data.message) {
+      return { success: false, error: error.response?.data.message };
+    }
+    return { success: false };
+  }
 }

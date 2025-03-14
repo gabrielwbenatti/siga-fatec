@@ -1,4 +1,4 @@
-import { ROUTES } from "@/config/routes";
+import { ROUTES } from "@/lib/routes";
 import { LogOut } from "lucide-react";
 import { ReactNode } from "react";
 import SidebarMenuItem from "./components/SidebarMenuItem";

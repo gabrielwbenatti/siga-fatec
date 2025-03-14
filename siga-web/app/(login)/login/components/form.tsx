@@ -1,23 +1,21 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { ROUTES } from "@/config/routes";
+import { ROUTES } from "@/lib/routes";
 import { useRouter } from "next/navigation";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { logIn } from "@/app/actions/authActions";
+import { toast } from "sonner";
 
 const LoginForm = () => {
-  const router = useRouter();
-
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+  const router = useRouter();
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsLoading(true);
-    setError("");
 
     const formData = new FormData(event.currentTarget);
     const result = await logIn(formData);
@@ -27,14 +25,12 @@ const LoginForm = () => {
     if (result.success) {
       router.push(ROUTES.CLASS_SELECTION);
     } else {
-      setError(result.error || "Ocorreu um erro ao fazer login");
+      toast.error(result.error);
     }
   }
 
   return (
     <form onSubmit={handleSubmit}>
-      {error && <div>{error}</div>}
-
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="email">E-mail</Label>

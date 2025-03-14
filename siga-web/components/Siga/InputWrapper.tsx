@@ -1,15 +1,13 @@
-import { FC, ReactNode } from "react";
+import { ReactNode } from "react";
 
 interface InputWrapperProps {
   className?: string;
   children: ReactNode;
 }
 
-const InputWrapper: FC<InputWrapperProps> = ({
+export default function InputWrapper({
   children,
   className,
-}: InputWrapperProps) => {
+}: InputWrapperProps) {
   return <div className={`flex flex-col gap-1.5 ${className}`}>{children}</div>;
-};
-
-export default InputWrapper;
+}

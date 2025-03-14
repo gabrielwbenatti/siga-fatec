@@ -1,12 +1,12 @@
 "use client";
 
 import { createClassPlan, updateClassPlan } from "@/app/actions/plansActions";
-import TitleBar from "@/components/Siga/TitleBar";
+import TitleBar from "@/components/SiGA/TitleBar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { ROUTES } from "@/config/routes";
+import { ROUTES } from "@/lib/routes";
 import ClassPlan from "@/types/ClassPlan";
 import { useRouter } from "next/navigation";
 import { FormEvent } from "react";
@@ -38,7 +38,7 @@ const PlansForm = ({
         title={isEditMode ? `${initialData?.title}` : "Criar Novo Planejamento"}
       />
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4 px-4">
         <div className="flex flex-col gap-1.5">
           <Label>Título da Aula</Label>
           <Input

@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { ROUTES } from "@/config/routes";
+import { ROUTES } from "@/lib/routes";
 import { ArrowDownUp } from "lucide-react";
 import { fetchClassMaterials } from "@/app/actions/materialsActions";
 import MaterialsList from "./components/MaterialsList";
-import TitleBar from "@/components/Siga/TitleBar";
+import TitleBar from "@/components/SiGA/TitleBar";
 
 export default async function HomeMaterialsPage() {
   const { data } = await fetchClassMaterials();
