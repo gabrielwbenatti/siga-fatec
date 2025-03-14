@@ -16,4 +16,8 @@ export const ROUTES = {
     REORDER: "/app/materials/reorder",
     EDIT: (id: number) => `/app/materials/${id}/edit`,
   },
+  STUDENTS: {
+    LIST: "/app/students",
+    EDIT: (id: number) => `/app/students/${id}/edit`,
+  },
 } as const;
