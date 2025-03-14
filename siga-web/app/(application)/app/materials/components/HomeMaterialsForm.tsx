@@ -44,7 +44,7 @@ export default function HomeMaterialsForm({
         title={isEditMode ? `${initialData?.title}` : "Novo Material de Aula"}
       />
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4 px-4">
         <InputWrapper>
           <Input
             placeholder="Selecione o arquivo desejado"

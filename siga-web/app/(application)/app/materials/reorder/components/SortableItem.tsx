@@ -1,5 +1,6 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { Grip } from "lucide-react";
 import { JSX } from "react";
 
 interface SortableItemProps {
@@ -29,8 +30,9 @@ export default function SortableItem({
       style={style}
       {...attributes}
       {...listeners}
-      className={`p-3 ${isDragging ? "bg-primary/10 font-bold" : ""}`}
+      className={`flex items-center gap-2 p-3 ${isDragging ? "bg-primary/10 font-bold" : ""}`}
     >
+      <Grip className="text-gray-400" />
       {`(${material.list_index}) ${material.title}`}
     </li>
   );

@@ -38,7 +38,7 @@ const PlansForm = ({
         title={isEditMode ? `${initialData?.title}` : "Criar Novo Planejamento"}
       />
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4 px-4">
         <div className="flex flex-col gap-1.5">
           <Label>Título da Aula</Label>
           <Input

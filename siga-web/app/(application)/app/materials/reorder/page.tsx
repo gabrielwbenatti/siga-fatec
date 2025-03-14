@@ -6,10 +6,10 @@ export default async function HomeMaterialsReorderPage() {
   const { data } = await fetchClassMaterials();
 
   return (
-    <>
+    <div className="space-y-4">
       <TitleBar title="Reordenação de conteúdo" />
 
       <MaterialsReorderList data={data} />
-    </>
+    </div>
   );
 }

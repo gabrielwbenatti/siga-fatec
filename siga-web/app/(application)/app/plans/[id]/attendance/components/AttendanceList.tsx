@@ -78,10 +78,10 @@ export default function AttendanceList({
 
   const getIconType = (attendances: Array<Attendance>) => {
     if (attendances.every((a) => a.is_present)) {
-      return <SquareCheck />;
+      return <SquareCheck className="bg-green-200" />;
     }
     if (attendances.every((a) => !a.is_present)) {
-      return <SquareX />;
+      return <SquareX className="bg-red-200" />;
     }
     return <SquareMinus />;
   };
@@ -99,7 +99,7 @@ export default function AttendanceList({
   };
 
   return (
-    <div className="flex flex-col space-y-4">
+    <div className="flex flex-col space-y-4 px-4">
       <Table>
         <TableHeader>
           <TableRow>
