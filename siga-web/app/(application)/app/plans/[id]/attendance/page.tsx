@@ -12,7 +12,9 @@ export default async function HomePlansAttendancePage({
 
   return (
     <div className="space-y-4">
-      <TitleBar title={data.plan.title} />
+      <TitleBar
+        title={`${data.plan.applied_date ? "editing" : "not editing"} ${data.plan.title}`}
+      />
       <AttendanceList initialData={data} />
     </div>
   );

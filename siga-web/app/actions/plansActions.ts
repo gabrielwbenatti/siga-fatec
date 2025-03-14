@@ -108,6 +108,48 @@ export async function fetchAttendances(
   return data;
 }
 
-export async function postAttendances() {
-  return null;
+export async function postAttendances(
+  planId: number,
+  data: ClassAttendance,
+): Promise<{
+  success: boolean;
+  error?: string;
+}> {
+  try {
+    const api = await createServerApi();
+    await api.post(`/classes/plans/${planId}/attendances`, data);
+
+    return { success: true };
+  } catch (error) {
+    console.log(error);
+
+    if (error instanceof AxiosError && error.response?.data.message) {
+      return { success: false, error: error.response?.data.message };
+    }
+    return { success: false };
+  }
+}
+
+export async function updateAttendances(
+  planId: number,
+  data: ClassAttendance,
+): Promise<{
+  success: boolean;
+  error?: string;
+}> {
+  console.log(planId, " ", data);
+
+  try {
+    const api = await createServerApi();
+    await api.put(`/classes/plans/${planId}/attendances`, data);
+
+    return { success: true };
+  } catch (error) {
+    console.log(error);
+
+    if (error instanceof AxiosError && error.response?.data.message) {
+      return { success: false, error: error.response?.data.message };
+    }
+    return { success: false };
+  }
 }

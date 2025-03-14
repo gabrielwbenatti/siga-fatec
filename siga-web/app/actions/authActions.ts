@@ -19,7 +19,6 @@ async function logIn(
     });
 
     const res = await api.post("/auth/login", { email, password });
-
     const { data } = res;
 
     cookieStore.set("teacher_id", data.teacher_id, {
@@ -32,10 +31,10 @@ async function logIn(
     cookieStore.delete("class_id");
     cookieStore.delete("teacher_id");
 
-    if (error instanceof AxiosError) {
-      return { success: false, error: "Não foi possível conectar ao servidor" };
+    if (error instanceof AxiosError && error.response?.data.message) {
+      return { success: false, error: error.response?.data.message };
     }
-    console.log(error);
+
     return { success: false, error: "Erro ao processar a requisição" };
   }
 }

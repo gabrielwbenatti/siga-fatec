@@ -1,5 +1,6 @@
 "use client";
 
+import { postAttendances, updateAttendances } from "@/app/actions/plansActions";
 import InputWrapper from "@/components/SiGA/InputWrapper";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -14,10 +15,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Textarea } from "@/components/ui/textarea";
+import { ROUTES } from "@/config/routes";
 import ClassAttendance, { Attendance } from "@/types/ClassAttendance";
 import { formatDate } from "@/utils/string_helper";
 import { SquareCheck, SquareMinus, SquareX } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export default function AttendanceList({
   initialData,
@@ -25,8 +29,9 @@ export default function AttendanceList({
   initialData: ClassAttendance;
 }) {
   const [data, setData] = useState(initialData);
-  // const [editing, setEditing] = useState<boolean>(false);
-  // const [loading, setLoading] = useState(false);
+  const [editing, setEditing] = useState(!!initialData.plan.applied_date);
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const handleIndividualAttendanceClick = (studentId: number, time: string) => {
     setData((prev) => ({
@@ -79,6 +84,18 @@ export default function AttendanceList({
       return <SquareX />;
     }
     return <SquareMinus />;
+  };
+
+  const handleSubmit = async () => {
+    const result = editing
+      ? await updateAttendances(initialData.plan.id, data)
+      : await postAttendances(initialData.plan.id, data);
+
+    if (result.success) {
+      router.push(ROUTES.PLANS.LIST);
+    } else {
+      toast.error(result.error);
+    }
   };
 
   return (
@@ -155,34 +172,8 @@ export default function AttendanceList({
       </InputWrapper>
 
       <div className="flex">
-        <Button>Gravar Frequências</Button>
+        <Button onClick={() => handleSubmit()}>Gravar Frequências</Button>
       </div>
     </div>
   );
 }
-
-// onClick={async () => {
-//   try {
-//     if (editing) {
-//       const res = await api.put(
-//         `/classes/plans/${id}/attendances`,
-//         data,
-//       );
-//       if (res.status !== 200) {
-//       }
-//       toast.success("Presenças atualizadas com sucesso");
-//     } else {
-//       const res = await api.post(
-//         `/classes/plans/${id}/attendances`,
-//         data,
-//       );
-//       if (res.status !== 201) {
-//       }
-//       toast.success("Presenças registradas com sucesso");
-//     }
-
-//     router.push(ROUTES.PLANS.LIST);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }}
