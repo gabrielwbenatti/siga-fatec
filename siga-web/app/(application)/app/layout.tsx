@@ -37,7 +37,7 @@ const HomeLayout = ({
           />
         </ul>
       </nav>
-      <main className="w-full">{children}</main>
+      <main className="h-screen w-full">{children}</main>
     </div>
   );
 };

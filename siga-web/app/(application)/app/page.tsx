@@ -3,13 +3,14 @@ import TitleBar from "@/components/SiGA/TitleBar";
 
 const HomePage = async () => {
   const { data } = await fetchTeacher();
-  const teacherName = data.first_name + " " + data.last_name;
 
   return (
     <>
-      <TitleBar title={`Bem vindo(a) ${teacherName}`} />
+      <TitleBar
+        title={`Bem vindo(a) ${data.first_name + " " + data.last_name}`}
+      />
 
-      <div className="p-4">
+      <div className="px-4">
         <span>Em breve informações aqui</span>
       </div>
     </>

@@ -64,7 +64,9 @@ export default function MaterialsReorderList({
 
   return (
     <div className="w-full space-y-3 overflow-clip px-4">
-      <span>Clique e arraste para reordenar</span>
+      <span className="mb-4 block text-sm text-gray-500">
+        Clique e arraste para reordenar
+      </span>
 
       <DndContext
         sensors={sensors}
@@ -75,7 +77,7 @@ export default function MaterialsReorderList({
           items={items.map((m) => m.id)}
           strategy={verticalListSortingStrategy}
         >
-          <ul className="divide-y py-2">
+          <ul className="flex flex-col gap-3">
             {items.map((m, i) => (
               <SortableItem
                 key={m.id}

@@ -29,7 +29,7 @@ export default function AttendanceList({
   initialData: ClassAttendance;
 }) {
   const [data, setData] = useState(initialData);
-  const [editing, setEditing] = useState(!!initialData.plan.applied_date);
+  const isEditMode = initialData.plan.applied_date;
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -87,7 +87,9 @@ export default function AttendanceList({
   };
 
   const handleSubmit = async () => {
-    const result = editing
+    isEditMode ? toast.info("edit mode ") : toast.info("include mode");
+
+    const result = isEditMode
       ? await updateAttendances(initialData.plan.id, data)
       : await postAttendances(initialData.plan.id, data);
 

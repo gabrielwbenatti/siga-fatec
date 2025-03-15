@@ -30,7 +30,7 @@ export default function SortableItem({
       style={style}
       {...attributes}
       {...listeners}
-      className={`flex items-center gap-2 p-3 ${isDragging ? "bg-primary/10 font-bold" : ""}`}
+      className={`flex items-center gap-2 rounded-lg border p-3 ${isDragging ? "font-bold shadow-lg" : "shadow-sm"}`}
     >
       <Grip className="text-gray-400" />
       {`(${material.list_index}) ${material.title}`}

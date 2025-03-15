@@ -17,7 +17,7 @@ const PlansListItem: FC<HomePlansListItemProps> = ({
   onDelete,
 }: HomePlansListItemProps) => {
   return (
-    <div className="flex w-full items-center justify-between rounded-lg px-2 py-3 hover:bg-primary/10">
+    <div className="flex w-full items-center justify-between rounded-lg border px-2 py-3 shadow-sm hover:bg-primary/10">
       <div className="flex flex-col">
         <span className="text-sm">
           {formatDate(plan.planned_date, "pt-BR")}

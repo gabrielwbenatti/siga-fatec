@@ -137,8 +137,6 @@ export async function updateAttendances(
   success: boolean;
   error?: string;
 }> {
-  console.log(planId, " ", data);
-
   try {
     const api = await createServerApi();
     await api.put(`/classes/plans/${planId}/attendances`, data);

@@ -58,20 +58,17 @@ class ClassesAttendanceController {
         body
       );
 
-      if (!result) {
-      }
-
       return res.status(201).json(result);
     } catch (error) {
       next?.(error);
     }
   }
 
-  async updatePlanAttendances(
+  updatePlanAttendances = async (
     req: Request,
     res: Response,
     next?: NextFunction
-  ) {
+  ) => {
     try {
       const planIdParam = req.params["id"];
       const classIdHeader = req.headers["class-id"];
@@ -98,7 +95,7 @@ class ClassesAttendanceController {
     } catch (error) {
       next?.(error);
     }
-  }
+  };
 }
 
 export default new ClassesAttendanceController();
