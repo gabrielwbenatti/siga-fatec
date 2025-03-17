@@ -27,6 +27,8 @@ CREATE TABLE "students" (
     "first_name" VARCHAR(255) NOT NULL,
     "last_name" VARCHAR(255) NOT NULL,
     "user_id" INTEGER NOT NULL,
+    "phone1" VARCHAR(15),
+    "phone2" VARCHAR(15),
 
     CONSTRAINT "students_pkey" PRIMARY KEY ("id")
 );
