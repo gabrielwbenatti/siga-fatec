@@ -1,4 +1,4 @@
-import TitleBar from "@/components/SiGA/TitleBar";
+import { Titlebar } from "@/components/SiGA/Titlebar";
 import ExamsList from "./_components/ExamsList";
 import { fetchExams } from "@/app/actions/examsActions";
 
@@ -7,7 +7,9 @@ export default async function ExamsPage() {
 
   return (
     <>
-      <TitleBar title="Avaliações" />
+      <Titlebar.Root>
+        <Titlebar.Title title="Avaliações" />
+      </Titlebar.Root>
 
       <ExamsList data={data} />
     </>

@@ -2,18 +2,21 @@ import { ROUTES } from "@/lib/routes";
 import PlansList from "./components/PlansList";
 import { Button } from "@/components/ui/button";
 import { fetchClassPlans } from "@/app/actions/plansActions";
-import TitleBar from "@/components/SiGA/TitleBar";
+import { Titlebar } from "@/components/SiGA/Titlebar";
 
 const HomePlansPage = async () => {
   const { data } = await fetchClassPlans();
 
   return (
     <>
-      <TitleBar title="Planejamento">
-        <a href={ROUTES.PLANS.CREATE}>
-          <Button>Novo</Button>
-        </a>
-      </TitleBar>
+      <Titlebar.Root>
+        <Titlebar.Title title="Planejamento" />
+        <Titlebar.Actions>
+          <a href={ROUTES.PLANS.CREATE}>
+            <Button>Novo</Button>
+          </a>
+        </Titlebar.Actions>
+      </Titlebar.Root>
 
       <PlansList data={data} />
     </>

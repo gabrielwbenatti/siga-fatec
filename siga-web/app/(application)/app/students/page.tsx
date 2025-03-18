@@ -1,13 +1,15 @@
 import { fetchStudents } from "@/app/actions/studentsAction";
-import TitleBar from "@/components/SiGA/TitleBar";
 import StudentsList from "./components/StudentsList";
+import { Titlebar } from "@/components/SiGA/Titlebar";
 
 export default async function StudentsPage() {
   const { data } = await fetchStudents();
 
   return (
     <>
-      <TitleBar title="Alunos" />
+      <Titlebar.Root>
+        <Titlebar.Title title="Alunos" />
+      </Titlebar.Root>
 
       <StudentsList data={data} />
     </>

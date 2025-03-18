@@ -1,5 +1,5 @@
 import { fetchClassMaterials } from "@/app/actions/materialsActions";
-import TitleBar from "@/components/SiGA/TitleBar";
+import { Titlebar } from "@/components/SiGA/Titlebar";
 import MaterialsReorderList from "./components/MaterialsReorderList";
 
 export default async function HomeMaterialsReorderPage() {
@@ -7,7 +7,9 @@ export default async function HomeMaterialsReorderPage() {
 
   return (
     <div className="space-y-4">
-      <TitleBar title="Reordenação de conteúdo" />
+      <Titlebar.Root>
+        <Titlebar.Title title="Reordenação de conteúdo" />
+      </Titlebar.Root>
 
       <MaterialsReorderList data={data} />
     </div>
