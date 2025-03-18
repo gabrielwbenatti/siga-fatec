@@ -1,0 +1,29 @@
+meta {
+  name: update exam
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{baseUrl}}{{classesEndpoint}}{{classesExamsEndpoint}}/1
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  User-Agent: insomnia/9.3.2
+  class-id: 2
+}
+
+body:json {
+  {
+    "id": 1,
+    "class_id": 2,
+    "title": "Prova 111111",
+    "description": "Prova 1",
+    "planned_date": "2025-03-20T00:00:00.000Z",
+    "applied_date": null,
+    "weight": "0"
+  }
+}

@@ -1,0 +1,16 @@
+meta {
+  name: show planning
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}{{classesEndpoint}}{{classesExamsEndpoint}}/1
+  body: none
+  auth: none
+}
+
+headers {
+  User-Agent: insomnia/9.3.2
+  class-id: 2
+}
