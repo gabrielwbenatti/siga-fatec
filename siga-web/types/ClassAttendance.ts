@@ -9,7 +9,7 @@ interface Plan {
   title: string;
   description: string;
   planned_date: string;
-  applied_date: string;
+  applied_date?: string;
   info_for_absent?: string;
 }
 

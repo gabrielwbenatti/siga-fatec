@@ -1,5 +1,6 @@
 import { fetchClassPlanById } from "@/app/actions/plansActions";
 import PlansForm from "../../components/PlansForm";
+import TitleBar from "@/components/SiGA/TitleBar";
 
 const HomePlansIDEditPage = async ({
   params,
@@ -9,7 +10,12 @@ const HomePlansIDEditPage = async ({
   const { id } = await params;
   const plan = await fetchClassPlanById(id);
 
-  return <PlansForm isEditMode={true} initialData={plan} />;
+  return (
+    <>
+      <TitleBar title={plan.title} />
+      <PlansForm isEditMode={true} initialData={plan} />
+    </>
+  );
 };
 
 export default HomePlansIDEditPage;

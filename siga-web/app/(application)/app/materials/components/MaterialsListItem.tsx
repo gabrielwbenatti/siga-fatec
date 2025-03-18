@@ -57,7 +57,7 @@ export default function HomeMaterialsListItem({
   }
 
   return (
-    <div className="flex items-center justify-between rounded-lg p-2 hover:bg-primary/10">
+    <div className="flex items-center justify-between rounded-lg border p-2 shadow-sm hover:bg-primary/10">
       <div className="flex gap-1.5">
         {getFileIcon(material.file_format!)}
         <div className="flex flex-col gap-1.5">

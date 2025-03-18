@@ -1,5 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import classesStudentsService from "../services/classes.students.service";
+import { BadRequestError } from "../errors/api-error";
+import StatusCode from "../utils/http-status-code";
 
 class ClassesStudentsController {
   getClassesStudents = async (
@@ -7,16 +9,18 @@ class ClassesStudentsController {
     res: Response,
     next?: NextFunction
   ) => {
-    if (!req.headers["class-id"]) {
-      res.status(500).json({ message: "Class not defined" });
-      return;
-    }
+    try {
+      const classIdParams = req.headers["class-id"];
+      if (!classIdParams) {
+        throw new BadRequestError("Class not defined");
+      }
 
-    const classId = req.headers["class-id"];
-    const result = await classesStudentsService.getClassesStudents(+classId);
+      const classId = Number(classIdParams);
+      const result = await classesStudentsService.getClassesStudents(classId);
 
-    if (result) {
-      res.status(200).json(result);
+      return res.status(StatusCode.OK).json(result);
+    } catch (error) {
+      next?.(error);
     }
   };
 }
