@@ -53,22 +53,24 @@ const StudentsList = ({ data }: Readonly<{ data: Student[] }>) => {
                     </span>
                     <span className="overflow-ellipsis">{s.user.email}</span>
                   </div>
-                  {s.phone1 && (
-                    <div className="flex flex-col">
-                      <span className="text-sm font-bold text-gray-500">
-                        Telefone 1
-                      </span>
-                      <div className="overflow-ellipsis">{s.phone1}</div>{" "}
+
+                  <div className="flex flex-col">
+                    <span className="text-sm font-bold text-gray-500">
+                      Telefone 1
+                    </span>
+                    <div className="overflow-ellipsis">
+                      {s.phone1 ? s.phone1 : "--"}
                     </div>
-                  )}
-                  {s.phone2 && (
-                    <div className="flex flex-col">
-                      <span className="text-sm font-bold text-gray-500">
-                        Telefone 2
-                      </span>
-                      <div className="overflow-ellipsis">{s.phone2}</div>{" "}
+                  </div>
+
+                  <div className="flex flex-col">
+                    <span className="text-sm font-bold text-gray-500">
+                      Telefone 2
+                    </span>
+                    <div className="overflow-ellipsis">
+                      {s.phone2 ? s.phone2 : "--"}
                     </div>
-                  )}
+                  </div>
                 </div>
               </CollapsableBody>
             )}
