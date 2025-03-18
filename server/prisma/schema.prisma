@@ -37,6 +37,9 @@ model students {
   last_name  String @db.VarChar(255)
   user_id    Int
 
+  phone1 String? @db.VarChar(15)
+  phone2 String? @db.VarChar(15)
+
   class_students   class_students[]
   exam_submissions exam_submissions[]
   plans_attendance plans_attendances[]

@@ -4,8 +4,10 @@ import {
   Collapsable,
   CollapsableBody,
   CollapsableHeader,
-} from "@/components/SiGA/Composable";
+} from "@/components/SiGA/Collapsable";
+import InputWrapper from "@/components/SiGA/InputWrapper";
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 import Student from "@/types/Student";
 import { Mail } from "lucide-react";
 import { useState } from "react";
@@ -43,20 +45,36 @@ const StudentsList = ({ data }: Readonly<{ data: Student[] }>) => {
               <span>{`${s.first_name} ${s.last_name}`}</span>
             </CollapsableHeader>
             {expandedItems.includes(s.id) && (
-              <CollapsableBody>{s.user.email}</CollapsableBody>
+              <CollapsableBody>
+                <div className="flex flex-col md:grid md:grid-cols-3">
+                  <div className="flex flex-col">
+                    <span className="text-sm font-bold text-gray-500">
+                      E-mail
+                    </span>
+                    <span className="overflow-ellipsis">{s.user.email}</span>
+                  </div>
+
+                  <div className="flex flex-col">
+                    <span className="text-sm font-bold text-gray-500">
+                      Telefone 1
+                    </span>
+                    <div className="overflow-ellipsis">
+                      {s.phone1 ? s.phone1 : "--"}
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col">
+                    <span className="text-sm font-bold text-gray-500">
+                      Telefone 2
+                    </span>
+                    <div className="overflow-ellipsis">
+                      {s.phone2 ? s.phone2 : "--"}
+                    </div>
+                  </div>
+                </div>
+              </CollapsableBody>
             )}
           </Collapsable>
-          // <div
-          //   key={s.id}
-          //   className="flex items-center justify-between bg-white px-3 py-2"
-          // >
-          //   <span>{`${s.first_name} ${s.last_name}`}</span>
-          //   <a href={`mailto:${s.user.email}`}>
-          //     <Button size="icon" variant="secondary">
-          //       <Mail />
-          //     </Button>
-          //   </a>
-          // </div>
         ))}
       </div>
     </div>
