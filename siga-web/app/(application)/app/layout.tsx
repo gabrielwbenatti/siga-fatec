@@ -1,5 +1,5 @@
 import { ROUTES } from "@/lib/routes";
-import { LogOut } from "lucide-react";
+import { BookOpenCheck, Files, Home, Notebook, UsersRound } from "lucide-react";
 import { ReactNode } from "react";
 import SidebarMenuItem from "./components/SidebarMenuItem";
 
@@ -9,11 +9,15 @@ const HomeLayout = ({
   children: ReactNode;
 }>) => {
   const routes = [
-    { caption: "Início", href: ROUTES.HOME },
-    { caption: "Planejamento", href: ROUTES.PLANS.LIST },
-    { caption: "Materiais de Aula", href: ROUTES.MATERIALS.LIST },
-    { caption: "Avaliações", href: ROUTES.EXAMS.LIST },
-    { caption: "Alunos", href: ROUTES.STUDENTS.LIST },
+    { caption: "Início", href: ROUTES.HOME, icon: <Home /> },
+    { caption: "Planejamento", href: ROUTES.PLANS.LIST, icon: <Notebook /> },
+    {
+      caption: "Materiais de Aula",
+      href: ROUTES.MATERIALS.LIST,
+      icon: <Files />,
+    },
+    { caption: "Avaliações", href: ROUTES.EXAMS.LIST, icon: <BookOpenCheck /> },
+    { caption: "Alunos", href: ROUTES.STUDENTS.LIST, icon: <UsersRound /> },
   ];
 
   return (
@@ -24,18 +28,12 @@ const HomeLayout = ({
             {routes.map((item) => (
               <SidebarMenuItem
                 key={item.href}
+                icon={item.icon}
                 caption={item.caption}
                 href={item.href}
               />
             ))}
           </div>
-          <SidebarMenuItem
-            key={"/logout"}
-            caption={"Sair"}
-            href={"/logout"}
-            icon={<LogOut />}
-            className="text-red-500"
-          />
         </ul>
       </nav>
       <main className="h-screen w-full">{children}</main>
