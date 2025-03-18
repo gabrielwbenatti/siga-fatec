@@ -151,13 +151,13 @@ model exams {
 }
 
 model exam_submissions {
-  id            Int     @id @default(autoincrement())
-  class_exam_id Int
-  student_id    Int
-  score         Decimal @default(0.00) @db.Decimal(10, 2)
+  id         Int     @id @default(autoincrement())
+  exam_id    Int
+  student_id Int
+  score      Decimal @default(0.00) @db.Decimal(10, 2)
 
-  class_exam exams    @relation(fields: [class_exam_id], references: [id], onDelete: Cascade)
-  student    students @relation(fields: [student_id], references: [id])
+  exam    exams    @relation(fields: [exam_id], references: [id], onDelete: Cascade)
+  student students @relation(fields: [student_id], references: [id])
 }
 
 model class_students {

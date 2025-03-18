@@ -49,6 +49,14 @@ class ClassesExamsService {
 
     return row;
   };
+
+  indexSubmissions = async (examId: number, classId: number) => {
+    const rows = await db.exam_submissions.findMany({
+      where: { exam_id: examId, exam: { class_id: classId } },
+    });
+
+    return rows;
+  };
 }
 
 export default new ClassesExamsService();
