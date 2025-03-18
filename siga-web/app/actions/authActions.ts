@@ -4,7 +4,6 @@ import { createServerApi } from "@/lib/api/server";
 import { ClassesResponse } from "@/types/Class";
 import axios, { AxiosError } from "axios";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 
 export async function logIn(
   formData: FormData,

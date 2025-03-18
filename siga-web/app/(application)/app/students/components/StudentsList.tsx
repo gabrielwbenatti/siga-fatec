@@ -5,9 +5,7 @@ import {
   CollapsableBody,
   CollapsableHeader,
 } from "@/components/SiGA/Collapsable";
-import InputWrapper from "@/components/SiGA/InputWrapper";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import Student from "@/types/Student";
 import { Mail } from "lucide-react";
 import { useState } from "react";
