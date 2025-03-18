@@ -7,7 +7,6 @@ export const ROUTES = {
     LIST: "/app/plans",
     CREATE: "/app/plans/new",
     EDIT: (id: number) => `/app/plans/${id}/edit`,
-
     ATTENDACE: (id: number) => `/app/plans/${id}/attendance`,
   },
   MATERIALS: {
@@ -19,5 +18,8 @@ export const ROUTES = {
   STUDENTS: {
     LIST: "/app/students",
     EDIT: (id: number) => `/app/students/${id}/edit`,
+  },
+  EXAMS: {
+    LIST: "/app/exams",
   },
 } as const;

@@ -12,6 +12,7 @@ const HomeLayout = ({
     { caption: "Início", href: ROUTES.HOME },
     { caption: "Planejamento", href: ROUTES.PLANS.LIST },
     { caption: "Materiais de Aula", href: ROUTES.MATERIALS.LIST },
+    { caption: "Avaliações", href: ROUTES.EXAMS.LIST },
     { caption: "Alunos", href: ROUTES.STUDENTS.LIST },
   ];
 

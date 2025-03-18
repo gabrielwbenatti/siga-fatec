@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 async function main() {
   const salt = await bcrypt.genSalt(8);
-  const pass = await bcrypt.hash("123456", salt);
+  const pass = await bcrypt.hash("wEz2p16U3G2pyq", salt);
 
   await prisma.courses
     .create({
@@ -17,14 +17,14 @@ async function main() {
     .then(async (adsCourse) => {
       const courseId = adsCourse.id;
 
-      const pc = await prisma.teachers.create({
+      const fulanoDeTal = await prisma.teachers.create({
         data: {
-          first_name: "Paulo",
-          last_name: "Cesar",
+          first_name: "Professor",
+          last_name: "Fulano de Tal",
           user: {
             create: {
-              email: "paulo.cesar@fatec.sp.gov.br",
-              username: "paulo.cesar",
+              email: "professor.fulanodetal@fatec.sp.gov.br",
+              username: "professor.fulanodetal",
               password: pass,
             },
           },
@@ -33,12 +33,12 @@ async function main() {
 
       const pweb = await prisma.disciplines.create({
         data: {
-          abbreviation: "pweb",
+          abbreviation: "PWEB",
           name: "Programação Web",
           course_id: courseId,
           classes: {
             create: {
-              teacher_id: pc.id,
+              teacher_id: fulanoDeTal.id,
               semester: 1,
               year: 2025,
               class_schedules: {
@@ -69,7 +69,7 @@ async function main() {
           course_id: courseId,
           classes: {
             create: {
-              teacher_id: pc.id,
+              teacher_id: fulanoDeTal.id,
               semester: 1,
               year: 2025,
               class_schedules: {

@@ -4,8 +4,9 @@ import { createServerApi } from "@/lib/api/server";
 import { ClassesResponse } from "@/types/Class";
 import axios, { AxiosError } from "axios";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
-async function logIn(
+export async function logIn(
   formData: FormData,
 ): Promise<{ success: boolean; error?: string }> {
   const email = formData.get("email") as string;
@@ -39,7 +40,7 @@ async function logIn(
   }
 }
 
-async function fetchClasses(): Promise<{
+export async function fetchClasses(): Promise<{
   success: boolean;
   error?: string;
   data: ClassesResponse[];
@@ -68,9 +69,7 @@ async function fetchClasses(): Promise<{
   }
 }
 
-async function setClassId(classId: string) {
+export async function setClassId(classId: string) {
   const cookieStore = await cookies();
   cookieStore.set("class_id", classId, { httpOnly: true });
 }
-
-export { logIn, fetchClasses, setClassId };
