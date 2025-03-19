@@ -21,5 +21,7 @@ export const ROUTES = {
   },
   EXAMS: {
     LIST: "/app/exams",
+    CREATE: "/app/exams/new",
+    EDIT: (id: number) => `/app/exams/${id}/edit`,
   },
 } as const;
