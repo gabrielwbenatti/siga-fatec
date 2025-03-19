@@ -1,6 +1,6 @@
 import { fetchAttendances } from "@/app/actions/plansActions";
 import AttendanceList from "./components/AttendanceList";
-import TitleBar from "@/components/SiGA/TitleBar";
+import { Titlebar } from "@/components/SiGA/Titlebar";
 
 export default async function HomePlansAttendancePage({
   params,
@@ -11,9 +11,12 @@ export default async function HomePlansAttendancePage({
   const data = await fetchAttendances(id);
 
   return (
-    <div className="space-y-4">
-      <TitleBar title={data.plan.title} />
+    <>
+      <Titlebar.Root>
+        <Titlebar.Title title={data.plan.title} />
+      </Titlebar.Root>
+
       <AttendanceList initialData={data} />
-    </div>
+    </>
   );
 }

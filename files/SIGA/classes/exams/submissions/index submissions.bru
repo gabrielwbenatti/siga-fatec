@@ -1,0 +1,16 @@
+meta {
+  name: index submissions
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}{{classesEndpoint}}{{classesExamsEndpoint}}/1/submissions
+  body: none
+  auth: none
+}
+
+headers {
+  User-Agent: insomnia/9.3.2
+  class-id: 2
+}

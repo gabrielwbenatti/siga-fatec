@@ -1,0 +1,26 @@
+meta {
+  name: store exam
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}{{classesEndpoint}}{{classesExamsEndpoint}}
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  User-Agent: insomnia/9.3.2
+  class-id: 2
+}
+
+body:json {
+  {
+    "class_id": 2,
+    "title": "Prova 1",
+    "description": "Prova 1",
+    "planned_date": "2025-03-20"
+  }
+}

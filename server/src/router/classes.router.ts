@@ -4,6 +4,7 @@ import classesController from "../controllers/classes.controller";
 import classesPlansController from "../controllers/classes.plans.controller";
 import classesStudentsController from "../controllers/classes.students.controller";
 import classesAttendancesController from "../controllers/classes.attendances.controller";
+import classesExamsController from "../controllers/classes.exams.controller";
 
 const classesRouter = Router();
 
@@ -39,5 +40,12 @@ classesRouter
   .put("/materials/:id", classesMaterialsController.updateClassMaterial);
 
 classesRouter.get("/students", classesStudentsController.getClassesStudents);
+
+classesRouter
+  .get("/exams", classesExamsController.index)
+  .post("/exams", classesExamsController.store)
+  .get("/exams/:examId", classesExamsController.show)
+  .put("/exams/:examId", classesExamsController.update)
+  .get("/exams/:examId/submissions", classesExamsController.indexSubmissions);
 
 export default classesRouter;

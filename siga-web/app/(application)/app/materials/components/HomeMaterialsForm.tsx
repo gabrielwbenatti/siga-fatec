@@ -5,7 +5,7 @@ import {
   updateClassMaterial,
 } from "@/app/actions/materialsActions";
 import InputWrapper from "@/components/SiGA/InputWrapper";
-import TitleBar from "@/components/SiGA/TitleBar";
+import { Titlebar } from "@/components/SiGA/Titlebar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -40,9 +40,11 @@ export default function HomeMaterialsForm({
 
   return (
     <div className="space-y-4">
-      <TitleBar
-        title={isEditMode ? `${initialData?.title}` : "Novo Material de Aula"}
-      />
+      <Titlebar.Root>
+        <Titlebar.Title
+          title={isEditMode ? `${initialData?.title}` : "Novo Material de Aula"}
+        />
+      </Titlebar.Root>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4 px-4">
         <InputWrapper>

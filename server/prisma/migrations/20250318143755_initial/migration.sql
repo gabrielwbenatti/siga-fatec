@@ -129,7 +129,7 @@ CREATE TABLE "exams" (
 -- CreateTable
 CREATE TABLE "exam_submissions" (
     "id" SERIAL NOT NULL,
-    "class_exam_id" INTEGER NOT NULL,
+    "exam_id" INTEGER NOT NULL,
     "student_id" INTEGER NOT NULL,
     "score" DECIMAL(10,2) NOT NULL DEFAULT 0.00,
 
@@ -188,7 +188,7 @@ ALTER TABLE "plans_attendances" ADD CONSTRAINT "plans_attendances_student_id_fke
 ALTER TABLE "exams" ADD CONSTRAINT "exams_class_id_fkey" FOREIGN KEY ("class_id") REFERENCES "classes"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "exam_submissions" ADD CONSTRAINT "exam_submissions_class_exam_id_fkey" FOREIGN KEY ("class_exam_id") REFERENCES "exams"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "exam_submissions" ADD CONSTRAINT "exam_submissions_exam_id_fkey" FOREIGN KEY ("exam_id") REFERENCES "exams"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "exam_submissions" ADD CONSTRAINT "exam_submissions_student_id_fkey" FOREIGN KEY ("student_id") REFERENCES "students"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
