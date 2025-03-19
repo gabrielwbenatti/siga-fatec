@@ -44,8 +44,8 @@ classesRouter.get("/students", classesStudentsController.getClassesStudents);
 classesRouter
   .get("/exams", classesExamsController.index)
   .post("/exams", classesExamsController.store)
-  .get("/exams/:id", classesExamsController.show)
-  .put("/exams/:id", classesExamsController.update)
+  .get("/exams/:examId", classesExamsController.show)
+  .put("/exams/:examId", classesExamsController.update)
   .get("/exams/:examId/submissions", classesExamsController.indexSubmissions);
 
 export default classesRouter;

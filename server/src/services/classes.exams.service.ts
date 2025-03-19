@@ -33,8 +33,8 @@ class ClassesExamsService {
     return row;
   };
 
-  update = async (body: any, classId: number) => {
-    const { id, planned_date, title, applied_date, description, weight } = body;
+  update = async (body: any, examId: number, classId: number) => {
+    const { planned_date, title, applied_date, description, weight } = body;
     const row = await db.exams.update({
       data: {
         class_id: classId,
@@ -44,7 +44,7 @@ class ClassesExamsService {
         description,
         weight,
       },
-      where: { id, class_id: classId },
+      where: { id: examId, class_id: classId },
     });
 
     return row;
