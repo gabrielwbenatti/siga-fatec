@@ -1,8 +1,6 @@
 import { fetchAttendances } from "@/app/actions/plansActions";
 import AttendanceList from "./components/AttendanceList";
 import { Titlebar } from "@/components/SiGA/Titlebar";
-import { Button } from "@/components/ui/button";
-import { ROUTES } from "@/lib/routes";
 
 export default async function HomePlansAttendancePage({
   params,

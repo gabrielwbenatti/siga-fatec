@@ -86,21 +86,16 @@ export default function AttendanceList({
   };
 
   const handleSubmit = async () => {
-    if (isEditMode) {
-      toast.info("edit mode ");
-    } else {
-      toast.info("include mode");
-    }
-
     const result = isEditMode
       ? await updateAttendances(initialData.plan.id, data)
       : await postAttendances(initialData.plan.id, data);
 
-    if (result.success) {
-      router.push(ROUTES.PLANS.LIST);
-    } else {
+    if (!result.success) {
       toast.error(result.error);
+      return;
     }
+
+    router.push(ROUTES.PLANS.LIST);
   };
 
   return (
