@@ -1,7 +1,7 @@
-import HomeMaterialsForm from "../_components/MaterialsCreateUpdateForm";
+import MaterialsCreateUpdateForm from "../_components/MaterialsCreateUpdateForm";
 
 const HomeMaterialsNewPage = () => {
-  return <HomeMaterialsForm isEditMode={false} />;
+  return <MaterialsCreateUpdateForm />;
 };
 
 export default HomeMaterialsNewPage;

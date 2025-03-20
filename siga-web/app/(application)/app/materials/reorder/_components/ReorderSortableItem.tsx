@@ -1,15 +1,15 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Grip } from "lucide-react";
-import { JSX } from "react";
+import { FC } from "react";
 
-interface SortableItemProps {
+interface ReorderSortableItemProps {
   material: { id: string; title: string; list_index?: number };
 }
 
-export default function SortableItem({
+const ReorderSortableItem: FC<ReorderSortableItemProps> = ({
   material,
-}: SortableItemProps): JSX.Element {
+}: ReorderSortableItemProps) => {
   const {
     attributes,
     listeners,
@@ -36,4 +36,6 @@ export default function SortableItem({
       {`(${material.list_index}) ${material.title}`}
     </li>
   );
-}
+};
+
+export default ReorderSortableItem;

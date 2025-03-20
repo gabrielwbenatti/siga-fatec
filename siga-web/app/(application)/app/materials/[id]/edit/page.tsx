@@ -1,5 +1,5 @@
 import { fetchMaterialById } from "@/app/actions/materialsActions";
-import HomeMaterialsForm from "../../_components/MaterialsCreateUpdateForm";
+import MaterialsCreateUpdateForm from "../../_components/MaterialsCreateUpdateForm";
 
 export default async function HomeMaterialsIDEditPage({
   params,
@@ -9,5 +9,5 @@ export default async function HomeMaterialsIDEditPage({
   const { id } = await params;
   const material = await fetchMaterialById(id);
 
-  return <HomeMaterialsForm isEditMode={true} initialData={material} />;
+  return <MaterialsCreateUpdateForm initialData={material} />;
 }

@@ -13,17 +13,18 @@ import {
   FileChartPieIcon,
   Trash2,
 } from "lucide-react";
+import { FC } from "react";
 import { toast } from "sonner";
 
-interface HomeMaterialsListItemProps {
+interface MaterialsListItemProps {
   material: ClassMaterial;
   onDelete?: (id: number) => void;
   onDownload?: (id: number) => void;
 }
 
-export default function HomeMaterialsListItem({
+const MaterialsListItem: FC<MaterialsListItemProps> = ({
   material,
-}: HomeMaterialsListItemProps) {
+}: MaterialsListItemProps) => {
   const getFileIcon = (extension: string) => {
     switch (extension) {
       case "doc":
@@ -82,4 +83,6 @@ export default function HomeMaterialsListItem({
       </div>
     </div>
   );
-}
+};
+
+export default MaterialsListItem;

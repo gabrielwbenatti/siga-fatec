@@ -8,9 +8,13 @@ import {
 import { Button } from "@/components/ui/button";
 import Student from "@/types/Student";
 import { Mail } from "lucide-react";
-import { useState } from "react";
+import { FC, useState } from "react";
 
-const StudentsList = ({ data }: Readonly<{ data: Student[] }>) => {
+interface StudentsListProps {
+  data: Student[];
+}
+
+const StudentsList: FC<StudentsListProps> = ({ data }: StudentsListProps) => {
   // State to track open/closed items
   const [expandedItems, setExpandedItems] = useState<number[]>([]);
 

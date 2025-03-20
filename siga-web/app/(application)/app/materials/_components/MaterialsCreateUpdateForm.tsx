@@ -14,15 +14,15 @@ import { ROUTES } from "@/lib/routes";
 import ClassMaterial from "@/types/ClassMaterial";
 import { extractFileExtension } from "@/utils/file_helper";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FC, FormEvent, useState } from "react";
 
-export default function HomeMaterialsForm({
-  isEditMode = true,
-  initialData,
-}: {
-  isEditMode: boolean;
+interface MaterialsCreateUpdateFormProps {
   initialData?: ClassMaterial;
-}) {
+}
+
+const MaterialsCreateUpdateForm: FC<MaterialsCreateUpdateFormProps> = ({
+  initialData,
+}: MaterialsCreateUpdateFormProps) => {
   const router = useRouter();
   const [title, setTitle] = useState(initialData?.title || "");
 
@@ -45,8 +45,7 @@ export default function HomeMaterialsForm({
     const formData = new FormData(event.currentTarget);
     formData.set("title", title);
 
-    if (isEditMode) {
-      if (!initialData) return;
+    if (!!initialData) {
       await updateClassMaterial(initialData.id!, formData);
     } else {
       await createClassMaterial(formData);
@@ -58,7 +57,9 @@ export default function HomeMaterialsForm({
     <div className="space-y-4">
       <Titlebar.Root>
         <Titlebar.Title
-          title={isEditMode ? `${initialData?.title}` : "Novo Material de Aula"}
+          title={
+            !!initialData ? `${initialData?.title}` : "Novo Material de Aula"
+          }
         />
       </Titlebar.Root>
 
@@ -71,7 +72,7 @@ export default function HomeMaterialsForm({
             required
             defaultValue={initialData?.title || ""}
             onChange={handleFileChange}
-            disabled={isEditMode}
+            disabled={!!initialData}
           />
         </InputWrapper>
 
@@ -102,4 +103,6 @@ export default function HomeMaterialsForm({
       </form>
     </div>
   );
-}
+};
+
+export default MaterialsCreateUpdateForm;

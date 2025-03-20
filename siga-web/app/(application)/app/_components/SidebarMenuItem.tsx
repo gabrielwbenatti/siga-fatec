@@ -1,18 +1,20 @@
 "use client";
 
-import { ReactNode } from "react";
+import { FC, ReactNode } from "react";
 
-export default function SidebarMenuItem({
-  caption,
-  href,
-  icon,
-  className = "",
-}: Readonly<{
+interface SidebarMenuItemProps {
   href: string;
   caption: string;
   className?: string;
   icon?: ReactNode;
-}>) {
+}
+
+const SidebarMenuItem: FC<SidebarMenuItemProps> = ({
+  caption,
+  href,
+  icon,
+  className = "",
+}: SidebarMenuItemProps) => {
   return (
     <li className={`text-ellipsis rounded-lg hover:bg-primary/10 ${className}`}>
       <a className="flex w-full gap-2 p-2" href={href}>
@@ -21,4 +23,6 @@ export default function SidebarMenuItem({
       </a>
     </li>
   );
-}
+};
+
+export default SidebarMenuItem;

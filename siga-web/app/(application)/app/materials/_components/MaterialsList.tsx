@@ -1,7 +1,14 @@
 import ClassMaterial from "@/types/ClassMaterial";
-import HomeMaterialsListItem from "./MaterialsListItem";
+import MaterialsListItem from "./MaterialsListItem";
+import { FC } from "react";
 
-export default function MaterialsList({ data }: { data: ClassMaterial[] }) {
+interface MaterialsListProps {
+  data: ClassMaterial[];
+}
+
+const MaterialsList: FC<MaterialsListProps> = ({
+  data,
+}: MaterialsListProps) => {
   return (
     <div className="flex flex-col divide-y px-4">
       <span className="mb-4 block text-sm text-gray-500">
@@ -13,10 +20,12 @@ export default function MaterialsList({ data }: { data: ClassMaterial[] }) {
       ) : (
         <div className="flex flex-col gap-3">
           {data?.map((material) => (
-            <HomeMaterialsListItem material={material} key={material.id!} />
+            <MaterialsListItem material={material} key={material.id!} />
           ))}
         </div>
       )}
     </div>
   );
-}
+};
+
+export default MaterialsList;

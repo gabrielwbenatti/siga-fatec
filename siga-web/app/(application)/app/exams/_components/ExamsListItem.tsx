@@ -3,12 +3,15 @@ import { ROUTES } from "@/lib/routes";
 import Exam from "@/types/Exam";
 import { Pencil, Trash2 } from "lucide-react";
 import Link from "next/link";
+import { FC } from "react";
 
 interface ExamsListItemProps {
   exam: Exam;
 }
 
-const ExamsListItem = ({ exam }: ExamsListItemProps) => {
+const ExamsListItem: FC<ExamsListItemProps> = ({
+  exam,
+}: ExamsListItemProps) => {
   return (
     <li className="flex items-center justify-between rounded-lg border p-2 shadow-sm">
       <Link href={ROUTES.EXAMS.EDIT(exam.id!)}>{exam.title}</Link>

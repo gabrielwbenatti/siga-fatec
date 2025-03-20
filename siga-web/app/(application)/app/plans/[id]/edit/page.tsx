@@ -1,5 +1,5 @@
 import { fetchClassPlanById } from "@/app/actions/plansActions";
-import PlansForm from "../../_components/PlansCreateUpdateForm";
+import PlansCreateUpdateForm from "../../_components/PlansCreateUpdateForm";
 import { Titlebar } from "@/components/SiGA/Titlebar";
 const HomePlansIDEditPage = async ({
   params,
@@ -15,7 +15,7 @@ const HomePlansIDEditPage = async ({
         <Titlebar.Title title={plan.title} />
       </Titlebar.Root>
 
-      <PlansForm isEditMode={true} initialData={plan} />
+      <PlansCreateUpdateForm isEditMode={true} initialData={plan} />
     </>
   );
 };

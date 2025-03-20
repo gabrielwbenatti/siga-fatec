@@ -1,5 +1,5 @@
 import { Titlebar } from "@/components/SiGA/Titlebar";
-import PlansForm from "../_components/PlansCreateUpdateForm";
+import PlansCreateUpdateForm from "../_components/PlansCreateUpdateForm";
 
 const HomePlansPage = () => {
   return (
@@ -7,7 +7,7 @@ const HomePlansPage = () => {
       <Titlebar.Root>
         <Titlebar.Title title="Criar Novo Planejamento" />
       </Titlebar.Root>
-      <PlansForm isEditMode={false} />;
+      <PlansCreateUpdateForm isEditMode={false} />;
     </>
   );
 };

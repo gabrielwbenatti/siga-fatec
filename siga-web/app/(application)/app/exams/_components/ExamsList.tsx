@@ -1,11 +1,12 @@
 import Exam from "@/types/Exam";
 import ExamsListItem from "./ExamsListItem";
+import { FC } from "react";
 
 interface ExamsListProps {
   data: Exam[];
 }
 
-const ExamsList = ({ data }: ExamsListProps) => {
+const ExamsList: FC<ExamsListProps> = ({ data }: ExamsListProps) => {
   return (
     <div className="px-4">
       <span className="mb-4 block text-sm text-gray-500">

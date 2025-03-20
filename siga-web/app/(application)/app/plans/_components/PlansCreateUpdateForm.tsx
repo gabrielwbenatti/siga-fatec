@@ -8,12 +8,15 @@ import { Textarea } from "@/components/ui/textarea";
 import { ROUTES } from "@/lib/routes";
 import ClassPlan from "@/types/ClassPlan";
 import { useRouter } from "next/navigation";
-import { FormEvent } from "react";
+import { FC, FormEvent } from "react";
 
-const PlansForm = ({
-  isEditMode,
+interface PlansCreateUpdateFormProps {
+  initialData?: ClassPlan;
+}
+
+const PlansCreateUpdateForm: FC<PlansCreateUpdateFormProps> = ({
   initialData = undefined,
-}: Readonly<{ isEditMode: boolean; initialData?: ClassPlan }>) => {
+}: PlansCreateUpdateFormProps) => {
   const router = useRouter();
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -21,8 +24,7 @@ const PlansForm = ({
 
     const formData = new FormData(event.currentTarget);
 
-    if (isEditMode) {
-      if (!initialData) return;
+    if (!!initialData) {
       await updateClassPlan(initialData.id!, formData);
     } else {
       await createClassPlan(formData);
@@ -82,4 +84,4 @@ const PlansForm = ({
   );
 };
 
-export default PlansForm;
+export default PlansCreateUpdateForm;

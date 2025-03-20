@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { FC, useState } from "react";
 import {
   closestCenter,
   DndContext,
@@ -22,13 +22,11 @@ import { useRouter } from "next/navigation";
 import { ROUTES } from "@/lib/routes";
 import SortableItem from "./ReorderSortableItem";
 
-interface MaterialsReorderListProps {
+interface ReorderListProps {
   data: Array<ClassMaterial>;
 }
 
-export default function MaterialsReorderList({
-  data,
-}: MaterialsReorderListProps) {
+const ReorderList: FC<ReorderListProps> = ({ data }: ReorderListProps) => {
   const [items, setItems] = useState(
     data.map((e) => ({
       id: String(e.id),
@@ -102,4 +100,6 @@ export default function MaterialsReorderList({
       </div>
     </div>
   );
-}
+};
+
+export default ReorderList;

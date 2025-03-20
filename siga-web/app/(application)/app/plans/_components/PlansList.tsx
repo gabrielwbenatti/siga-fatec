@@ -1,7 +1,12 @@
 import ClassPlan from "@/types/ClassPlan";
 import PlansListItem from "./PlansListItem";
+import { FC } from "react";
 
-const PlansList = ({ data }: { data: ClassPlan[] }) => {
+interface PlansListProps {
+  data: ClassPlan[];
+}
+
+const PlansList: FC<PlansListProps> = ({ data }: PlansListProps) => {
   return (
     <div className="flex flex-col px-4">
       <span className="mb-4 block text-sm text-gray-500">
