@@ -7,7 +7,7 @@ const HomePlansPage = () => {
       <Titlebar.Root>
         <Titlebar.Title title="Criar Novo Planejamento" />
       </Titlebar.Root>
-      <PlansCreateUpdateForm isEditMode={false} />;
+      <PlansCreateUpdateForm />;
     </>
   );
 };

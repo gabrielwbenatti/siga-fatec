@@ -15,7 +15,7 @@ const HomePlansIDEditPage = async ({
         <Titlebar.Title title={plan.title} />
       </Titlebar.Root>
 
-      <PlansCreateUpdateForm isEditMode={true} initialData={plan} />
+      <PlansCreateUpdateForm initialData={plan} />
     </>
   );
 };
