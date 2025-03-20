@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  Collapsable,
-  CollapsableBody,
-  CollapsableHeader,
-} from "@/components/SiGA/Collapsable";
+import { Collapsable } from "@/components/SiGA/Collapsable";
 import { Button } from "@/components/ui/button";
 import Student from "@/types/Student";
 import { Mail } from "lucide-react";
@@ -33,8 +29,8 @@ const StudentsList: FC<StudentsListProps> = ({ data }: StudentsListProps) => {
 
       <div className="flex flex-col gap-3">
         {data.map((s) => (
-          <Collapsable key={s.id}>
-            <CollapsableHeader
+          <Collapsable.Root key={s.id}>
+            <Collapsable.Header
               onClick={() => toggleItem(s.id)}
               actions={
                 <a href={`mailto:${s.user.email}`}>
@@ -45,9 +41,10 @@ const StudentsList: FC<StudentsListProps> = ({ data }: StudentsListProps) => {
               }
             >
               <span>{`${s.first_name} ${s.last_name}`}</span>
-            </CollapsableHeader>
+            </Collapsable.Header>
+
             {expandedItems.includes(s.id) && (
-              <CollapsableBody>
+              <Collapsable.Body>
                 <div className="flex flex-col md:grid md:grid-cols-3">
                   <div className="flex flex-col">
                     <span className="text-sm font-bold text-gray-500">
@@ -74,9 +71,9 @@ const StudentsList: FC<StudentsListProps> = ({ data }: StudentsListProps) => {
                     </div>
                   </div>
                 </div>
-              </CollapsableBody>
+              </Collapsable.Body>
             )}
-          </Collapsable>
+          </Collapsable.Root>
         ))}
       </div>
     </div>
