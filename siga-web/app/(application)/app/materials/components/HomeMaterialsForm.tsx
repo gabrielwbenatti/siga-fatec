@@ -12,22 +12,38 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { ROUTES } from "@/lib/routes";
 import ClassMaterial from "@/types/ClassMaterial";
+import { extractFileExtension } from "@/utils/file_helper";
 import { useRouter } from "next/navigation";
-import { FormEvent } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 
 export default function HomeMaterialsForm({
   isEditMode = true,
-  initialData = undefined,
+  initialData,
 }: {
   isEditMode: boolean;
   initialData?: ClassMaterial;
 }) {
   const router = useRouter();
+  const [title, setTitle] = useState(initialData?.title || "");
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const fileName = e.target.files[0].name;
+      const fileExtension = extractFileExtension(fileName);
+      const fileWithoutExtension = fileName.substring(
+        0,
+        fileName.length - (fileExtension.length + 1),
+      );
+
+      setTitle(fileWithoutExtension);
+    }
+  };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
+    formData.set("title", title);
 
     if (isEditMode) {
       if (!initialData) return;
@@ -54,6 +70,7 @@ export default function HomeMaterialsForm({
             name="file"
             required
             defaultValue={initialData?.title || ""}
+            onChange={handleFileChange}
             disabled={isEditMode}
           />
         </InputWrapper>
@@ -62,7 +79,8 @@ export default function HomeMaterialsForm({
           <Label>Título do arquivo</Label>
           <Input
             placeholder="Título do arquivo"
-            defaultValue={initialData?.title || ""}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
             type="text"
             required
             name="title"
