@@ -25,7 +25,14 @@ const ExamsCreateUpdateForm: FC<ExamsCreateUpdateFormProps> = ({
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData.entries()) as unknown as Exam;
+    const formValues = Object.fromEntries(
+      formData.entries(),
+    ) as unknown as Exam;
+
+    const data = {
+      ...initialData,
+      ...formValues,
+    };
 
     const result = !!initialData
       ? await updateExam(data)

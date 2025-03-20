@@ -63,8 +63,6 @@ export async function showExam(
     const res = await api.get(`/classes/exams/${id}`);
     const { data } = res;
 
-    console.log(data);
-
     return { success: true, data };
   } catch (error) {
     console.log(error);
