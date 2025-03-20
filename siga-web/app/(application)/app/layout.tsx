@@ -1,7 +1,7 @@
 import { ROUTES } from "@/lib/routes";
 import { BookOpenCheck, Files, Home, Notebook, UsersRound } from "lucide-react";
 import { ReactNode } from "react";
-import SidebarMenuItem from "./components/SidebarMenuItem";
+import SidebarMenuItem from "./_components/SidebarMenuItem";
 
 const HomeLayout = ({
   children,

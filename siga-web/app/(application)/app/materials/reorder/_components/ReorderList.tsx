@@ -20,7 +20,7 @@ import { Button } from "@/components/ui/button";
 import { reorderClassMaterial } from "@/app/actions/materialsActions";
 import { useRouter } from "next/navigation";
 import { ROUTES } from "@/lib/routes";
-import SortableItem from "./SortableItem";
+import SortableItem from "./ReorderSortableItem";
 
 interface MaterialsReorderListProps {
   data: Array<ClassMaterial>;

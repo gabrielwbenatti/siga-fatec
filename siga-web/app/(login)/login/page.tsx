@@ -5,7 +5,7 @@ import {
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
-import LoginForm from "./components/form";
+import LoginForm from "./_components/LoginForm";
 
 const LoginPage = () => {
   return (

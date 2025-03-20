@@ -1,6 +1,6 @@
 import { fetchClassMaterials } from "@/app/actions/materialsActions";
 import { Titlebar } from "@/components/SiGA/Titlebar";
-import MaterialsReorderList from "./components/MaterialsReorderList";
+import MaterialsReorderList from "./_components/ReorderList";
 
 export default async function HomeMaterialsReorderPage() {
   const { data } = await fetchClassMaterials();

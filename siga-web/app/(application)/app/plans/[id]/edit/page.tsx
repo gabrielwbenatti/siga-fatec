@@ -1,5 +1,5 @@
 import { fetchClassPlanById } from "@/app/actions/plansActions";
-import PlansForm from "../../components/PlansForm";
+import PlansForm from "../../_components/PlansCreateUpdateForm";
 import { Titlebar } from "@/components/SiGA/Titlebar";
 const HomePlansIDEditPage = async ({
   params,

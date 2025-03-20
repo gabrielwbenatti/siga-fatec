@@ -1,5 +1,5 @@
 import { fetchMaterialById } from "@/app/actions/materialsActions";
-import HomeMaterialsForm from "../../components/HomeMaterialsForm";
+import HomeMaterialsForm from "../../_components/MaterialsCreateUpdateForm";
 
 export default async function HomeMaterialsIDEditPage({
   params,

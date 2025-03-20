@@ -1,5 +1,5 @@
 import { fetchStudents } from "@/app/actions/studentsAction";
-import StudentsList from "./components/StudentsList";
+import StudentsList from "./_components/StudentsList";
 import { Titlebar } from "@/components/SiGA/Titlebar";
 
 export default async function StudentsPage() {

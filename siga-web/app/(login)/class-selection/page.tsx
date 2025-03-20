@@ -1,5 +1,5 @@
 import { fetchClasses } from "@/app/actions/authActions";
-import ClassSelectionForm from "./components/form";
+import ClassSelectionForm from "./_components/ClassSelectionForm";
 
 const ClassSelectionPage = async () => {
   const classes = (await fetchClasses()).data;

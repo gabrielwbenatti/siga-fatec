@@ -1,5 +1,5 @@
 import { Titlebar } from "@/components/SiGA/Titlebar";
-import PlansForm from "../components/PlansForm";
+import PlansForm from "../_components/PlansCreateUpdateForm";
 
 const HomePlansPage = () => {
   return (

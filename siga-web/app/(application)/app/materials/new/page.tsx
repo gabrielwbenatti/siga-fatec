@@ -1,4 +1,4 @@
-import HomeMaterialsForm from "../components/HomeMaterialsForm";
+import HomeMaterialsForm from "../_components/MaterialsCreateUpdateForm";
 
 const HomeMaterialsNewPage = () => {
   return <HomeMaterialsForm isEditMode={false} />;
