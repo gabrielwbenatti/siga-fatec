@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import {
   closestCenter,
   DndContext,
@@ -17,16 +17,36 @@ import {
 } from "@dnd-kit/sortable";
 import ClassMaterial from "@/types/ClassMaterial";
 import { Button } from "@/components/ui/button";
-import { reorderClassMaterial } from "@/app/actions/materialsActions";
+import {
+  fetchClassMaterials,
+  reorderClassMaterial,
+} from "@/app/actions/materialsActions";
 import { useRouter } from "next/navigation";
 import { ROUTES } from "@/lib/routes";
 import SortableItem from "./ReorderSortableItem";
+import { toast } from "sonner";
 
-interface ReorderListProps {
-  data: Array<ClassMaterial>;
-}
+const ReorderList: FC = () => {
+  const router = useRouter();
+  const [data, setData] = useState<ClassMaterial[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-const ReorderList: FC<ReorderListProps> = ({ data }: ReorderListProps) => {
+  useEffect(() => {
+    async function fetchData() {
+      setIsLoading(true);
+      const result = await fetchClassMaterials();
+
+      if (!result.success) {
+        toast.error(result.error);
+      }
+
+      setData(result.data);
+      setIsLoading(false);
+    }
+
+    fetchData();
+  }, []);
+
   const [items, setItems] = useState(
     data.map((e) => ({
       id: String(e.id),
@@ -34,7 +54,6 @@ const ReorderList: FC<ReorderListProps> = ({ data }: ReorderListProps) => {
       list_index: e.list_index,
     })),
   );
-  const router = useRouter();
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
@@ -62,42 +81,48 @@ const ReorderList: FC<ReorderListProps> = ({ data }: ReorderListProps) => {
 
   return (
     <div className="w-full space-y-3 overflow-clip px-4">
-      <span className="mb-4 block text-sm text-gray-500">
-        Clique e arraste para reordenar
-      </span>
+      {isLoading ? (
+        <div>Carregando...</div>
+      ) : (
+        <>
+          <span className="mb-4 block text-sm text-gray-500">
+            Clique e arraste para reordenar
+          </span>
 
-      <DndContext
-        sensors={sensors}
-        collisionDetection={closestCenter}
-        onDragEnd={handleDragEnd}
-      >
-        <SortableContext
-          items={items.map((m) => m.id)}
-          strategy={verticalListSortingStrategy}
-        >
-          <ul className="flex flex-col gap-3">
-            {items.map((m, i) => (
-              <SortableItem
-                key={m.id}
-                material={{ id: m.id, title: m.title, list_index: i + 1 }}
-              />
-            ))}
-          </ul>
-        </SortableContext>
-      </DndContext>
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
+          >
+            <SortableContext
+              items={items.map((m) => m.id)}
+              strategy={verticalListSortingStrategy}
+            >
+              <ul className="flex flex-col gap-3">
+                {items.map((m, i) => (
+                  <SortableItem
+                    key={m.id}
+                    material={{ id: m.id, title: m.title, list_index: i + 1 }}
+                  />
+                ))}
+              </ul>
+            </SortableContext>
+          </DndContext>
 
-      <div className="flex">
-        <Button
-          onClick={async () => {
-            const result = await reorderClassMaterial(items);
-            if (result.success) {
-              router.push(ROUTES.MATERIALS.LIST);
-            }
-          }}
-        >
-          Salvar
-        </Button>
-      </div>
+          <div className="flex">
+            <Button
+              onClick={async () => {
+                const result = await reorderClassMaterial(items);
+                if (result.success) {
+                  router.push(ROUTES.MATERIALS.LIST);
+                }
+              }}
+            >
+              Salvar
+            </Button>
+          </div>
+        </>
+      )}
     </div>
   );
 };

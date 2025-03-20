@@ -1,13 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/lib/routes";
 import { ArrowDownUp } from "lucide-react";
-import { fetchClassMaterials } from "@/app/actions/materialsActions";
 import MaterialsList from "./_components/MaterialsList";
 import { Titlebar } from "@/components/SiGA/Titlebar";
 
 export default async function HomeMaterialsPage() {
-  const { data } = await fetchClassMaterials();
-
   return (
     <>
       <Titlebar.Root>
@@ -25,7 +22,7 @@ export default async function HomeMaterialsPage() {
         </Titlebar.Actions>
       </Titlebar.Root>
 
-      <MaterialsList data={data} />
+      <MaterialsList />
     </>
   );
 }

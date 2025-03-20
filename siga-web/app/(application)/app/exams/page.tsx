@@ -1,13 +1,10 @@
 import { Titlebar } from "@/components/SiGA/Titlebar";
 import ExamsList from "./_components/ExamsList";
-import { fetchExams } from "@/app/actions/examsActions";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/lib/routes";
 
 export default async function ExamsPage() {
-  const { data } = await fetchExams();
-
   return (
     <>
       <Titlebar.Root>
@@ -20,7 +17,7 @@ export default async function ExamsPage() {
         </Titlebar.Actions>
       </Titlebar.Root>
 
-      <ExamsList data={data} />
+      <ExamsList />
     </>
   );
 }
