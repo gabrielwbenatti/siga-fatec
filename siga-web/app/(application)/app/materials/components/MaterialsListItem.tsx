@@ -48,11 +48,9 @@ export default function HomeMaterialsListItem({
   };
 
   function handleDownload() {
-    console.log("handleDownload");
     toast.info("Em breve");
   }
   function handleDelete() {
-    console.log("handleDelete");
     toast.info("Em breve ");
   }
 
