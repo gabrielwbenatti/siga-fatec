@@ -12,6 +12,7 @@ import {
   FileText,
   FileChartPieIcon,
   Trash2,
+  FileCode2,
 } from "lucide-react";
 import { FC } from "react";
 import { toast } from "sonner";
@@ -43,6 +44,11 @@ const MaterialsListItem: FC<MaterialsListItemProps> = ({
       case "jpeg":
       case "bmp":
         return <FileImage className="text-cyan-400" />;
+      case "json":
+      case "xml":
+      case "js":
+      case "ts":
+        return <FileCode2 />;
       default:
         return <File />;
     }
