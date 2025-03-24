@@ -11,7 +11,7 @@ class ClassesMaterialsService {
   };
 
   createClassesMaterials = async (classId: number, body: any) => {
-    const { title, description, file_format } = body;
+    const { title, description, file_format, is_active } = body;
 
     const { _max } = await db.class_materials.aggregate({
       _max: { list_index: true },
@@ -25,6 +25,7 @@ class ClassesMaterialsService {
           title,
           description,
           file_format,
+          is_active,
           list_index: _max.list_index !== null ? _max.list_index + 1 : 0,
         },
       });
@@ -64,7 +65,8 @@ class ClassesMaterialsService {
   };
 
   updateClassMaterial = async (id: number, classId: number, body: any) => {
-    const { class_id, description, file_format, list_index, title } = body;
+    const { class_id, description, file_format, list_index, title, is_active } =
+      body;
 
     try {
       const result = await db.class_materials.update({
@@ -74,6 +76,7 @@ class ClassesMaterialsService {
           file_format,
           list_index,
           title,
+          is_active,
         },
         where: { id, class_id: classId },
       });
