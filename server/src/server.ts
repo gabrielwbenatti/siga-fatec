@@ -5,7 +5,7 @@ import { errorHandler } from "./errors/error-handler";
 // import expressListRoutes from "express-list-routes";
 
 const app = express();
-const port = process.env.PORT || 8000;
+const port = process.env.SIGA_PORT || 8000;
 
 app.use(express.json());
 app.use(cors<Request>());
