@@ -2,6 +2,7 @@ import { ROUTES } from "@/lib/routes";
 import { BookOpenCheck, Files, Home, Notebook, UsersRound } from "lucide-react";
 import { ReactNode } from "react";
 import SidebarMenuItem from "./_components/SidebarMenuItem";
+import SidebarMenu from "./_components/SidebarMenu";
 
 const HomeLayout = ({
   children,
@@ -10,32 +11,46 @@ const HomeLayout = ({
 }>) => {
   const routes = [
     { caption: "Início", href: ROUTES.HOME, icon: <Home /> },
-    { caption: "Planejamento", href: ROUTES.PLANS.LIST, icon: <Notebook /> },
     {
-      caption: "Materiais de Aula",
-      href: ROUTES.MATERIALS.LIST,
-      icon: <Files />,
+      caption: "Planejar",
+      items: [
+        {
+          caption: "Planejamento",
+          href: ROUTES.PLANS.LIST,
+          icon: <Notebook />,
+        },
+        {
+          caption: "Avaliações",
+          href: ROUTES.EXAMS.LIST,
+          icon: <BookOpenCheck />,
+        },
+      ],
     },
-    { caption: "Avaliações", href: ROUTES.EXAMS.LIST, icon: <BookOpenCheck /> },
-    { caption: "Alunos", href: ROUTES.STUDENTS.LIST, icon: <UsersRound /> },
+    {
+      caption: "Executar",
+      items: [
+        {
+          caption: "Materiais",
+          href: ROUTES.MATERIALS.LIST,
+          icon: <BookOpenCheck />,
+        },
+      ],
+    },
+    {
+      caption: "Gerenciar",
+      items: [
+        {
+          caption: "Alunos",
+          href: ROUTES.STUDENTS.LIST,
+          icon: <UsersRound />,
+        },
+      ],
+    },
   ];
 
   return (
     <div className="bg-gray-100 md:flex md:h-screen md:flex-row">
-      <nav className="hidden bg-white md:block md:h-full md:w-[300px]">
-        <ul className="flex flex-col justify-between p-4 md:h-full">
-          <div className="flex flex-col gap-2">
-            {routes.map((item) => (
-              <SidebarMenuItem
-                key={item.href}
-                icon={item.icon}
-                caption={item.caption}
-                href={item.href}
-              />
-            ))}
-          </div>
-        </ul>
-      </nav>
+      <SidebarMenu routes={routes} />
       <main className="h-screen w-full">{children}</main>
     </div>
   );
