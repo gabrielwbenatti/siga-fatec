@@ -158,6 +158,11 @@ export default function AttendanceList({
       </InputWrapper>
 
       <InputWrapper>
+        <Label>Conteúdo ministrado:</Label>
+        <Textarea value={data.plan.description} disabled />
+      </InputWrapper>
+
+      <InputWrapper>
         <Label>Data de realização</Label>
         <Input
           type="date"

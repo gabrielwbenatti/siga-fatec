@@ -1,6 +1,7 @@
 "use client";
 
 import { createClassPlan, updateClassPlan } from "@/app/actions/plansActions";
+import InputWrapper from "@/components/SiGA/InputWrapper";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -58,23 +59,26 @@ const PlansCreateUpdateForm: FC<PlansCreateUpdateFormProps> = ({
         />
       </div>
 
-      <div className="flex flex-col gap-1.5">
-        <Label>Data Planejada</Label>
-        <Input
-          type="date"
-          name="planned_date"
-          required
-          defaultValue={initialData?.planned_date || ""}
-        />
-      </div>
+      <div className="gap-2 md:flex">
+        <InputWrapper className="flex-auto">
+          <Label>Data Planejada</Label>
+          <Input
+            type="date"
+            name="planned_date"
+            required
+            defaultValue={initialData?.planned_date || ""}
+          />
+        </InputWrapper>
 
-      <div className="flex flex-col gap-1.5">
-        <Label>Data Aplicada</Label>
-        <Input
-          type="date"
-          name="applied_date"
-          defaultValue={initialData?.applied_date || ""}
-        />
+        <InputWrapper className="flex-auto">
+          <Label>Data Aplicada</Label>
+          <Input
+            type="date"
+            name="applied_date"
+            disabled
+            defaultValue={initialData?.applied_date || ""}
+          />
+        </InputWrapper>
       </div>
 
       <div className="flex">

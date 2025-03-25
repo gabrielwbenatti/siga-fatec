@@ -1,5 +1,6 @@
 "use client";
 
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/lib/routes";
 import ClassPlan from "@/types/ClassPlan";
@@ -22,8 +23,14 @@ const PlansListItem: FC<HomePlansListItemProps> = ({
         <span className="text-sm">
           {formatDate(plan.planned_date, "pt-BR")}
         </span>
-        <a href={`${ROUTES.PLANS.EDIT(plan.id!)}`} className="font-bold">
+        <a
+          href={`${ROUTES.PLANS.EDIT(plan.id!)}`}
+          className="flex items-center font-bold"
+        >
           {plan.title}
+          {plan.applied_date && (
+            <Badge className="ms-2 bg-green-500 hover:bg-green-800">{`Lecionado em ${formatDate(plan.applied_date, "pt-BR")}`}</Badge>
+          )}
         </a>
         <span className="text-sm">{plan.description || plan.title}</span>
       </div>
