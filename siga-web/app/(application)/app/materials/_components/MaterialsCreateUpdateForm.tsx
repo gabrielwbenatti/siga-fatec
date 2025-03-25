@@ -13,7 +13,7 @@ import { ROUTES } from "@/lib/routes";
 import ClassMaterial from "@/types/ClassMaterial";
 import { extractFileExtension } from "@/utils/file_helper";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FC, FormEvent, useState } from "react";
 import { toast } from "sonner";
 
 interface MaterialsCreateUpdateFormProps {

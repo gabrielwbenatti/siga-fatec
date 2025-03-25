@@ -1,8 +1,3 @@
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
 import { FC, JSX, ReactNode } from "react";
 import SidebarMenuItem from "./SidebarMenuItem";
 

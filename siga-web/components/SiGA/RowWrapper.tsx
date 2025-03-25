@@ -7,7 +7,9 @@ interface RowWrapperProps {
 
 const RowWrapper = ({ children, className }: RowWrapperProps) => {
   return (
-    <div className={`flex items-center gap-2 ${className}`}>{children}</div>
+    <div className={`items-center gap-2 max-md:space-y-4 md:flex ${className}`}>
+      {children}
+    </div>
   );
 };
 

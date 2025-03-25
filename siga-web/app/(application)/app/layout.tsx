@@ -1,7 +1,12 @@
 import { ROUTES } from "@/lib/routes";
-import { BookOpenCheck, Files, Home, Notebook, UsersRound } from "lucide-react";
+import {
+  BookCheckIcon,
+  BookOpenCheck,
+  Home,
+  Notebook,
+  UsersRound,
+} from "lucide-react";
 import { ReactNode } from "react";
-import SidebarMenuItem from "./_components/SidebarMenuItem";
 import SidebarMenu from "./_components/SidebarMenu";
 
 const HomeLayout = ({
@@ -33,6 +38,11 @@ const HomeLayout = ({
           caption: "Materiais",
           href: ROUTES.MATERIALS.LIST,
           icon: <BookOpenCheck />,
+        },
+        {
+          caption: "Chamada on-line",
+          href: ROUTES.ATTENDANCE.LIST,
+          icon: <BookCheckIcon />,
         },
       ],
     },
