@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/lib/routes";
 import ClassPlan from "@/types/ClassPlan";
 import { formatDate } from "@/utils/string_helper";
-import { ListCheck, Trash2 } from "lucide-react";
+import { Pencil, Trash2 } from "lucide-react";
+import Link from "next/link";
 import { FC } from "react";
 import { toast } from "sonner";
 
@@ -48,12 +49,11 @@ const PlansListItem: FC<HomePlansListItemProps> = ({
       </div>
 
       <div className="flex gap-1">
-        <a href={ROUTES.PLANS.ATTENDACE(plan.id!)}>
+        <Link href={ROUTES.PLANS.EDIT(plan.id!)}>
           <Button variant="outline">
-            <ListCheck />
-            <span>Presenças</span>
+            <Pencil /> Ediar
           </Button>
-        </a>
+        </Link>
         <Button
           variant="destructive"
           size="icon"
