@@ -3,7 +3,7 @@
 import { FC, ReactNode } from "react";
 
 interface SidebarMenuItemProps {
-  href: string;
+  href?: string;
   caption: string;
   className?: string;
   icon?: ReactNode;
