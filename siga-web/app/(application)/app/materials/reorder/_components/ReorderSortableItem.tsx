@@ -4,7 +4,11 @@ import { Grip } from "lucide-react";
 import { FC } from "react";
 
 interface ReorderSortableItemProps {
-  material: { id: string; title: string; list_index?: number };
+  material: {
+    id: string;
+    title: string;
+    list_index?: number;
+  };
 }
 
 const ReorderSortableItem: FC<ReorderSortableItemProps> = ({

@@ -6,6 +6,7 @@ interface ClassMaterial {
   file_url?: string;
   list_index?: number;
   class_id: number;
+  is_active?: boolean;
 }
 
 export default ClassMaterial;

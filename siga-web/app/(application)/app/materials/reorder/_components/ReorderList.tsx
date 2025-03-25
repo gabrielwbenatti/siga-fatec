@@ -29,6 +29,9 @@ import { toast } from "sonner";
 const ReorderList: FC = () => {
   const router = useRouter();
   const [data, setData] = useState<ClassMaterial[]>([]);
+  const [items, setItems] = useState<
+    { id: string; title: string; list_index?: number }[]
+  >([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -47,13 +50,15 @@ const ReorderList: FC = () => {
     fetchData();
   }, []);
 
-  const [items, setItems] = useState(
-    data.map((e) => ({
-      id: String(e.id),
-      title: e.title,
-      list_index: e.list_index,
-    })),
-  );
+  useEffect(() => {
+    setItems(
+      data.map((e) => ({
+        id: String(e.id),
+        title: e.title,
+        list_index: e.list_index,
+      })),
+    );
+  }, [data]);
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
@@ -102,7 +107,11 @@ const ReorderList: FC = () => {
                 {items.map((m, i) => (
                   <SortableItem
                     key={m.id}
-                    material={{ id: m.id, title: m.title, list_index: i + 1 }}
+                    material={{
+                      id: m.id,
+                      title: m.title,
+                      list_index: i + 1,
+                    }}
                   />
                 ))}
               </ul>

@@ -84,6 +84,7 @@ CREATE TABLE "class_materials" (
     "file_url" VARCHAR(255),
     "list_index" SMALLINT NOT NULL,
     "class_id" INTEGER NOT NULL,
+    "is_active" BOOLEAN NOT NULL DEFAULT true,
 
     CONSTRAINT "class_materials_pkey" PRIMARY KEY ("id")
 );

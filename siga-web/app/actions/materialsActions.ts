@@ -2,7 +2,6 @@
 
 import { createServerApi } from "@/lib/api/server";
 import ClassMaterial from "@/types/ClassMaterial";
-import { extractFileExtension } from "@/utils/file_helper";
 import { AxiosError } from "axios";
 import { cookies } from "next/headers";
 
@@ -34,27 +33,25 @@ export async function fetchClassMaterials(): Promise<{
   }
 }
 
-export async function createClassMaterial(formData: FormData) {
+export async function store(
+  data: ClassMaterial,
+): Promise<{ success: boolean; error?: string }> {
   const cookieStore = await cookies();
-
-  const file = formData.get("file") as File;
-  const title = formData.get("title") as string;
-  const description = formData.get("description") as string;
 
   try {
     const classId = cookieStore.get("class_id")?.value;
-    const extension = extractFileExtension(file.name);
 
     const api = await createServerApi();
     await api.post("/classes/materials", {
+      ...data,
       class_id: Number(classId),
-      file_format: extension,
-      title,
-      description,
     });
 
     return { success: true };
   } catch (error) {
+    if (error instanceof AxiosError && error.response?.data.message) {
+      return { success: false, error: error.response?.data.message };
+    }
     console.log(error);
     return { success: false };
   }
@@ -70,28 +67,26 @@ export async function fetchMaterialById(
   return data;
 }
 
-export async function updateClassMaterial(
-  materialId: number,
-  formData: FormData,
-) {
+export async function update(
+  data: ClassMaterial,
+): Promise<{ success: boolean; error?: string }> {
   const cookieStore = await cookies();
-
-  const title = formData.get("title") as string;
-  const description = formData.get("description") as string;
 
   try {
     const classId = cookieStore.get("class_id")?.value;
+    const { id } = data;
 
     const api = await createServerApi();
-    await api.put(`/classes/materials/${materialId}`, {
-      id: materialId,
+    await api.put(`/classes/materials/${id}`, {
+      ...data,
       class_id: Number(classId),
-      title,
-      description,
     });
 
     return { success: true };
   } catch (error) {
+    if (error instanceof AxiosError && error.response?.data.message) {
+      return { success: false, error: error.response?.data.message };
+    }
     console.log(error);
     return { success: false };
   }
