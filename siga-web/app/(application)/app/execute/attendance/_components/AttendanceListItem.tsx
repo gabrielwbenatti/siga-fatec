@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/lib/routes";
 import ClassPlan from "@/types/ClassPlan";
 import { formatDate } from "@/utils/string_helper";
-import { CheckCircle2Icon, Pencil } from "lucide-react";
+import { CheckCircle2Icon } from "lucide-react";
 import Link from "next/link";
 
 interface Props {

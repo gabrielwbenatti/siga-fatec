@@ -49,8 +49,6 @@ classesRouter
   .put("/exams/:examId", classesExamsController.update)
   .get("/exams/:examId/submissions", classesExamsController.indexSubmissions);
 
-classesRouter
-  .get("/bibliography", classesBibliographyController.getAll)
-  .post("/bibliography", () => {});
+classesRouter.get("/bibliography", classesBibliographyController.getAll);
 
 export default classesRouter;

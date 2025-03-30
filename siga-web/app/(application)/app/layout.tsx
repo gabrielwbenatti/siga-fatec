@@ -1,11 +1,5 @@
 import { ROUTES } from "@/lib/routes";
-import {
-  BookCheckIcon,
-  BookOpenCheck,
-  Home,
-  Notebook,
-  UsersRound,
-} from "lucide-react";
+import { BookOpenCheck, Home, Notebook, UsersRound } from "lucide-react";
 import { ReactNode } from "react";
 import SidebarMenu from "./_components/SidebarMenu";
 
