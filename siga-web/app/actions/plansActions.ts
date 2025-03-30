@@ -112,7 +112,6 @@ export async function postAttendances(data: ClassAttendance): Promise<{
   success: boolean;
   error?: string;
 }> {
-  console.log(data);
   try {
     const api = await createServerApi();
     await api.post(`/classes/plans/${data.plan.id}/attendances`, data);
