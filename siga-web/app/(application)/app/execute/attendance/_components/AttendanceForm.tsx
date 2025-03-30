@@ -86,16 +86,21 @@ export default function AttendanceForm({
   };
 
   const handleSubmit = async () => {
+    if (!data.plan.applied_date) {
+      toast.warning("Favor preencher a data de realização");
+      return;
+    }
+
     const result = isEditMode
-      ? await updateAttendances(initialData.plan.id, data)
-      : await postAttendances(initialData.plan.id, data);
+      ? await updateAttendances(data)
+      : await postAttendances(data);
 
     if (!result.success) {
       toast.error(result.error);
       return;
     }
 
-    router.push(ROUTES.PLANNING.CLASSES.LIST);
+    router.push(ROUTES.EXECUTE.ATTENDANCE.LIST);
   };
 
   return (
@@ -165,6 +170,7 @@ export default function AttendanceForm({
       <InputWrapper>
         <Label>Data de realização</Label>
         <Input
+          required
           type="date"
           value={formatDate(data.plan.applied_date, "input") || ""}
           onChange={(e) =>

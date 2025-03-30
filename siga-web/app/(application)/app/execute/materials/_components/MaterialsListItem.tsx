@@ -67,7 +67,7 @@ const MaterialsListItem: FC<MaterialsListItemProps> = ({
         {getFileIcon(material.file_format!)}
         <div className="flex flex-col gap-1.5">
           <a
-            className="font-bold"
+            className="line-clamp-2 overflow-ellipsis font-bold"
             href={ROUTES.EXECUTE.MATERIALS.EDIT(material.id!)}
           >
             {`${material.title} (${material.file_format})`}
@@ -80,7 +80,8 @@ const MaterialsListItem: FC<MaterialsListItemProps> = ({
 
       <div className="flex gap-1.5">
         <Button variant="outline" onClick={() => handleDownload()}>
-          <DownloadCloudIcon /> Download
+          <DownloadCloudIcon />
+          <span className="hidden md:block">Download</span>
         </Button>
         <Button
           variant="destructive"

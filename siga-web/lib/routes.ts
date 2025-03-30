@@ -21,6 +21,7 @@ export const ROUTES = {
 
     ATTENDANCE: {
       LIST: "/app/execute/attendance",
+      EDIT: (id: number) => `/app/execute/attendance/${id}/edit`,
     },
   },
 

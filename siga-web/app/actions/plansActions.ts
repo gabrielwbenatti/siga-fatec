@@ -108,16 +108,14 @@ export async function fetchAttendances(
   return data;
 }
 
-export async function postAttendances(
-  planId: number,
-  data: ClassAttendance,
-): Promise<{
+export async function postAttendances(data: ClassAttendance): Promise<{
   success: boolean;
   error?: string;
 }> {
+  console.log(data);
   try {
     const api = await createServerApi();
-    await api.post(`/classes/plans/${planId}/attendances`, data);
+    await api.post(`/classes/plans/${data.plan.id}/attendances`, data);
 
     return { success: true };
   } catch (error) {
@@ -130,16 +128,13 @@ export async function postAttendances(
   }
 }
 
-export async function updateAttendances(
-  planId: number,
-  data: ClassAttendance,
-): Promise<{
+export async function updateAttendances(data: ClassAttendance): Promise<{
   success: boolean;
   error?: string;
 }> {
   try {
     const api = await createServerApi();
-    await api.put(`/classes/plans/${planId}/attendances`, data);
+    await api.put(`/classes/plans/${data.plan.id}/attendances`, data);
 
     return { success: true };
   } catch (error) {
