@@ -3,25 +3,46 @@ export const ROUTES = {
   CLASS_SELECTION: "/class-selection",
 
   HOME: "/app",
-  PLANS: {
-    LIST: "/app/plans",
-    CREATE: "/app/plans/new",
-    EDIT: (id: number) => `/app/plans/${id}/edit`,
-    ATTENDACE: (id: number) => `/app/plans/${id}/attendance`,
-  },
-  MATERIALS: {
-    LIST: "/app/materials",
-    CREATE: "/app/materials/new",
-    REORDER: "/app/materials/reorder",
-    EDIT: (id: number) => `/app/materials/${id}/edit`,
-  },
+
   STUDENTS: {
-    LIST: "/app/students",
-    EDIT: (id: number) => `/app/students/${id}/edit`,
+    LIST: "/app/execute/students",
+    EDIT: (id: number) => `/app/execute/students/${id}/edit`,
   },
-  EXAMS: {
-    LIST: "/app/exams",
-    CREATE: "/app/exams/new",
-    EDIT: (id: number) => `/app/exams/${id}/edit`,
+
+  EXECUTE: {
+    LIST: "/app/execute",
+
+    MATERIALS: {
+      LIST: "/app/execute/materials",
+      CREATE: "/app/execute/materials/new",
+      REORDER: "/app/execute/materials/reorder",
+      EDIT: (id: number) => `/app/execute/materials/${id}/edit`,
+    },
+
+    ATTENDANCE: {
+      LIST: "/app/execute/attendance",
+      EDIT: (id: number) => `/app/execute/attendance/${id}/edit`,
+    },
+  },
+
+  PLANNING: {
+    LIST: "/app/planning",
+
+    CLASSES: {
+      LIST: "/app/planning/classes",
+      CREATE: "/app/planning/classes/new",
+      EDIT: (id: number) => `/app/planning/classes/${id}/edit`,
+      ATTENDACE: (id: number) => `/app/planning/classes/${id}/attendance`,
+    },
+
+    EXAMS: {
+      LIST: "/app/planning/exams",
+      CREATE: "/app/planning/exams/new",
+      EDIT: (id: number) => `/app/planning/exams/${id}/edit`,
+    },
+
+    BIBLIOGRAPHY: {
+      LIST: "/app/planning/bibliography",
+    },
   },
 } as const;

@@ -1,7 +1,6 @@
 import { ROUTES } from "@/lib/routes";
-import { BookOpenCheck, Files, Home, Notebook, UsersRound } from "lucide-react";
+import { BookOpenCheck, Home, Notebook, UsersRound } from "lucide-react";
 import { ReactNode } from "react";
-import SidebarMenuItem from "./_components/SidebarMenuItem";
 import SidebarMenu from "./_components/SidebarMenu";
 
 const HomeLayout = ({
@@ -12,29 +11,14 @@ const HomeLayout = ({
   const routes = [
     { caption: "Início", href: ROUTES.HOME, icon: <Home /> },
     {
-      caption: "Planejar",
-      items: [
-        {
-          caption: "Planejamento",
-          href: ROUTES.PLANS.LIST,
-          icon: <Notebook />,
-        },
-        {
-          caption: "Avaliações",
-          href: ROUTES.EXAMS.LIST,
-          icon: <BookOpenCheck />,
-        },
-      ],
+      caption: "Planejamento",
+      href: ROUTES.PLANNING.LIST,
+      icon: <Notebook />,
     },
     {
       caption: "Executar",
-      items: [
-        {
-          caption: "Materiais",
-          href: ROUTES.MATERIALS.LIST,
-          icon: <BookOpenCheck />,
-        },
-      ],
+      href: ROUTES.EXECUTE.LIST,
+      icon: <BookOpenCheck />,
     },
     {
       caption: "Gerenciar",
