@@ -6,6 +6,7 @@ interface Exam {
   planned_date: string;
   applied_date?: string;
   weight: number;
+  abbreviation: string;
 }
 
 export default Exam;

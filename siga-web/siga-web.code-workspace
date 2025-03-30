@@ -4,7 +4,9 @@
       "path": ".",
     },
   ],
-  "settings": {},
+  "settings": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "extensions": {
     "recommendations": ["esbenp.prettier-vscode"],
   },

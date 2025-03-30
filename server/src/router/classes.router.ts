@@ -5,6 +5,7 @@ import classesPlansController from "../controllers/classes.plans.controller";
 import classesStudentsController from "../controllers/classes.students.controller";
 import classesAttendancesController from "../controllers/classes.attendances.controller";
 import classesExamsController from "../controllers/classes.exams.controller";
+import { classesBibliographyController } from "../controllers/classesBibliographyController";
 
 const classesRouter = Router();
 
@@ -47,5 +48,9 @@ classesRouter
   .get("/exams/:examId", classesExamsController.show)
   .put("/exams/:examId", classesExamsController.update)
   .get("/exams/:examId/submissions", classesExamsController.indexSubmissions);
+
+classesRouter
+  .get("/bibliography", classesBibliographyController.getAll)
+  .post("/bibliography", () => {});
 
 export default classesRouter;

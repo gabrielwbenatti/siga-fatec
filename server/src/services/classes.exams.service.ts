@@ -4,13 +4,22 @@ class ClassesExamsService {
   index = async (classId: number) => {
     const rows = await db.exams.findMany({
       where: { class_id: classId },
+      orderBy: { planned_date: "asc" },
     });
 
     return rows;
   };
 
   store = async (body: any, classId: number) => {
-    const { planned_date, title, applied_date, description, weight } = body;
+    const {
+      planned_date,
+      title,
+      applied_date,
+      description,
+      weight,
+      abbreviation,
+    } = body;
+
     const row = await db.exams.create({
       data: {
         class_id: classId,
@@ -19,6 +28,7 @@ class ClassesExamsService {
         applied_date: applied_date ? new Date(applied_date) : null,
         description,
         weight,
+        abbreviation,
       },
     });
 
@@ -34,7 +44,15 @@ class ClassesExamsService {
   };
 
   update = async (body: any, examId: number, classId: number) => {
-    const { planned_date, title, applied_date, description, weight } = body;
+    const {
+      planned_date,
+      title,
+      applied_date,
+      description,
+      weight,
+      abbreviation,
+    } = body;
+
     const row = await db.exams.update({
       data: {
         class_id: classId,
@@ -43,6 +61,7 @@ class ClassesExamsService {
         applied_date: applied_date ? new Date(applied_date) : null,
         description,
         weight,
+        abbreviation,
       },
       where: { id: examId, class_id: classId },
     });

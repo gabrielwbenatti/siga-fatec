@@ -17,34 +17,14 @@ const HomeLayout = ({
   const routes = [
     { caption: "Início", href: ROUTES.HOME, icon: <Home /> },
     {
-      caption: "Planejar",
-      items: [
-        {
-          caption: "Planejamento",
-          href: ROUTES.PLANS.LIST,
-          icon: <Notebook />,
-        },
-        {
-          caption: "Avaliações",
-          href: ROUTES.EXAMS.LIST,
-          icon: <BookOpenCheck />,
-        },
-      ],
+      caption: "Planejamento",
+      href: ROUTES.PLANNING.LIST,
+      icon: <Notebook />,
     },
     {
       caption: "Executar",
-      items: [
-        {
-          caption: "Materiais",
-          href: ROUTES.MATERIALS.LIST,
-          icon: <BookOpenCheck />,
-        },
-        {
-          caption: "Chamada on-line",
-          href: ROUTES.ATTENDANCE.LIST,
-          icon: <BookCheckIcon />,
-        },
-      ],
+      href: ROUTES.EXECUTE.LIST,
+      icon: <BookOpenCheck />,
     },
     {
       caption: "Gerenciar",

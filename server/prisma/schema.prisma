@@ -81,8 +81,9 @@ model classes {
   exams             exams[]
   plans_attendances plans_attendances[]
 
-  discipline disciplines @relation(fields: [discipline_id], references: [id])
-  teacher    teachers    @relation(fields: [teacher_id], references: [id])
+  discipline         disciplines          @relation(fields: [discipline_id], references: [id])
+  teacher            teachers             @relation(fields: [teacher_id], references: [id])
+  class_bibliography class_bibliography[]
 }
 
 model class_schedules {
@@ -124,6 +125,14 @@ model class_plans {
   plans_attendances plans_attendances[]
 }
 
+model class_bibliography {
+  id        Int    @id @default(autoincrement())
+  class_id  Int
+  reference String @db.VarChar(511)
+
+  class classes @relation(fields: [class_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
 model plans_attendances {
   id                Int     @id @default(autoincrement())
   class_id          Int
@@ -144,6 +153,7 @@ model exams {
   id           Int       @id @default(autoincrement())
   class_id     Int
   title        String    @db.VarChar(255)
+  abbreviation String    @db.VarChar(15)
   description  String?
   planned_date DateTime  @db.Date
   applied_date DateTime? @db.Date
