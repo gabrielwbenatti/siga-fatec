@@ -2,7 +2,7 @@
 
 import { createServerApi } from "@/lib/api/server";
 import { ClassesResponse } from "@/types/Class";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { cookies } from "next/headers";
 
 export async function logIn(
@@ -13,10 +13,7 @@ export async function logIn(
   const cookieStore = await cookies();
 
   try {
-    const api = axios.create({
-      baseURL: process.env.API_URL || "http://localhost:8000/api/v1",
-      headers: { "Content-Type": "application/json" },
-    });
+    const api = await createServerApi();
 
     const res = await api.post("/auth/login", { email, password });
     const { data } = res;
@@ -30,6 +27,8 @@ export async function logIn(
   } catch (error) {
     cookieStore.delete("class_id");
     cookieStore.delete("teacher_id");
+
+    console.log(error);
 
     if (error instanceof AxiosError && error.response?.data.message) {
       return { success: false, error: error.response?.data.message };
