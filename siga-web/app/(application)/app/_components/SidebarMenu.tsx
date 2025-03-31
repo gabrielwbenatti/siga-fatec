@@ -22,30 +22,15 @@ const SidebarMenu: FC<SidebarMenuProps> = ({ routes }: SidebarMenuProps) => {
         className="p-4"
       />
       <ul className="flex flex-col justify-between p-4 md:h-full">
-        <div className="flex flex-col gap-2">
-          {routes.map((r, i) =>
-            r.items ? (
-              <div className="mb-4" key={i}>
-                <span>{r.caption}</span>
-                {r.items.map((it, ix) => (
-                  <SidebarMenuItem
-                    key={ix}
-                    caption={it.caption}
-                    href={it.href}
-                    icon={it.icon}
-                  />
-                ))}
-              </div>
-            ) : (
-              <SidebarMenuItem
-                key={i}
-                caption={r.caption}
-                href={r.href}
-                icon={r.icon}
-                className="mb-4"
-              />
-            ),
-          )}
+        <div className="flex flex-col gap-4">
+          {routes.map((r, i) => (
+            <SidebarMenuItem
+              key={i}
+              caption={r.caption}
+              href={r.href}
+              icon={r.icon}
+            />
+          ))}
         </div>
       </ul>
     </nav>
