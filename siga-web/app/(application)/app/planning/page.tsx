@@ -6,6 +6,7 @@ import {
   NotebookIcon,
   SquareSigmaIcon,
 } from "lucide-react";
+import { GridMenu } from "@/components/SiGA/GridMenu/indext";
 
 const HomePlanningPage = async () => {
   const routes = [
@@ -37,18 +38,16 @@ const HomePlanningPage = async () => {
         <Titlebar.Title title="Planejamento" />
       </Titlebar.Root>
 
-      <div className="grid grid-cols-1 gap-2 px-4 md:grid-cols-2 md:gap-3 lg:grid-cols-3 xl:grid-cols-4">
+      <GridMenu.Root>
         {routes.map((r, i) => (
-          <a
+          <GridMenu.Item
             key={i}
             href={r.href}
-            className="grid w-full gap-1 rounded-lg border bg-white px-4 pb-4 pt-10 shadow-md hover:shadow-lg"
-          >
-            {r.icon}
-            <span>{r.caption}</span>
-          </a>
+            caption={r.caption}
+            icon={r.icon}
+          />
         ))}
-      </div>
+      </GridMenu.Root>
     </>
   );
 };
