@@ -6,6 +6,14 @@ const nextConfig: NextConfig = {
       bodySizeLimit: "10mb",
     },
   },
+  images: {
+    localPatterns: [
+      {
+        pathname: "/assets/images/**",
+        search: "",
+      },
+    ],
+  },
   async redirects() {
     return [{ source: "/", destination: "/login", permanent: true }];
   },
