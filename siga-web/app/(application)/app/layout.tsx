@@ -1,5 +1,5 @@
 import { ROUTES } from "@/lib/routes";
-import { BookOpenCheck, Home, Notebook, UsersRound } from "lucide-react";
+import { BookOpenCheck, Home, Notebook, UserCog2Icon } from "lucide-react";
 import { ReactNode } from "react";
 import SidebarMenu from "./_components/SidebarMenu";
 
@@ -20,15 +20,11 @@ const HomeLayout = ({
       href: ROUTES.EXECUTE.LIST,
       icon: <BookOpenCheck />,
     },
+
     {
       caption: "Gerenciar",
-      items: [
-        {
-          caption: "Alunos",
-          href: ROUTES.STUDENTS.LIST,
-          icon: <UsersRound />,
-        },
-      ],
+      href: ROUTES.MANAGE.LIST,
+      icon: <UserCog2Icon />,
     },
   ];
 

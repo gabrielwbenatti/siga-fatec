@@ -4,11 +4,6 @@ export const ROUTES = {
 
   HOME: "/app",
 
-  STUDENTS: {
-    LIST: "/app/execute/students",
-    EDIT: (id: number) => `/app/execute/students/${id}/edit`,
-  },
-
   EXECUTE: {
     LIST: "/app/execute",
 
@@ -43,6 +38,15 @@ export const ROUTES = {
 
     BIBLIOGRAPHY: {
       LIST: "/app/planning/bibliography",
+    },
+  },
+
+  MANAGE: {
+    LIST: "/app/manage",
+
+    STUDENTS: {
+      LIST: "/app/manage/students",
+      EDIT: (id: number) => `/app/manage/students/${id}/edit`,
     },
   },
 } as const;
