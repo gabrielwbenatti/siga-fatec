@@ -1,10 +1,11 @@
 import { GridMenu } from "@/components/SiGA/GridMenu/indext";
 import { Titlebar } from "@/components/SiGA/Titlebar";
 import { ROUTES } from "@/lib/routes";
+import { MenuItem } from "@/types/internal/MenuItem";
 import { FileIcon, UserCheck2Icon } from "lucide-react";
 
 export default function ExecutePage() {
-  const routes = [
+  const routes: MenuItem[] = [
     {
       caption: "Definir Materiais",
       href: ROUTES.EXECUTE.MATERIALS.LIST,

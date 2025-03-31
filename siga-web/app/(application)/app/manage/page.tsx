@@ -1,15 +1,11 @@
 import { GridMenu } from "@/components/SiGA/GridMenu/indext";
 import { Titlebar } from "@/components/SiGA/Titlebar";
 import { ROUTES } from "@/lib/routes";
+import { MenuItem } from "@/types/internal/MenuItem";
 import { UsersIcon } from "lucide-react";
-import { JSX } from "react";
 
 export default function ManagePage() {
-  const routes: {
-    caption: string;
-    href: string;
-    icon: JSX.Element;
-  }[] = [
+  const routes: MenuItem[] = [
     {
       caption: "Alunos",
       href: ROUTES.MANAGE.STUDENTS.LIST,

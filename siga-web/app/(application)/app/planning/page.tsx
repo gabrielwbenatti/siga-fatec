@@ -7,9 +7,10 @@ import {
   SquareSigmaIcon,
 } from "lucide-react";
 import { GridMenu } from "@/components/SiGA/GridMenu/indext";
+import { MenuItem } from "@/types/internal/MenuItem";
 
 const HomePlanningPage = async () => {
-  const routes = [
+  const routes: MenuItem[] = [
     {
       caption: "Copiar Plano",
       href: "#",
