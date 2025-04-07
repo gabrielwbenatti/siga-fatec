@@ -39,14 +39,14 @@ const BibliographyList = () => {
           {data.length === 0 ? (
             <div>Nenhuma informação para exibir.</div>
           ) : (
-            <div className="flex flex-col gap-3">
+            <ul className="flex flex-col gap-3">
               {data.map((bibliography) => (
                 <BibliographyListItem
                   key={bibliography.id}
                   bibliography={bibliography}
                 />
               ))}
-            </div>
+            </ul>
           )}
         </>
       )}

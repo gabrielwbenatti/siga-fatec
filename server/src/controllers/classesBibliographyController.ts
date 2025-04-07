@@ -14,9 +14,65 @@ export const classesBibliographyController = {
       const classId = parseInt(classIdHead);
       const result = await classesBibliographyService.getAll(classId);
 
-      return res.status(StatusCode.OK).json(result);
+      res.status(StatusCode.OK).json(result);
     } catch (error) {
-      return next?.(error);
+      next?.(error);
+    }
+  },
+
+  create: async (req: Request, res: Response, next?: NextFunction) => {
+    try {
+      const classIdHead = req.headers["class-id"] as string;
+      if (!classIdHead) {
+        throw new BadRequestError("Class Id Undefined");
+      }
+
+      const classId = parseInt(classIdHead);
+      const result = await classesBibliographyService.create(classId, req.body);
+
+      res.status(StatusCode.CREATED).json(result);
+    } catch (error) {
+      next?.(error);
+    }
+  },
+
+  getById: async (req: Request, res: Response, next?: NextFunction) => {
+    try {
+      const classIdHead = req.headers["class-id"] as string;
+      if (!classIdHead) {
+        throw new BadRequestError("Class Id Undefined");
+      }
+
+      const classId = parseInt(classIdHead);
+      const id = parseInt(req.params.id);
+
+      const result = await classesBibliographyService.getById(classId, id);
+
+      res.status(StatusCode.OK).json(result);
+    } catch (error) {
+      next?.(error);
+    }
+  },
+
+  update: async (req: Request, res: Response, next?: NextFunction) => {
+    try {
+      const classIdHead = req.headers["class-id"] as string;
+      if (!classIdHead) {
+        throw new BadRequestError("Class Id Undefined");
+      }
+
+      const classId = parseInt(classIdHead);
+      const id = parseInt(req.params.id);
+
+      const result = await classesBibliographyService.update(
+        classId,
+        id,
+        req.body
+      );
+
+      res.status(StatusCode.OK).json(result);
+    } catch (error) {
+      next?.(error);
     }
   },
 };

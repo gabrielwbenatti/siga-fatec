@@ -38,6 +38,8 @@ export const ROUTES = {
 
     BIBLIOGRAPHY: {
       LIST: "/app/planning/bibliography",
+      CREATE: "/app/planning/bibliography/new",
+      EDIT: (id: number) => `/app/planning/bibliography/${id}/edit`,
     },
   },
 

@@ -28,3 +28,62 @@ export async function fetchBibliography(): Promise<{
     return { success: false, error: "Erro ao processar requisição", data: [] };
   }
 }
+
+export async function storeBibliography(data: ClassBibliography): Promise<{
+  success: boolean;
+  error?: string;
+}> {
+  try {
+    const api = await createServerApi();
+    await api.post("/classes/bibliography", data);
+
+    return { success: true };
+  } catch (error) {
+    if (error instanceof AxiosError && error.response?.data.message) {
+      return {
+        success: false,
+        error: error.response?.data.message,
+      };
+    }
+
+    console.log(error);
+    return { success: false };
+  }
+}
+
+export async function fetchBibliographyById(
+  bibliographyId: string,
+): Promise<{ success: boolean; data?: ClassBibliography }> {
+  try {
+    const api = await createServerApi();
+    const res = await api.get(`/classes/bibliography/${bibliographyId}`);
+    const { data } = res;
+
+    return { success: true, data };
+  } catch (error) {
+    console.log(error);
+    return { success: false };
+  }
+}
+
+export async function updateBibliography(data: ClassBibliography): Promise<{
+  success: boolean;
+  error?: string;
+}> {
+  try {
+    const api = await createServerApi();
+    await api.put(`/classes/bibliography/${data.id}`, data);
+
+    return { success: true };
+  } catch (error) {
+    if (error instanceof AxiosError && error.response?.data.message) {
+      return {
+        success: false,
+        error: error.response?.data.message,
+      };
+    }
+
+    console.log(error);
+    return { success: false };
+  }
+}
