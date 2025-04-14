@@ -25,6 +25,52 @@ class ClassesController {
       res.status(201).json(result);
     }
   };
+
+  getClassById = async (req: Request, res: Response) => {
+    const classIdParam = req.params.id;
+    if (!classIdParam) {
+      res.status(400).json({ message: "Class ID not provided" });
+      return;
+    }
+
+    const classIdHeader = req.headers["class-id"] as string;
+    if (!classIdHeader) {
+      res.status(500).json({ message: "Class ID not defined" });
+      return;
+    }
+
+    const classId = parseInt(classIdParam);
+    const result = await classesService.getClassById(classId);
+
+    if (result) {
+      res.status(200).json(result);
+    } else {
+      res.status(404).json({ message: "Class not found" });
+    }
+  };
+
+  setFormula = async (req: Request, res: Response) => {
+    const classIdParam = req.params.id;
+    if (!classIdParam) {
+      res.status(400).json({ message: "Class ID not provided" });
+      return;
+    }
+
+    const classIdHeader = req.headers["class-id"] as string;
+    if (!classIdHeader) {
+      res.status(500).json({ message: "Class ID not defined" });
+      return;
+    }
+
+    const classId = parseInt(classIdParam);
+    const result = await classesService.setFormula(req.body, classId);
+
+    if (result) {
+      res.status(200).json(result);
+    } else {
+      res.status(404).json({ message: "Class not found" });
+    }
+  };
 }
 
 export default new ClassesController();

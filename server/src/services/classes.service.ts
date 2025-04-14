@@ -29,6 +29,31 @@ class ClassesServices {
 
     return result;
   };
+
+  getClassById = async (classId: number) => {
+    const result = await db.classes.findUnique({
+      where: {
+        id: classId,
+      },
+    });
+
+    return result;
+  };
+
+  setFormula = async (body: any, classId: number) => {
+    const { formula } = body;
+
+    const row = await db.classes.update({
+      data: {
+        evaluation_formula: formula,
+      },
+      where: {
+        id: classId,
+      },
+    });
+
+    return row;
+  };
 }
 
 export default new ClassesServices();

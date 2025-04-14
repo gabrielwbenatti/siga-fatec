@@ -14,6 +14,10 @@ classesRouter
   .post("/", classesController.createClass);
 
 classesRouter
+  .get("/class/:id", classesController.getClassById)
+  .patch("/class/:id/set-formula", classesController.setFormula);
+
+classesRouter
   .get("/plans", classesPlansController.getClassesPlans)
   .post("/plans", classesPlansController.storeClassPlans)
   .get("/plans/:id", classesPlansController.showClassPlans)

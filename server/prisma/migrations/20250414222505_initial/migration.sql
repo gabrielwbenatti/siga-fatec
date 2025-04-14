@@ -60,6 +60,7 @@ CREATE TABLE "classes" (
     "semester" SMALLINT NOT NULL,
     "year" SMALLINT NOT NULL,
     "finished" BOOLEAN DEFAULT false,
+    "evaluation_formula" VARCHAR(63),
 
     CONSTRAINT "classes_pkey" PRIMARY KEY ("id")
 );
@@ -94,7 +95,7 @@ CREATE TABLE "class_plans" (
     "id" SERIAL NOT NULL,
     "title" VARCHAR(255) NOT NULL,
     "description" TEXT NOT NULL,
-    "planned_date" DATE NOT NULL,
+    "planned_date" DATE,
     "applied_date" DATE,
     "class_id" INTEGER NOT NULL,
     "info_for_absent" VARCHAR(255),
@@ -132,7 +133,7 @@ CREATE TABLE "exams" (
     "description" TEXT,
     "planned_date" DATE NOT NULL,
     "applied_date" DATE,
-    "weight" DECIMAL(10,2) NOT NULL DEFAULT 0,
+    "weight" DECIMAL(10,2) DEFAULT 0,
 
     CONSTRAINT "exams_pkey" PRIMARY KEY ("id")
 );
@@ -142,7 +143,7 @@ CREATE TABLE "exam_submissions" (
     "id" SERIAL NOT NULL,
     "exam_id" INTEGER NOT NULL,
     "student_id" INTEGER NOT NULL,
-    "score" DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+    "grade" DECIMAL(10,2) NOT NULL DEFAULT 0.00,
 
     CONSTRAINT "exam_submissions_pkey" PRIMARY KEY ("id")
 );
@@ -158,6 +159,9 @@ CREATE TABLE "class_students" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "plans_attendances_class_id_class_schedule_id_class_plan_id__key" ON "plans_attendances"("class_id", "class_schedule_id", "class_plan_id", "student_id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "exam_submissions_exam_id_student_id_key" ON "exam_submissions"("exam_id", "student_id");
 
 -- AddForeignKey
 ALTER TABLE "teachers" ADD CONSTRAINT "teachers_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;

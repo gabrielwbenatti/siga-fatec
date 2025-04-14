@@ -15,6 +15,7 @@ const HomePlanningPage = async () => {
       caption: "Copiar Plano",
       href: "#",
       icon: <CopyIcon />,
+      soon: true,
     },
     {
       caption: "Planejar Aulas",
@@ -46,6 +47,7 @@ const HomePlanningPage = async () => {
             href={r.href}
             caption={r.caption}
             icon={r.icon}
+            soon={r.soon}
           />
         ))}
       </GridMenu.Root>

@@ -19,6 +19,7 @@ import { toast } from "sonner";
 
 const ClassSelectionForm: FC = () => {
   const router = useRouter();
+
   const [selectedClass, setSelectedClass] = useState("");
   const [isLoadingData, setIsLoadingData] = useState(true);
   const [loadingSubmmit, setLoadingSubmmit] = useState(false);
@@ -38,13 +39,12 @@ const ClassSelectionForm: FC = () => {
     }
 
     fetchData();
-  }, []);
+  }, [router]);
 
   async function handleSelectClass(classId: string) {
     setLoadingSubmmit(true);
     await setClassId(classId);
     router.push(ROUTES.HOME);
-    // setLoadingSubmmit(false);
   }
 
   return (

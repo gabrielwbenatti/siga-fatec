@@ -90,3 +90,25 @@ export async function updateExam(
     return { success: false };
   }
 }
+
+export async function updateFormula(
+  id: string,
+  formula: string,
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    const api = await createServerApi();
+    await api.patch(`/classes/class/${id}/set-formula`, { formula });
+
+    return { success: true };
+  } catch (error) {
+    if (error instanceof AxiosError && error.response?.data.message) {
+      return {
+        success: false,
+        error: error.response?.data.message,
+      };
+    }
+
+    console.log("err", error);
+    return { success: false, error: JSON.stringify(error) };
+  }
+}

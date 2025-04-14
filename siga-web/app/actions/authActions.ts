@@ -1,7 +1,7 @@
 "use server";
 
 import { createServerApi } from "@/lib/api/server";
-import { ClassesResponse } from "@/types/Class";
+import Class, { ClassesResponse } from "@/types/Class";
 import { AxiosError } from "axios";
 import { cookies } from "next/headers";
 
@@ -70,4 +70,20 @@ export async function fetchClasses(): Promise<{
 export async function setClassId(classId: string) {
   const cookieStore = await cookies();
   cookieStore.set("class_id", classId, { httpOnly: true });
+}
+
+export async function getClassById(): Promise<Class | undefined> {
+  const cookieStore = await cookies();
+  const classId = cookieStore.get("class_id")?.value;
+
+  try {
+    const api = await createServerApi();
+    const res = await api.get(`/classes/class/${classId}`);
+    const { data } = res;
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    return undefined;
+  }
 }
