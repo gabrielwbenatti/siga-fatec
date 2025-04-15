@@ -1,11 +1,9 @@
 "use client";
 
 import { storeExam, updateExam } from "@/app/actions/examsActions";
-import InputWrapper from "@/components/SiGA/InputWrapper";
+import { Input } from "@/components/SiGA/Input";
 import RowWrapper from "@/components/SiGA/RowWrapper";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { ROUTES } from "@/lib/routes";
 import Exam from "@/types/Exam";
 import { formatDate } from "@/utils/string_helper";
@@ -50,49 +48,51 @@ const ExamsCreateUpdateForm: FC<ExamsCreateUpdateFormProps> = ({
   return (
     <form onSubmit={handleSubmit} className="space-y-4 px-4">
       <RowWrapper>
-        <InputWrapper className="md:w-8/12">
-          <Label>Título</Label>
-          <Input
+        <Input.Root className="md:w-8/12">
+          <Input.Label>Título</Input.Label>
+          <Input.Content
             name="title"
             type="text"
             placeholder="Título"
             defaultValue={initialData?.title}
             required
           />
-        </InputWrapper>
+        </Input.Root>
 
-        <InputWrapper className="md:w-4/12">
-          <Label>Título</Label>
-          <Input
+        <Input.Root className="md:w-4/12">
+          <Input.Label tooltip="Utilizado na fórmula (ex: P1, T)">
+            Sigla
+          </Input.Label>
+          <Input.Content
             name="abbreviation"
             type="text"
             placeholder="Abreviado"
             defaultValue={initialData?.abbreviation}
             required
           />
-        </InputWrapper>
+        </Input.Root>
       </RowWrapper>
 
       <RowWrapper className="md:flex">
-        <InputWrapper className="flex-auto">
-          <Label>Data Planejada</Label>
-          <Input
+        <Input.Root className="flex-auto">
+          <Input.Label>Data Planejada</Input.Label>
+          <Input.Content
             name="planned_date"
             type="date"
             defaultValue={formatDate(initialData?.planned_date, "input")}
             required
           />
-        </InputWrapper>
+        </Input.Root>
 
-        <InputWrapper className="flex-auto">
-          <Label>Data Aplicada</Label>
-          <Input
+        <Input.Root className="flex-auto">
+          <Input.Label>Data Aplicada</Input.Label>
+          <Input.Content
             name="applied_date"
             type="date"
             defaultValue={formatDate(initialData?.applied_date, "input")}
             disabled
           />
-        </InputWrapper>
+        </Input.Root>
       </RowWrapper>
 
       <Button type="submit">Salvar</Button>

@@ -1,11 +1,9 @@
 "use client";
 
 import { createClassPlan, updateClassPlan } from "@/app/actions/plansActions";
-import InputWrapper from "@/components/SiGA/InputWrapper";
+import { Input } from "@/components/SiGA/Input";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+// import { Textarea } from "@/components/ui/textarea";
 import { ROUTES } from "@/lib/routes";
 import ClassPlan from "@/types/ClassPlan";
 import { useRouter } from "next/navigation";
@@ -39,46 +37,50 @@ const PlansCreateUpdateForm: FC<PlansCreateUpdateFormProps> = ({
       onSubmit={handleSubmit}
       className="flex flex-col gap-4 space-y-4 px-4"
     >
-      <div className="flex flex-col gap-1.5">
-        <Label>Título da Aula</Label>
-        <Input
+      <Input.Root>
+        <Input.Label>Título da Aula</Input.Label>
+        <Input.Content
           placeholder="Título da Aula"
           name="title"
           required
           defaultValue={initialData?.title || ""}
         />
-      </div>
+      </Input.Root>
 
-      <div className="flex flex-col gap-1.5">
-        <Label>Descrição da Aula</Label>
-        <Textarea
+      <Input.Root>
+        <Input.Label>Descrição da Aula</Input.Label>
+        <Input.Textarea
           placeholder="Descrição da Aula"
           rows={6}
           name="description"
           defaultValue={initialData?.description || ""}
         />
-      </div>
+      </Input.Root>
 
       <div className="gap-2 md:flex">
-        <InputWrapper className="flex-auto">
-          <Label>Data Planejada</Label>
-          <Input
+        <Input.Root className="flex-auto">
+          <Input.Label tooltip="Data pretendida para a aula">
+            Data Planejada
+          </Input.Label>
+          <Input.Content
             type="date"
             name="planned_date"
             required
             defaultValue={initialData?.planned_date || ""}
           />
-        </InputWrapper>
+        </Input.Root>
 
-        <InputWrapper className="flex-auto">
-          <Label>Data Aplicada</Label>
-          <Input
+        <Input.Root className="flex-auto">
+          <Input.Label tooltip="Data em que a aula foi lecionada (chamada online)">
+            Data Aplicada
+          </Input.Label>
+          <Input.Content
             type="date"
             name="applied_date"
             disabled
             defaultValue={initialData?.applied_date || ""}
           />
-        </InputWrapper>
+        </Input.Root>
       </div>
 
       <div className="flex">

@@ -1,7 +1,7 @@
 import { FC, JSX, ReactNode } from "react";
 import SidebarMenuItem from "./SidebarMenuItem";
-import Image from "next/image";
-import logotipo2022 from "@/assets/images/logo-cps-2022.svg";
+// import Image from "next/image";
+// import logotipo2022 from "@/assets/images/logo-cps-2022.svg";
 
 interface SidebarMenuProps {
   routes: {
