@@ -93,6 +93,31 @@ class ClassesPlansController {
       next?.(error);
     }
   }
+
+  duplicateClassPlan = async (req: Request, res: Response) => {
+    const classIdHeader = req.headers["class-id"];
+    if (!classIdHeader) {
+      return res.status(400).json({ error: "Class not defined" });
+    }
+
+    const newClassId = Number(classIdHeader);
+    const oldClassId = Number(req.body.old_class_id);
+
+    if (isNaN(oldClassId)) {
+      return res.status(400).json({ error: "Invalid plan ID" });
+    }
+
+    const result = await classesPlansService.duplicateOldClassPlans(
+      oldClassId,
+      newClassId
+    );
+
+    if (result) {
+      res.status(201).json(result);
+    } else {
+      res.status(404).json({ error: "Class plan not found" });
+    }
+  };
 }
 
 export default new ClassesPlansController();

@@ -12,7 +12,8 @@ const classesRouter = Router();
 classesRouter
   .get("/", classesController.getClasses)
   .post("/", classesController.createClass)
-  .get("/finished", classesController.getFinishedClasses);
+  .get("/finished", classesController.getFinishedClasses)
+  .post("/duplicate-plans", classesPlansController.duplicateClassPlan);
 
 classesRouter
   .get("/class/:id", classesController.getClassById)
