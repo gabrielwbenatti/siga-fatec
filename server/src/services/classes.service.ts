@@ -11,6 +11,7 @@ class ClassesServices {
       },
       where: {
         teacher_id: teacherId,
+        finished: false,
       },
     });
 
@@ -53,6 +54,24 @@ class ClassesServices {
     });
 
     return row;
+  };
+
+  getFinishedClasses = async (teacherId: number) => {
+    const result = await db.classes.findMany({
+      select: {
+        id: true,
+        discipline: true,
+        semester: true,
+        year: true,
+      },
+      where: {
+        teacher_id: teacherId,
+        finished: true,
+      },
+      orderBy: [{ year: "desc" }, { semester: "desc" }],
+    });
+
+    return result;
   };
 }
 
