@@ -18,7 +18,7 @@ const CopyPlanListItem: FC<Props> = ({ dataClass }: Props) => {
   };
 
   return (
-    <div className="flex w-full items-center justify-between rounded-lg border px-2 py-3 shadow-sm hover:bg-primary/10">
+    <div className="flex w-full items-center justify-between rounded-lg border bg-white px-2 py-3 shadow-sm hover:bg-primary/10">
       <div className="flex flex-col">
         <span className="text-sm">{`${dataClass.year} ${dataClass.semester}`}</span>
         <span>{`${dataClass.discipline.abbreviation} - ${dataClass.discipline.name}`}</span>
