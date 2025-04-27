@@ -1,8 +1,8 @@
 import { duplicateClassPlan } from "@/app/actions/plansActions";
 import { Button } from "@/components/ui/button";
 import { ClassesResponse } from "@/types/Class";
-import { ArrowRightIcon } from "lucide-react";
-import { FC } from "react";
+import { ArrowRightIcon, HourglassIcon } from "lucide-react";
+import { FC, useState } from "react";
 import { toast } from "sonner";
 
 interface Props {
@@ -10,10 +10,19 @@ interface Props {
 }
 
 const CopyPlanListItem: FC<Props> = ({ dataClass }: Props) => {
+  const [isHandleLoading, setIsHandleLoading] = useState<boolean>(false);
+
   const handleClick = async (oldClassId: number) => {
-    const result = await duplicateClassPlan(oldClassId);
-    if (!result.success) {
-      toast.error("error");
+    try {
+      setIsHandleLoading(true);
+      const result = await duplicateClassPlan(oldClassId);
+      if (!result.success) {
+        toast.error("error");
+        return;
+      }
+      toast.success("Plano duplicado com sucesso!");
+    } finally {
+      setIsHandleLoading(false);
     }
   };
 
@@ -26,7 +35,15 @@ const CopyPlanListItem: FC<Props> = ({ dataClass }: Props) => {
 
       <div className="flex gap-1">
         <Button variant="outline" onClick={() => handleClick(dataClass.id)}>
-          <ArrowRightIcon /> Duplicar este plano
+          {isHandleLoading ? (
+            <>
+              <HourglassIcon /> Aguarde...
+            </>
+          ) : (
+            <>
+              <ArrowRightIcon /> Duplicar este plano
+            </>
+          )}
         </Button>
       </div>
     </div>
