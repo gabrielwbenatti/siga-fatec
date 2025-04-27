@@ -23,6 +23,10 @@ export const ROUTES = {
   PLANNING: {
     LIST: "/app/planning",
 
+    COPY_PLAN: {
+      LIST: "/app/planning/copy-plan",
+    },
+
     CLASSES: {
       LIST: "/app/planning/classes",
       CREATE: "/app/planning/classes/new",
