@@ -157,6 +157,288 @@ async function main() {
           },
         },
       });
+
+      await prisma.classes.create({
+        data: {
+          teacher_id: fulanoDeTal.id,
+          discipline_id: pweb.id,
+          semester: 1,
+          year: 2024,
+          finished: true,
+          class_plans: {
+            createMany: {
+              data: [
+                { title: "Aula 1", description: "Aula 1 teste" },
+                { title: "Aula 2", description: "Aula 2 teste" },
+                { title: "Aula 3", description: "Aula 3 teste" },
+                { title: "Aula 4", description: "Aula 4 teste" },
+              ],
+            },
+          },
+          class_schedules: {
+            createMany: {
+              data: [
+                {
+                  day_of_week: 6,
+                  start_time: "19:00",
+                  end_time: "19:50",
+                },
+                {
+                  day_of_week: 6,
+                  start_time: "19:50",
+                  end_time: "20:40",
+                },
+              ],
+            },
+          },
+        },
+      });
+      await prisma.classes.create({
+        data: {
+          teacher_id: fulanoDeTal.id,
+          discipline_id: pweb.id,
+          semester: 2,
+          year: 2024,
+          finished: true,
+          class_plans: {
+            createMany: {
+              data: [
+                { title: "Aula 1", description: "Aula 1 teste" },
+                { title: "Aula 2", description: "Aula 2 teste" },
+                { title: "Aula 3", description: "Aula 3 teste" },
+                { title: "Aula 4", description: "Aula 4 teste" },
+              ],
+            },
+          },
+          class_schedules: {
+            createMany: {
+              data: [
+                {
+                  day_of_week: 6,
+                  start_time: "19:00",
+                  end_time: "19:50",
+                },
+                {
+                  day_of_week: 6,
+                  start_time: "19:50",
+                  end_time: "20:40",
+                },
+              ],
+            },
+          },
+        },
+      });
+      await prisma.classes.create({
+        data: {
+          teacher_id: fulanoDeTal.id,
+          discipline_id: pweb.id,
+          semester: 1,
+          year: 2023,
+          finished: true,
+          class_plans: {
+            createMany: {
+              data: [
+                { title: "Aula 1", description: "Aula 1 teste" },
+                { title: "Aula 2", description: "Aula 2 teste" },
+                { title: "Aula 3", description: "Aula 3 teste" },
+                { title: "Aula 4", description: "Aula 4 teste" },
+              ],
+            },
+          },
+          class_schedules: {
+            createMany: {
+              data: [
+                {
+                  day_of_week: 6,
+                  start_time: "19:00",
+                  end_time: "19:50",
+                },
+                {
+                  day_of_week: 6,
+                  start_time: "19:50",
+                  end_time: "20:40",
+                },
+              ],
+            },
+          },
+        },
+      });
+      await prisma.classes.create({
+        data: {
+          teacher_id: fulanoDeTal.id,
+          discipline_id: pweb.id,
+          semester: 2,
+          year: 2023,
+          finished: true,
+          class_plans: {
+            createMany: {
+              data: [
+                { title: "Aula 1", description: "Aula 1 teste" },
+                { title: "Aula 2", description: "Aula 2 teste" },
+                { title: "Aula 3", description: "Aula 3 teste" },
+                { title: "Aula 4", description: "Aula 4 teste" },
+              ],
+            },
+          },
+          class_schedules: {
+            createMany: {
+              data: [
+                {
+                  day_of_week: 6,
+                  start_time: "19:00",
+                  end_time: "19:50",
+                },
+                {
+                  day_of_week: 6,
+                  start_time: "19:50",
+                  end_time: "20:40",
+                },
+              ],
+            },
+          },
+        },
+      });
+
+      await prisma.classes.create({
+        data: {
+          teacher_id: fulanoDeTal.id,
+          discipline_id: pweb.id,
+          semester: 1,
+          year: 2024,
+          finished: true,
+          class_plans: {
+            createMany: {
+              data: [
+                { title: "Aula 1", description: "Aula 1 teste" },
+                { title: "Aula 2", description: "Aula 2 teste" },
+                { title: "Aula 3", description: "Aula 3 teste" },
+                { title: "Aula 4", description: "Aula 4 teste" },
+              ],
+            },
+          },
+          class_schedules: {
+            createMany: {
+              data: [
+                {
+                  day_of_week: 6,
+                  start_time: "19:00",
+                  end_time: "19:50",
+                },
+                {
+                  day_of_week: 6,
+                  start_time: "19:50",
+                  end_time: "20:40",
+                },
+              ],
+            },
+          },
+        },
+      });
+      await prisma.classes.create({
+        data: {
+          teacher_id: fulanoDeTal.id,
+          discipline_id: pweb.id,
+          semester: 2,
+          year: 2024,
+          finished: true,
+          class_plans: {
+            createMany: {
+              data: [
+                { title: "Aula 1", description: "Aula 1 teste" },
+                { title: "Aula 2", description: "Aula 2 teste" },
+                { title: "Aula 3", description: "Aula 3 teste" },
+                { title: "Aula 4", description: "Aula 4 teste" },
+              ],
+            },
+          },
+          class_schedules: {
+            createMany: {
+              data: [
+                {
+                  day_of_week: 6,
+                  start_time: "19:00",
+                  end_time: "19:50",
+                },
+                {
+                  day_of_week: 6,
+                  start_time: "19:50",
+                  end_time: "20:40",
+                },
+              ],
+            },
+          },
+        },
+      });
+      await prisma.classes.create({
+        data: {
+          teacher_id: fulanoDeTal.id,
+          discipline_id: pweb.id,
+          semester: 1,
+          year: 2023,
+          finished: true,
+          class_plans: {
+            createMany: {
+              data: [
+                { title: "Aula 1", description: "Aula 1 teste" },
+                { title: "Aula 2", description: "Aula 2 teste" },
+                { title: "Aula 3", description: "Aula 3 teste" },
+                { title: "Aula 4", description: "Aula 4 teste" },
+              ],
+            },
+          },
+          class_schedules: {
+            createMany: {
+              data: [
+                {
+                  day_of_week: 6,
+                  start_time: "19:00",
+                  end_time: "19:50",
+                },
+                {
+                  day_of_week: 6,
+                  start_time: "19:50",
+                  end_time: "20:40",
+                },
+              ],
+            },
+          },
+        },
+      });
+      await prisma.classes.create({
+        data: {
+          teacher_id: fulanoDeTal.id,
+          discipline_id: pweb.id,
+          semester: 2,
+          year: 2023,
+          finished: true,
+          class_plans: {
+            createMany: {
+              data: [
+                { title: "Aula 1", description: "Aula 1 teste" },
+                { title: "Aula 2", description: "Aula 2 teste" },
+                { title: "Aula 3", description: "Aula 3 teste" },
+                { title: "Aula 4", description: "Aula 4 teste" },
+              ],
+            },
+          },
+          class_schedules: {
+            createMany: {
+              data: [
+                {
+                  day_of_week: 6,
+                  start_time: "19:00",
+                  end_time: "19:50",
+                },
+                {
+                  day_of_week: 6,
+                  start_time: "19:50",
+                  end_time: "20:40",
+                },
+              ],
+            },
+          },
+        },
+      });
     });
 }
 
