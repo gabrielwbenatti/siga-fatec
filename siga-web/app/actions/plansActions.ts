@@ -145,3 +145,21 @@ export async function updateAttendances(data: ClassAttendance): Promise<{
     return { success: false };
   }
 }
+
+export const duplicateClassPlan = async (oldClassId: number) => {
+  try {
+    const api = await createServerApi();
+    await api.post("/classes/duplicate-plans", {
+      old_class_id: oldClassId,
+    });
+
+    return { success: true };
+  } catch (error) {
+    console.log(error);
+    if (error instanceof AxiosError) {
+      return { success: false, error: error.response?.data.message };
+    }
+
+    return { success: false, error: "Erro ao processar a requisição" };
+  }
+};

@@ -30,9 +30,11 @@ const PlansListItem: FC<HomePlansListItemProps> = ({
   return (
     <div className="flex w-full items-center justify-between rounded-lg border px-2 py-3 shadow-sm hover:bg-primary/10">
       <div className="flex flex-col">
-        <span className="text-sm">
-          {formatDate(plan.planned_date, "pt-BR")}
-        </span>
+        {plan.planned_date && (
+          <span className="text-sm">
+            {formatDate(plan.planned_date, "pt-BR")}
+          </span>
+        )}
         <RowWrapper>
           <a
             href={`${ROUTES.PLANNING.CLASSES.EDIT(plan.id!)}`}
@@ -40,6 +42,11 @@ const PlansListItem: FC<HomePlansListItemProps> = ({
           >
             {plan.title}
           </a>
+          {!plan.planned_date && (
+            <Badge className="bg-red-600 hover:bg-red-700">
+              Data não definida
+            </Badge>
+          )}
           {plan.applied_date && (
             <Badge className="bg-green-600 hover:bg-green-700">{`Lecionado em ${formatDate(plan.applied_date, "pt-BR")}`}</Badge>
           )}

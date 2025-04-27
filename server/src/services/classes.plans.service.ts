@@ -102,6 +102,25 @@ class ClassesPlansServices {
 
     return row;
   }
+
+  duplicateOldClassPlans = async (oldClassId: number, newClassId: number) => {
+    const oldClass = await db.class_plans.findMany({
+      where: { class_id: oldClassId },
+    });
+
+    const transaction = oldClass.map((plan) => {
+      return db.class_plans.create({
+        data: {
+          class_id: newClassId,
+          title: plan.title,
+          description: plan.description,
+        },
+      });
+    });
+
+    const result = await db.$transaction(transaction);
+    return result;
+  };
 }
 
 export default new ClassesPlansServices();

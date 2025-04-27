@@ -4,7 +4,7 @@ export interface Class {
   discipline_id: number;
   semester: number;
   year: number;
-  finished: Boolean;
+  finished: boolean;
   evaluation_formula?: string;
 }
 
