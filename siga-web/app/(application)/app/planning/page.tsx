@@ -13,9 +13,8 @@ const HomePlanningPage = async () => {
   const routes: MenuItem[] = [
     {
       caption: "Copiar Plano",
-      href: "#",
+      href: ROUTES.PLANNING.COPY_PLAN.LIST,
       icon: <CopyIcon />,
-      soon: true,
     },
     {
       caption: "Planejar Aulas",
