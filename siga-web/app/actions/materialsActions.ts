@@ -109,3 +109,20 @@ export async function reorderClassMaterial(
     return { success: false };
   }
 }
+
+export async function deleteMaterial(
+  materialId: number | string,
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    const api = await createServerApi();
+    await api.delete(`/classes/materials/${materialId}`);
+
+    return { success: true };
+  } catch (error) {
+    if (error instanceof AxiosError && error.response?.data.message) {
+      return { success: false, error: error.response?.data.message };
+    }
+    console.log(error);
+    return { success: false };
+  }
+}

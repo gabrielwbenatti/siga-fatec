@@ -14,18 +14,20 @@ import {
   Trash2,
   FileCode2,
 } from "lucide-react";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { toast } from "sonner";
 
 interface MaterialsListItemProps {
   material: ClassMaterial;
-  onDelete?: (id: number) => void;
-  onDownload?: (id: number) => void;
+  onDelete?: (materialId: number | string) => Promise<void>;
 }
 
 const MaterialsListItem: FC<MaterialsListItemProps> = ({
   material,
+  onDelete,
 }: MaterialsListItemProps) => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const getFileIcon = (extension: string) => {
     switch (extension) {
       case "doc":
@@ -57,9 +59,18 @@ const MaterialsListItem: FC<MaterialsListItemProps> = ({
   function handleDownload() {
     toast.info("Em breve");
   }
-  function handleDelete() {
-    toast.info("Em breve ");
-  }
+  const handleDelete = async () => {
+    if (!material.id || !onDelete) return;
+
+    try {
+      setIsLoading(true);
+      await onDelete?.(material.id);
+    } catch (error) {
+      console.log("Erro ao deletar o material:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="flex items-center justify-between rounded-lg border p-2 shadow-sm hover:bg-primary/10">
@@ -79,13 +90,18 @@ const MaterialsListItem: FC<MaterialsListItemProps> = ({
       </div>
 
       <div className="flex gap-1.5">
-        <Button variant="outline" onClick={() => handleDownload()}>
+        <Button
+          variant="outline"
+          onClick={() => handleDownload()}
+          disabled={isLoading}
+        >
           <DownloadCloudIcon />
           <span className="hidden md:block">Download</span>
         </Button>
         <Button
           variant="destructive"
           size="icon"
+          disabled={isLoading}
           onClick={() => handleDelete()}
         >
           <Trash2 />

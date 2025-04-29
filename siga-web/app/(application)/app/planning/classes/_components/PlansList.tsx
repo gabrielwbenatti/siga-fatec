@@ -3,7 +3,7 @@
 import ClassPlan from "@/types/ClassPlan";
 import PlansListItem from "./PlansListItem";
 import { FC, useEffect, useState } from "react";
-import { fetchClassPlans } from "@/app/actions/plansActions";
+import { deleteClassPlan, fetchClassPlans } from "@/app/actions/plansActions";
 import { toast } from "sonner";
 
 const PlansList: FC = () => {
@@ -26,6 +26,21 @@ const PlansList: FC = () => {
     fetchData();
   }, []);
 
+  const handleDelete = async (planId: number | string) => {
+    try {
+      const result = await deleteClassPlan(planId);
+      if (!result.success) {
+        toast.error(result.error);
+      }
+      // Remove the deleted plan from the state
+      setData((prev) => prev.filter((item) => item.id !== planId));
+      toast.success("Planejamento deletado com sucesso!");
+    } catch (error) {
+      console.log("Erro ao deletar o planejamento:", error);
+      toast.error("Erro ao deletar o planejamento.");
+    }
+  };
+
   return (
     <div className="flex flex-col px-4">
       {isLoading ? (
@@ -41,7 +56,11 @@ const PlansList: FC = () => {
           ) : (
             <div className="flex flex-col gap-3">
               {data.map((plan) => (
-                <PlansListItem key={plan.id} plan={plan} />
+                <PlansListItem
+                  key={plan.id}
+                  plan={plan}
+                  onDelete={handleDelete}
+                />
               ))}
             </div>
           )}

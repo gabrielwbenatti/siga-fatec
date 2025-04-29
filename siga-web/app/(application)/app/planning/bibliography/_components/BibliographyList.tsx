@@ -1,6 +1,9 @@
 "use client";
 
-import { fetchBibliography } from "@/app/actions/bibliographyActions";
+import {
+  deleteBibliography,
+  fetchBibliography,
+} from "@/app/actions/bibliographyActions";
 import ClassBibliography from "@/types/ClassBibliography";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -26,6 +29,21 @@ const BibliographyList = () => {
     fetchData();
   }, []);
 
+  const handleDelete = async (bibliographyId: number | string) => {
+    try {
+      const result = await deleteBibliography(bibliographyId);
+      if (!result.success) {
+        toast.error(result.error);
+      }
+      // Remove the deleted bibliography from the state
+      setData((prev) => prev.filter((item) => item.id !== bibliographyId));
+      toast.success("Bibliografia deletada com sucesso!");
+    } catch (error) {
+      console.log("Erro ao deletar a bibliografia:", error);
+      toast.error("Erro ao deletar a bibliografia.");
+    }
+  };
+
   return (
     <div className="flex flex-col px-4">
       {isLoading ? (
@@ -44,6 +62,7 @@ const BibliographyList = () => {
                 <BibliographyListItem
                   key={bibliography.id}
                   bibliography={bibliography}
+                  onDelete={handleDelete}
                 />
               ))}
             </ul>

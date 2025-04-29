@@ -112,3 +112,22 @@ export async function updateFormula(
     return { success: false, error: JSON.stringify(error) };
   }
 }
+
+export const deleteExam = async (examId: number | string) => {
+  try {
+    const api = await createServerApi();
+    await api.delete(`/classes/exams/${examId}`);
+
+    return { success: true };
+  } catch (error) {
+    console.log(error);
+    if (error instanceof AxiosError && error.response?.data.message) {
+      return {
+        success: false,
+        error: error.response?.data.message,
+      };
+    }
+
+    return { success: false };
+  }
+};

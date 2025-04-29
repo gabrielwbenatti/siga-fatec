@@ -3,7 +3,10 @@
 import ClassMaterial from "@/types/ClassMaterial";
 import MaterialsListItem from "./MaterialsListItem";
 import { FC, useEffect, useState } from "react";
-import { fetchClassMaterials } from "@/app/actions/materialsActions";
+import {
+  deleteMaterial,
+  fetchClassMaterials,
+} from "@/app/actions/materialsActions";
 import { toast } from "sonner";
 
 const MaterialsList: FC = () => {
@@ -26,6 +29,20 @@ const MaterialsList: FC = () => {
     fetchData();
   }, []);
 
+  const handleDelete = async (materialId: number | string) => {
+    try {
+      const result = await deleteMaterial(materialId);
+      if (!result.success) {
+        toast.error(result.error);
+      }
+      // Remove the deleted material from the state
+      setData((prev) => prev.filter((item) => item.id !== materialId));
+    } catch (error) {
+      console.log("Erro ao deletar o material:", error);
+      toast.error("Erro ao deletar o material.");
+    }
+  };
+
   return (
     <div className="flex flex-col divide-y px-4">
       {isLoading ? (
@@ -40,7 +57,11 @@ const MaterialsList: FC = () => {
           ) : (
             <div className="flex flex-col gap-3">
               {data?.map((material) => (
-                <MaterialsListItem material={material} key={material.id!} />
+                <MaterialsListItem
+                  material={material}
+                  key={material.id!}
+                  onDelete={handleDelete}
+                />
               ))}
             </div>
           )}

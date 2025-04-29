@@ -8,23 +8,33 @@ import ClassPlan from "@/types/ClassPlan";
 import { formatDate } from "@/utils/string_helper";
 import { Pencil, Trash2 } from "lucide-react";
 import Link from "next/link";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { toast } from "sonner";
 
 interface HomePlansListItemProps {
   plan: ClassPlan;
+  onDelete?: (planId: number | string) => Promise<void>;
 }
 
 const PlansListItem: FC<HomePlansListItemProps> = ({
   plan,
+  onDelete,
 }: HomePlansListItemProps) => {
-  const handleDelete = (plan: ClassPlan) => {
-    if (plan.applied_date) {
-      toast.warning("Não permite exclusão, já possui chamada");
-      return;
-    }
+  const [isLoading, setIsLoading] = useState(false);
 
-    toast.info("Em breve");
+  const handleDelete = () => {
+    if (!plan.id || !onDelete) return;
+
+    try {
+      setIsLoading(true);
+      onDelete?.(plan.id);
+      toast.success("Planejamento deletado com sucesso!");
+    } catch (error) {
+      console.log("Erro ao deletar o planejamento:", error);
+      toast.error("Erro ao deletar o planejamento.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -57,14 +67,15 @@ const PlansListItem: FC<HomePlansListItemProps> = ({
 
       <div className="flex gap-1">
         <Link href={ROUTES.PLANNING.CLASSES.EDIT(plan.id!)}>
-          <Button variant="outline">
+          <Button variant="outline" disabled={isLoading}>
             <Pencil /> Ediar
           </Button>
         </Link>
         <Button
           variant="destructive"
           size="icon"
-          onClick={() => handleDelete(plan)}
+          disabled={isLoading}
+          onClick={handleDelete}
         >
           <Trash2 />
         </Button>

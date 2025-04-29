@@ -87,3 +87,24 @@ export async function updateBibliography(data: ClassBibliography): Promise<{
     return { success: false };
   }
 }
+
+export async function deleteBibliography(
+  bibliographyId: number | string,
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    const api = await createServerApi();
+    await api.delete(`/classes/bibliography/${bibliographyId}`);
+
+    return { success: true };
+  } catch (error) {
+    if (error instanceof AxiosError && error.response?.data.message) {
+      return {
+        success: false,
+        error: error.response?.data.message,
+      };
+    }
+
+    console.log(error);
+    return { success: false };
+  }
+}
