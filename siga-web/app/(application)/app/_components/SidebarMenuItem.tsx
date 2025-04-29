@@ -7,6 +7,7 @@ interface SidebarMenuItemProps {
   caption: string;
   className?: string;
   icon?: ReactNode;
+  selected?: boolean;
 }
 
 const SidebarMenuItem: FC<SidebarMenuItemProps> = ({
@@ -14,9 +15,12 @@ const SidebarMenuItem: FC<SidebarMenuItemProps> = ({
   href,
   icon,
   className = "",
+  selected = false,
 }: SidebarMenuItemProps) => {
   return (
-    <li className={`text-ellipsis rounded-lg hover:bg-primary/10 ${className}`}>
+    <li
+      className={`text-ellipsis rounded-lg hover:bg-primary/10 ${className} ${selected ? "bg-[#b20000]/10 text-[#b20000]" : ""}`}
+    >
       <a className="flex w-full gap-2 p-2" href={href}>
         {icon}
         {caption}
