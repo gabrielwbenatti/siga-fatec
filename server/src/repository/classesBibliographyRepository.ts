@@ -34,4 +34,11 @@ export const classesBibliographyRepository = {
     });
     return row;
   },
+
+  delete: async (classId: number, id: number) => {
+    const row = await db.class_bibliography.delete({
+      where: { class_id: classId, id },
+    });
+    return row;
+  },
 };

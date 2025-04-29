@@ -23,4 +23,9 @@ export const classesBibliographyService = {
     );
     return result;
   },
+
+  delete: async (classId: number, id: number) => {
+    const result = await classesBibliographyRepository.delete(classId, id);
+    return result;
+  },
 };

@@ -75,4 +75,22 @@ export const classesBibliographyController = {
       next?.(error);
     }
   },
+
+  delete: async (req: Request, res: Response, next?: NextFunction) => {
+    try {
+      const classIdHead = req.headers["class-id"] as string;
+      if (!classIdHead) {
+        throw new BadRequestError("Class Id Undefined");
+      }
+
+      const classId = parseInt(classIdHead);
+      const id = parseInt(req.params.id);
+
+      await classesBibliographyService.delete(classId, id);
+
+      res.status(StatusCode.NO_CONTENT).send();
+    } catch (error) {
+      next?.(error);
+    }
+  },
 };

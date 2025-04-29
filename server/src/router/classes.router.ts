@@ -59,6 +59,7 @@ classesRouter
   .get("/bibliography", classesBibliographyController.getAll)
   .post("/bibliography", classesBibliographyController.create)
   .get("/bibliography/:id", classesBibliographyController.getById)
-  .put("/bibliography/:id", classesBibliographyController.update);
+  .put("/bibliography/:id", classesBibliographyController.update)
+  .delete("/bibliography/:id", classesBibliographyController.delete);
 
 export default classesRouter;
