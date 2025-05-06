@@ -1,5 +1,6 @@
 "use client";
 
+import { storeExamSubmission } from "@/app/actions/examsActions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -11,12 +12,14 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useState } from "react";
+import { toast } from "sonner";
 
 interface Props {
   initialData: {
     id: number;
     name: string;
     computed_grade: number;
+    class_id: number;
     submissions: {
       exam_id: number;
       abbreviation: string;
@@ -27,6 +30,8 @@ interface Props {
 
 const ExamSubmissionForm = ({ initialData }: Props) => {
   const [data, setData] = useState(initialData);
+
+  console.log(initialData);
 
   const calculateFormula = (
     submissions: {
@@ -89,8 +94,30 @@ const ExamSubmissionForm = ({ initialData }: Props) => {
     setData(newData);
   };
 
-  const handleSubmit = () => {
-    console.log("Dados enviados:", data);
+  const handleSubmit = async () => {
+    const payload = data.map((student) => {
+      return {
+        id: student.id,
+        computed_grade: student.computed_grade,
+        class_id: student.class_id,
+        submissions: student.submissions.map((submission) => {
+          return {
+            exam_id: submission.exam_id,
+            submission: submission.submission,
+            grade: submission.submission,
+          };
+        }),
+      };
+    });
+
+    const result = await storeExamSubmission(payload);
+
+    if (!result.success) {
+      toast.error(result.error);
+      return;
+    }
+
+    toast.success("Notas enviadas com sucesso!");
   };
 
   return (
@@ -122,7 +149,7 @@ const ExamSubmissionForm = ({ initialData }: Props) => {
                     defaultValue={
                       submission.submission !== null
                         ? submission.submission.toString().replace(".", ",")
-                        : ""
+                        : "0"
                     }
                     onBlur={(e) =>
                       handleInputChange(

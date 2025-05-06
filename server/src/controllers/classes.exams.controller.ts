@@ -107,6 +107,27 @@ class ClassesExamsController {
       return next?.(error);
     }
   };
+
+  postSubmissions = async (
+    req: Request,
+    res: Response,
+    next?: NextFunction
+  ) => {
+    try {
+      const classIdHead = req.headers["class-id"] as string;
+      if (!classIdHead) {
+        throw new BadRequestError("Class Id undefined");
+      }
+
+      const classId = Number(classIdHead);
+      const { body } = req;
+      const result = await classesExamsService.postSubmissions(body, classId);
+
+      return res.status(StatusCode.CREATED).json(result);
+    } catch (error) {
+      return next?.(error);
+    }
+  };
 }
 
 export default new ClassesExamsController();

@@ -139,6 +139,7 @@ export async function fetchExamSubmissions(): Promise<{
     id: number;
     name: string;
     computed_grade: number;
+    class_id: number;
     submissions: {
       exam_id: number;
       abbreviation: string;
@@ -164,6 +165,7 @@ export async function fetchExamSubmissions(): Promise<{
             id: 0,
             name: "",
             computed_grade: 0,
+            class_id: 0,
             submissions: [
               {
                 exam_id: 0,
@@ -184,6 +186,7 @@ export async function fetchExamSubmissions(): Promise<{
           id: 0,
           name: "",
           computed_grade: 0,
+          class_id: 0,
           submissions: [
             {
               exam_id: 0,
@@ -194,5 +197,38 @@ export async function fetchExamSubmissions(): Promise<{
         },
       ],
     };
+  }
+}
+
+export async function storeExamSubmission(
+  data: {
+    id: number;
+    computed_grade: number;
+    class_id: number;
+    submissions: {
+      exam_id: number;
+      submission: number | null;
+      grade: number | null;
+    }[];
+  }[],
+): Promise<{
+  success: boolean;
+  error?: string;
+}> {
+  try {
+    const api = await createServerApi();
+    await api.post("/classes/exams/post/submissions", data);
+
+    return { success: true };
+  } catch (error) {
+    console.log(error);
+    if (error instanceof AxiosError && error.response?.data.message) {
+      return {
+        success: false,
+        error: error.response?.data.message,
+      };
+    }
+
+    return { success: false };
   }
 }

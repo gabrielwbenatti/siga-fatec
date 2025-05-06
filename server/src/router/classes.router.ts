@@ -53,7 +53,8 @@ classesRouter
   .post("/exams", classesExamsController.store)
   .get("/exams/:examId", classesExamsController.show)
   .put("/exams/:examId", classesExamsController.update)
-  .get("/exams/get/submissions", classesExamsController.indexSubmissions);
+  .get("/exams/get/submissions", classesExamsController.indexSubmissions)
+  .post("/exams/post/submissions", classesExamsController.postSubmissions);
 
 classesRouter
   .get("/bibliography", classesBibliographyController.getAll)
