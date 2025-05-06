@@ -16,6 +16,12 @@ export default function ExecutePage() {
       href: ROUTES.EXECUTE.ATTENDANCE.LIST,
       icon: <UserCheck2Icon />,
     },
+    {
+      caption: "Lançar Notas",
+      href: ROUTES.EXECUTE.GRADES.LIST,
+      icon: <FileIcon />,
+      soon: true,
+    },
   ];
 
   return (

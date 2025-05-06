@@ -68,7 +68,7 @@ const PlansListItem: FC<HomePlansListItemProps> = ({
       <div className="flex gap-1">
         <Link href={ROUTES.PLANNING.CLASSES.EDIT(plan.id!)}>
           <Button variant="outline" disabled={isLoading}>
-            <Pencil /> Ediar
+            <Pencil /> Editar
           </Button>
         </Link>
         <Button
