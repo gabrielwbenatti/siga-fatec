@@ -302,7 +302,7 @@ async function main() {
       await prisma.classes.create({
         data: {
           teacher_id: fulanoDeTal.id,
-          discipline_id: pweb.id,
+          discipline_id: esoft.id,
           semester: 1,
           year: 2024,
           finished: true,
@@ -337,7 +337,7 @@ async function main() {
       await prisma.classes.create({
         data: {
           teacher_id: fulanoDeTal.id,
-          discipline_id: pweb.id,
+          discipline_id: esoft.id,
           semester: 2,
           year: 2024,
           finished: true,
@@ -372,7 +372,7 @@ async function main() {
       await prisma.classes.create({
         data: {
           teacher_id: fulanoDeTal.id,
-          discipline_id: pweb.id,
+          discipline_id: esoft.id,
           semester: 1,
           year: 2023,
           finished: true,
@@ -407,7 +407,7 @@ async function main() {
       await prisma.classes.create({
         data: {
           teacher_id: fulanoDeTal.id,
-          discipline_id: pweb.id,
+          discipline_id: esoft.id,
           semester: 2,
           year: 2023,
           finished: true,

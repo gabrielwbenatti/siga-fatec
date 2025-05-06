@@ -1,6 +1,7 @@
 "use server";
 
 import { createServerApi } from "@/lib/api/server";
+import { IExamSubmissionResponse } from "@/types/ClassExam";
 import Exam from "@/types/Exam";
 import { AxiosError } from "axios";
 
@@ -135,17 +136,7 @@ export const deleteExam = async (examId: number | string) => {
 export async function fetchExamSubmissions(): Promise<{
   success: boolean;
   error?: string;
-  data: {
-    id: number;
-    name: string;
-    computed_grade: number;
-    class_id: number;
-    submissions: {
-      exam_id: number;
-      abbreviation: string;
-      submission: number | null;
-    }[];
-  }[];
+  data: IExamSubmissionResponse;
 }> {
   try {
     const api = await createServerApi();
@@ -160,49 +151,21 @@ export async function fetchExamSubmissions(): Promise<{
       return {
         success: false,
         error: error.response?.data.message,
-        data: [
-          {
-            id: 0,
-            name: "",
-            computed_grade: 0,
-            class_id: 0,
-            submissions: [
-              {
-                exam_id: 0,
-                abbreviation: "",
-                submission: null,
-              },
-            ],
-          },
-        ],
+        data: { formula: "", pivot: [] },
       };
     }
 
     return {
       success: false,
       error: "Erro ao obter dados",
-      data: [
-        {
-          id: 0,
-          name: "",
-          computed_grade: 0,
-          class_id: 0,
-          submissions: [
-            {
-              exam_id: 0,
-              abbreviation: "",
-              submission: null,
-            },
-          ],
-        },
-      ],
+      data: { formula: "", pivot: [] },
     };
   }
 }
 
 export async function storeExamSubmission(
   data: {
-    id: number;
+    student_id: number;
     computed_grade: number;
     class_id: number;
     submissions: {

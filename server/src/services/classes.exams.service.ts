@@ -71,12 +71,19 @@ class ClassesExamsService {
   };
 
   indexSubmissions = async (classId: number) => {
+    const dataClass = await db.classes.findFirst({
+      select: { evaluation_formula: true },
+      where: { id: classId },
+    });
     const students = await db.students.findMany({
       select: {
         first_name: true,
         last_name: true,
         id: true,
-        class_students: { select: { computed_grade: true, class_id: true } },
+        class_students: {
+          select: { computed_grade: true },
+          where: { class_id: classId },
+        },
       },
       where: { class_students: { some: { class_id: classId } } },
     });
@@ -86,11 +93,12 @@ class ClassesExamsService {
         abbreviation: true,
         planned_date: true,
         applied_date: true,
+        class: { select: { evaluation_formula: true } },
       },
       where: { class_id: classId },
     });
     const submissions = await db.exam_submissions.findMany({
-      select: { student_id: true, id: true, exam_id: true },
+      select: { student_id: true, id: true, exam_id: true, grade: true },
       where: {
         student: { class_students: { some: { class_id: classId } } },
       },
@@ -101,26 +109,29 @@ class ClassesExamsService {
         id: stud.id,
         name: `${stud.first_name} ${stud.last_name}`,
         computed_grade: stud.class_students[0].computed_grade,
-        class_id: stud.class_students[0].class_id,
         submissions: exams.map((ex) => ({
           exam_id: ex.id,
           abbreviation: ex.abbreviation,
           submission:
             submissions.find(
               (sub) => sub.student_id === stud.id && sub.exam_id === ex.id
-            ) ?? null,
+            )?.grade ?? 0,
         })),
       };
     });
 
-    return [...pivot];
+    const result = {
+      formula: dataClass?.evaluation_formula,
+      pivot: [...pivot],
+    };
+    console.log(result, JSON.stringify(result, null, 2));
+    return result;
   };
 
   postSubmissions = async (
     body: {
-      id: number;
+      student_id: number;
       computed_grade: number;
-      class_id: number;
       submissions: {
         exam_id: number;
         submission: number;
@@ -130,6 +141,7 @@ class ClassesExamsService {
     classId: number
   ) => {
     const allPromises: Promise<any>[] = [];
+    console.log(JSON.stringify(body, null, 2));
 
     for (const stud of body) {
       for (const sub of stud.submissions) {
@@ -138,22 +150,34 @@ class ClassesExamsService {
             where: {
               exam_id_student_id: {
                 exam_id: sub.exam_id,
-                student_id: stud.id,
+                student_id: stud.student_id,
               },
             },
             create: {
               exam_id: sub.exam_id,
-              student_id: stud.id,
+              student_id: stud.student_id,
               grade: sub.grade,
             },
             update: {
               exam_id: sub.exam_id,
-              student_id: stud.id,
+              student_id: stud.student_id,
               grade: sub.grade,
             },
           })
         );
       }
+
+      allPromises.push(
+        db.class_students.update({
+          data: { computed_grade: stud.computed_grade },
+          where: {
+            class_id_student_id: {
+              class_id: classId,
+              student_id: stud.student_id,
+            },
+          },
+        })
+      );
     }
 
     await Promise.all(allPromises);

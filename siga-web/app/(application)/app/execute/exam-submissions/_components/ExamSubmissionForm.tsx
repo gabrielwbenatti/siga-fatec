@@ -11,65 +11,22 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { IExamSubmissionResponse } from "@/types/ClassExam";
+import { calculateFormula } from "@/utils/formula";
 import { useState } from "react";
 import { toast } from "sonner";
 
 interface Props {
-  initialData: {
-    id: number;
-    name: string;
-    computed_grade: number;
-    class_id: number;
-    submissions: {
-      exam_id: number;
-      abbreviation: string;
-      submission: number | null;
-    }[];
-  }[];
+  initialData: IExamSubmissionResponse;
 }
 
 const ExamSubmissionForm = ({ initialData }: Props) => {
   const [data, setData] = useState(initialData);
 
-  console.log(initialData);
-
-  const calculateFormula = (
-    submissions: {
-      exam_id: number;
-      abbreviation: string;
-      submission: number | null;
-    }[],
-    formula: string,
-  ) => {
-    const values: Record<string, number> = {};
-    for (const submission of submissions) {
-      values[submission.abbreviation] = submission.submission || 0;
-    }
-
-    let expression = formula;
-    for (const [abbr, value] of Object.entries(values)) {
-      expression = expression.replace(
-        new RegExp(`\\b${abbr}\\b`, "g"),
-        value.toString(),
-      );
-    }
-
-    try {
-      return Math.round(eval(expression) * 100) / 100;
-    } catch (err) {
-      console.error("Erro ao calcular fórmula:", err);
-      return 0;
-    }
-  };
-
-  const handleInputChange = (
-    studentId: number,
-    examId: number,
-    value: string,
-  ) => {
+  const handleBlur = (studentId: number, examId: number, value: string) => {
     const parsedValue = value.replace(",", ".");
 
-    const newData = data.map((std) => {
+    const newPivot = data.pivot.map((std) => {
       if (std.id !== studentId) return std;
 
       const updatedSubmissions = std.submissions.map((sub) => {
@@ -84,20 +41,17 @@ const ExamSubmissionForm = ({ initialData }: Props) => {
       return {
         ...std,
         submissions: updatedSubmissions,
-        computed_grade: calculateFormula(
-          updatedSubmissions,
-          "(P1 + P2 + P3) / 3",
-        ),
+        computed_grade: calculateFormula(updatedSubmissions, data.formula),
       };
     });
 
-    setData(newData);
+    setData((prev) => ({ ...prev, pivot: newPivot }));
   };
 
   const handleSubmit = async () => {
-    const payload = data.map((student) => {
+    const payload = data.pivot.map((student) => {
       return {
-        id: student.id,
+        student_id: student.id,
         computed_grade: student.computed_grade,
         class_id: student.class_id,
         submissions: student.submissions.map((submission) => {
@@ -122,6 +76,7 @@ const ExamSubmissionForm = ({ initialData }: Props) => {
 
   return (
     <div className="space-y-4 px-4">
+      <p>{`Fórmula utilizada para o cálculo: ${data.formula}`}</p>
       <Table>
         <TableHeader>
           <TableRow>
@@ -130,7 +85,7 @@ const ExamSubmissionForm = ({ initialData }: Props) => {
                 <span>Aluno</span>
               </div>
             </TableHead>
-            {data[0].submissions.map((submission) => (
+            {data.pivot[0].submissions.map((submission) => (
               <TableHead key={submission.exam_id} className="text-center">
                 {submission.abbreviation}
               </TableHead>
@@ -139,7 +94,7 @@ const ExamSubmissionForm = ({ initialData }: Props) => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data.map((student) => (
+          {data.pivot.map((student) => (
             <TableRow key={student.id}>
               <TableCell>{student.name}</TableCell>
               {student.submissions.map((submission) => (
@@ -152,11 +107,7 @@ const ExamSubmissionForm = ({ initialData }: Props) => {
                         : "0"
                     }
                     onBlur={(e) =>
-                      handleInputChange(
-                        student.id,
-                        submission.exam_id,
-                        e.target.value,
-                      )
+                      handleBlur(student.id, submission.exam_id, e.target.value)
                     }
                   />
                 </TableCell>
