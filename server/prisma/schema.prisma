@@ -178,9 +178,10 @@ model exam_submissions {
 }
 
 model class_students {
-  id         Int @id @default(autoincrement())
-  class_id   Int
-  student_id Int
+  id             Int      @id @default(autoincrement())
+  class_id       Int
+  student_id     Int
+  computed_grade Decimal? @default(0) @db.Decimal(10, 2)
 
   class   classes  @relation(fields: [class_id], references: [id], onDelete: Cascade)
   student students @relation(fields: [student_id], references: [id])

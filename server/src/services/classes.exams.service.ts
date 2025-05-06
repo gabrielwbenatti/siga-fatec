@@ -1,3 +1,4 @@
+import { title } from "process";
 import db from "../config/database";
 
 class ClassesExamsService {
@@ -69,12 +70,49 @@ class ClassesExamsService {
     return row;
   };
 
-  indexSubmissions = async (examId: number, classId: number) => {
-    const rows = await db.exam_submissions.findMany({
-      where: { exam_id: examId, exam: { class_id: classId } },
+  indexSubmissions = async (classId: number) => {
+    const students = await db.students.findMany({
+      select: {
+        first_name: true,
+        last_name: true,
+        id: true,
+        class_students: { select: { computed_grade: true } },
+      },
+      where: { class_students: { some: { class_id: classId } } },
+    });
+    const exams = await db.exams.findMany({
+      select: {
+        id: true,
+        abbreviation: true,
+        planned_date: true,
+        applied_date: true,
+      },
+      where: { class_id: classId },
+    });
+    const submissions = await db.exam_submissions.findMany({
+      select: { student_id: true, id: true, exam_id: true },
+      where: {
+        student: { class_students: { some: { class_id: classId } } },
+      },
     });
 
-    return rows;
+    const pivot = students.map((stud) => {
+      return {
+        id: stud.id,
+        name: `${stud.first_name} ${stud.last_name}`,
+        computed_grade: stud.class_students[0].computed_grade,
+        submissions: exams.map((ex) => ({
+          exam_id: ex.id,
+          abbreviation: ex.abbreviation,
+          submission:
+            submissions.find(
+              (sub) => sub.student_id === stud.id && sub.exam_id === ex.id
+            ) ?? null,
+        })),
+      };
+    });
+
+    return [...pivot];
   };
 }
 
