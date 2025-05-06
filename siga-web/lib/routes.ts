@@ -18,6 +18,10 @@ export const ROUTES = {
       LIST: "/app/execute/attendance",
       EDIT: (id: number) => `/app/execute/attendance/${id}/edit`,
     },
+
+    GRADES: {
+      LIST: "/app/execute/exam-submissions",
+    },
   },
 
   PLANNING: {

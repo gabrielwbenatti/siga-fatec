@@ -99,19 +99,31 @@ class ClassesExamsController {
         throw new BadRequestError("Class Id undefined");
       }
 
-      const examIdParam = req.params["examId"] as string;
-      if (!examIdParam) {
-        throw new BadRequestError("Exam Id undefined");
+      const classId = Number(classIdHead);
+      const result = await classesExamsService.indexSubmissions(classId);
+
+      return res.status(StatusCode.OK).json(result);
+    } catch (error) {
+      return next?.(error);
+    }
+  };
+
+  postSubmissions = async (
+    req: Request,
+    res: Response,
+    next?: NextFunction
+  ) => {
+    try {
+      const classIdHead = req.headers["class-id"] as string;
+      if (!classIdHead) {
+        throw new BadRequestError("Class Id undefined");
       }
 
       const classId = Number(classIdHead);
-      const examId = Number(examIdParam);
-      const result = await classesExamsService.indexSubmissions(
-        examId,
-        classId
-      );
+      const { body } = req;
+      const result = await classesExamsService.postSubmissions(body, classId);
 
-      return res.status(StatusCode.OK).json(result);
+      return res.status(StatusCode.CREATED).json(result);
     } catch (error) {
       return next?.(error);
     }

@@ -50,7 +50,9 @@ const ClassSelectionForm: FC = () => {
   return (
     <Card className="mx-auto w-full max-w-sm">
       {isLoadingData ? (
-        <div>Carregando...</div>
+        <CardContent>
+          <span>Carregando...</span>
+        </CardContent>
       ) : (
         <>
           <CardHeader>
