@@ -4,7 +4,7 @@ CREATE TABLE "users" (
     "username" VARCHAR(63) NOT NULL,
     "email" VARCHAR(127) NOT NULL,
     "password" VARCHAR(255) NOT NULL,
-    "last_access" TIMESTAMP,
+    "last_access" TIMESTAMP(6),
 
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );
@@ -153,6 +153,7 @@ CREATE TABLE "class_students" (
     "id" SERIAL NOT NULL,
     "class_id" INTEGER NOT NULL,
     "student_id" INTEGER NOT NULL,
+    "computed_grade" DECIMAL(10,2) DEFAULT 0,
 
     CONSTRAINT "class_students_pkey" PRIMARY KEY ("id")
 );
@@ -162,6 +163,9 @@ CREATE UNIQUE INDEX "plans_attendances_class_id_class_schedule_id_class_plan_id_
 
 -- CreateIndex
 CREATE UNIQUE INDEX "exam_submissions_exam_id_student_id_key" ON "exam_submissions"("exam_id", "student_id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "class_students_class_id_student_id_key" ON "class_students"("class_id", "student_id");
 
 -- AddForeignKey
 ALTER TABLE "teachers" ADD CONSTRAINT "teachers_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -194,10 +198,10 @@ ALTER TABLE "class_bibliography" ADD CONSTRAINT "class_bibliography_class_id_fke
 ALTER TABLE "plans_attendances" ADD CONSTRAINT "plans_attendances_class_id_fkey" FOREIGN KEY ("class_id") REFERENCES "classes"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "plans_attendances" ADD CONSTRAINT "plans_attendances_class_schedule_id_fkey" FOREIGN KEY ("class_schedule_id") REFERENCES "class_schedules"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "plans_attendances" ADD CONSTRAINT "plans_attendances_class_plan_id_fkey" FOREIGN KEY ("class_plan_id") REFERENCES "class_plans"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "plans_attendances" ADD CONSTRAINT "plans_attendances_class_plan_id_fkey" FOREIGN KEY ("class_plan_id") REFERENCES "class_plans"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "plans_attendances" ADD CONSTRAINT "plans_attendances_class_schedule_id_fkey" FOREIGN KEY ("class_schedule_id") REFERENCES "class_schedules"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "plans_attendances" ADD CONSTRAINT "plans_attendances_student_id_fkey" FOREIGN KEY ("student_id") REFERENCES "students"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
