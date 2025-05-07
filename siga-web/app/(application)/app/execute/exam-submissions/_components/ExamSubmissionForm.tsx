@@ -1,6 +1,9 @@
 "use client";
 
-import { storeExamSubmission } from "@/app/actions/examsActions";
+import {
+  fetchExamSubmissions,
+  storeExamSubmission,
+} from "@/app/actions/examsActions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -13,18 +16,30 @@ import {
 } from "@/components/ui/table";
 import { IExamSubmissionResponse } from "@/types/ClassExam";
 import { calculateFormula } from "@/utils/formula";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
-interface Props {
-  initialData: IExamSubmissionResponse;
-}
+const ExamSubmissionForm = () => {
+  const [data, setData] = useState<IExamSubmissionResponse | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-const ExamSubmissionForm = ({ initialData }: Props) => {
-  const [data, setData] = useState(initialData);
+  useEffect(() => {
+    async function fetchData() {
+      setIsLoading(true);
+      const result = await fetchExamSubmissions();
+
+      if (!result.success) {
+        toast.error(result.error);
+      }
+
+      setData(result.data);
+      setIsLoading(false);
+    }
+    fetchData();
+  }, []);
 
   const handleBlur = (studentId: number, examId: number, value: string) => {
-    const parsedValue = value.replace(",", ".");
+    if (!data) return;
 
     const newPivot = data.pivot.map((std) => {
       if (std.id !== studentId) return std;
@@ -32,6 +47,7 @@ const ExamSubmissionForm = ({ initialData }: Props) => {
       const updatedSubmissions = std.submissions.map((sub) => {
         if (sub.exam_id !== examId) return sub;
 
+        const parsedValue = value.replace(",", ".");
         return {
           ...sub,
           submission: parsedValue !== "" ? parseFloat(parsedValue) : null,
@@ -45,10 +61,12 @@ const ExamSubmissionForm = ({ initialData }: Props) => {
       };
     });
 
-    setData((prev) => ({ ...prev, pivot: newPivot }));
+    setData((prev) => (prev ? { ...prev, pivot: newPivot } : null));
   };
 
   const handleSubmit = async () => {
+    if (!data) return;
+
     const payload = data.pivot.map((student) => {
       return {
         student_id: student.id,
@@ -76,51 +94,61 @@ const ExamSubmissionForm = ({ initialData }: Props) => {
 
   return (
     <div className="space-y-4 px-4">
-      <p>{`Fórmula utilizada para o cálculo: ${data.formula}`}</p>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>
-              <div className="flex items-center space-x-2">
-                <span>Aluno</span>
-              </div>
-            </TableHead>
-            {data.pivot[0].submissions.map((submission) => (
-              <TableHead key={submission.exam_id} className="text-center">
-                {submission.abbreviation}
-              </TableHead>
-            ))}
-            <TableHead>Média</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {data.pivot.map((student) => (
-            <TableRow key={student.id}>
-              <TableCell>{student.name}</TableCell>
-              {student.submissions.map((submission) => (
-                <TableCell key={submission.exam_id} className="text-center">
-                  <Input
-                    placeholder="0,00"
-                    defaultValue={
-                      submission.submission !== null
-                        ? submission.submission.toString().replace(".", ",")
-                        : "0"
-                    }
-                    onBlur={(e) =>
-                      handleBlur(student.id, submission.exam_id, e.target.value)
-                    }
-                  />
-                </TableCell>
+      {isLoading || !data ? (
+        <div>Carregando...</div>
+      ) : (
+        <>
+          <p>{`Fórmula utilizada para o cálculo: ${data.formula}`}</p>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>
+                  <div className="flex items-center space-x-2">
+                    <span>Aluno</span>
+                  </div>
+                </TableHead>
+                {data.pivot[0].submissions.map((submission) => (
+                  <TableHead key={submission.exam_id} className="text-center">
+                    {submission.abbreviation}
+                  </TableHead>
+                ))}
+                <TableHead>Média</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {data.pivot.map((student) => (
+                <TableRow key={student.id}>
+                  <TableCell>{student.name}</TableCell>
+                  {student.submissions.map((submission) => (
+                    <TableCell key={submission.exam_id} className="text-center">
+                      <Input
+                        placeholder="0,00"
+                        defaultValue={
+                          submission.submission !== null
+                            ? submission.submission.toString().replace(".", ",")
+                            : "0"
+                        }
+                        onBlur={(e) =>
+                          handleBlur(
+                            student.id,
+                            submission.exam_id,
+                            e.target.value,
+                          )
+                        }
+                      />
+                    </TableCell>
+                  ))}
+                  <TableCell>{student.computed_grade}</TableCell>
+                </TableRow>
               ))}
-              <TableCell>{student.computed_grade}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+            </TableBody>
+          </Table>
 
-      <Button type="button" onClick={() => handleSubmit()}>
-        Enviar notas
-      </Button>
+          <Button type="button" onClick={() => handleSubmit()}>
+            Enviar notas
+          </Button>
+        </>
+      )}
     </div>
   );
 };
