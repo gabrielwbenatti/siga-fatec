@@ -9,10 +9,12 @@ import { TeacherDashboard } from "@/types/Teacher";
 import { formatDate } from "@/utils/string_helper";
 import { EyeIcon, FileIcon, UserCheck2Icon } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const Dashboard = () => {
+  const router = useRouter();
   const [isLoading, setisLoading] = useState(true);
   const [teacherData, setTeacherData] = useState<TeacherDashboard | null>(null);
 
@@ -38,6 +40,19 @@ const Dashboard = () => {
       setisLoading(false);
     }
   };
+
+  const handleUpcomingClassClick = (
+    currentClassId: number,
+    selectedClassId: number,
+    selectedPlanId: number,
+  ) => {
+    if (currentClassId !== selectedClassId) {
+      toast.error("Aula selecionada pertente a outra disciplina/turma");
+      return;
+    }
+    router.push(ROUTES.PLANNING.CLASSES.EDIT(selectedPlanId));
+  };
+
   if (isLoading || !teacherData) {
     return (
       <div className="mx-auto px-4 py-6">
@@ -70,11 +85,18 @@ const Dashboard = () => {
                           {`${plan.class.discipline.name} - ${formatDate(plan.planned_date, "pt-BR")}`}
                         </p>
                       </div>
-                      <Link href={ROUTES.PLANNING.CLASSES.EDIT(plan.id)}>
-                        <Button variant="outline">
-                          <EyeIcon /> Detalhes
-                        </Button>
-                      </Link>
+                      <Button
+                        variant="outline"
+                        onClick={() =>
+                          handleUpcomingClassClick(
+                            teacherData.currentUser.class_id,
+                            plan.class_id,
+                            plan.id,
+                          )
+                        }
+                      >
+                        <EyeIcon /> Detalhes
+                      </Button>
                     </div>
                   </li>
                 ))}

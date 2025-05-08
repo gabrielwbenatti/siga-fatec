@@ -14,6 +14,7 @@ export interface TeacherSummary {
   id: number;
   first_name: string;
   last_name: string;
+  class_id: number;
 }
 
 export interface TeacherDashboard {

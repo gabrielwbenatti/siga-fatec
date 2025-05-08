@@ -1,11 +1,11 @@
 import db from "../config/database";
-import {
-  ClassPlanWithRelations,
-  TeacherDashboard,
-} from "../types/responses/TeacherDashboard";
+import { TeacherDashboard } from "../types/responses/TeacherDashboard";
 
 class TeachersService {
-  dashboardInfo = async (teacherId: number): Promise<TeacherDashboard> => {
+  dashboardInfo = async (
+    teacherId: number,
+    classId: number
+  ): Promise<TeacherDashboard> => {
     const teacher = await db.teachers.findUnique({
       where: { id: teacherId },
       include: { user: true },
@@ -52,6 +52,7 @@ class TeachersService {
         first_name: teacher?.first_name ?? "",
         last_name: teacher?.last_name ?? "",
         id: teacher?.id ?? 0,
+        class_id: classId,
       },
     };
 

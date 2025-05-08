@@ -10,9 +10,16 @@ class TeachersController {
         .status(StatusCode.BAD_REQUEST)
         .json({ message: "Teacher not defined " });
     }
+    const classIdHead = req.headers["class-id"];
+    if (!classIdHead) {
+      return res
+        .status(StatusCode.BAD_REQUEST)
+        .json({ message: "Teacher not defined " });
+    }
 
     const teacherId = Number(teacherParam);
-    const result = await teacherService.dashboardInfo(teacherId);
+    const classId = Number(classIdHead);
+    const result = await teacherService.dashboardInfo(teacherId, classId);
 
     res.status(200).json(result);
   };
