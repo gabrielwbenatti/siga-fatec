@@ -13,9 +13,13 @@ interface SidebarMenuProps {
     icon?: ReactNode;
     items?: { caption: string; href: string; icon: JSX.Element }[];
   }[];
+  className?: string;
 }
 
-const SidebarMenu: FC<SidebarMenuProps> = ({ routes }: SidebarMenuProps) => {
+const SidebarMenu: FC<SidebarMenuProps> = ({
+  routes,
+  className = "",
+}: SidebarMenuProps) => {
   const pathname = usePathname();
 
   const isActive = (href: string) => {
@@ -25,7 +29,7 @@ const SidebarMenu: FC<SidebarMenuProps> = ({ routes }: SidebarMenuProps) => {
   };
 
   return (
-    <nav className="hidden bg-white md:block md:h-full md:w-[300px]">
+    <nav className={className}>
       <Image
         src={logotipo2022}
         priority={true}
@@ -33,7 +37,7 @@ const SidebarMenu: FC<SidebarMenuProps> = ({ routes }: SidebarMenuProps) => {
         height={70}
         className="p-4"
       />
-      <ul className="flex flex-col justify-between p-4 md:h-full">
+      <ul className="flex flex-col justify-between p-4">
         <div className="flex flex-col gap-4">
           {routes.map((r, i) => (
             <SidebarMenuItem
