@@ -5,6 +5,8 @@ import SidebarMenuItem from "./SidebarMenuItem";
 import Image from "next/image";
 import logotipo2022 from "@/assets/images/logo-cps-2022.svg";
 import { usePathname } from "next/navigation";
+import { LogOutIcon } from "lucide-react";
+import { logOut } from "@/app/actions/authActions";
 
 interface SidebarMenuProps {
   routes: {
@@ -28,6 +30,10 @@ const SidebarMenu: FC<SidebarMenuProps> = ({
     return pathname === href || pathname.startsWith(href + "/");
   };
 
+  const handleLogOut = async () => {
+    await logOut();
+  };
+
   return (
     <nav className={className}>
       <Image
@@ -48,6 +54,18 @@ const SidebarMenu: FC<SidebarMenuProps> = ({
               selected={isActive(r.href || "")}
             />
           ))}
+
+          <li
+            className={
+              "cursor-pointer text-ellipsis rounded-lg text-[#b20000] hover:bg-primary/10"
+            }
+            onClick={handleLogOut}
+          >
+            <div className="flex w-full gap-2 p-2">
+              <LogOutIcon />
+              Logout
+            </div>
+          </li>
         </div>
       </ul>
     </nav>

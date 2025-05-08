@@ -1,9 +1,11 @@
 "use server";
 
 import { createServerApi } from "@/lib/api/server";
+import { ROUTES } from "@/lib/routes";
 import Class, { ClassesResponse } from "@/types/Class";
 import { AxiosError } from "axios";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export async function logIn(
   formData: FormData,
@@ -36,6 +38,15 @@ export async function logIn(
 
     return { success: false, error: "Erro ao processar a requisição" };
   }
+}
+
+export async function logOut() {
+  const cookieStore = await cookies();
+
+  cookieStore.delete("class_id");
+  cookieStore.delete("teacher_id");
+
+  redirect(ROUTES.LOGIN);
 }
 
 export async function fetchClasses(): Promise<{
