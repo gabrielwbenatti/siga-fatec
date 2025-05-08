@@ -1,13 +1,13 @@
 "use server";
 
 import { createServerApi } from "@/lib/api/server";
-import Student from "@/types/Student";
+import { IStudentResponse } from "@/types/Student";
 import { AxiosError } from "axios";
 
 export async function fetchStudents(): Promise<{
   success: boolean;
   error?: string;
-  data: Student[];
+  data: IStudentResponse[];
 }> {
   try {
     const api = await createServerApi();

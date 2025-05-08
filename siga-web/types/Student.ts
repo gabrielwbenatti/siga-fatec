@@ -13,4 +13,12 @@ interface Student {
   }[];
 }
 
+export interface IStudentResponse {
+  id: number;
+  full_name: string;
+  phone1: string;
+  phone2: string;
+  computed_grade: number;
+}
+
 export default Student;
