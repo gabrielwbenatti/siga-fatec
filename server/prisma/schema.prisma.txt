@@ -100,7 +100,7 @@ model class_plans {
   id                Int                 @id @default(autoincrement())
   title             String              @db.VarChar(255)
   description       String
-  planned_date      DateTime?           @db.Date
+  planned_date      DateTime            @db.Date
   applied_date      DateTime?           @db.Date
   class_id          Int
   info_for_absent   String?             @db.VarChar(255)

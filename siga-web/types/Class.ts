@@ -20,4 +20,21 @@ export type ClassesResponse = {
   year: number;
 };
 
+export interface ClassSummary {
+  id: number;
+  semester: number;
+  year: number;
+  studentCount: number;
+  discipline: {
+    id: number;
+    name: string;
+    abbreviation: string;
+    course: {
+      id: number;
+      name: string;
+      abbreviation: string;
+    };
+  };
+}
+
 export default Class;

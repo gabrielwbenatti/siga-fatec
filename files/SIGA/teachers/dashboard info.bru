@@ -1,0 +1,15 @@
+meta {
+  name: dashboard info
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/teachers/dashboard/info
+  body: none
+  auth: inherit
+}
+
+headers {
+  teacher-id: 1
+}
