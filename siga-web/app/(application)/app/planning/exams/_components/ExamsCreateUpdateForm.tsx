@@ -49,7 +49,7 @@ const ExamsCreateUpdateForm: FC<ExamsCreateUpdateFormProps> = ({
     <form onSubmit={handleSubmit} className="space-y-4 px-4">
       <RowWrapper>
         <Input.Root className="md:w-8/12">
-          <Input.Label>Título</Input.Label>
+          <label>Título</label>
           <Input.Content
             name="title"
             type="text"
@@ -60,9 +60,7 @@ const ExamsCreateUpdateForm: FC<ExamsCreateUpdateFormProps> = ({
         </Input.Root>
 
         <Input.Root className="md:w-4/12">
-          <Input.Label tooltip="Utilizado na fórmula (ex: P1, T)">
-            Sigla
-          </Input.Label>
+          <label>Sigla</label>
           <Input.Content
             name="abbreviation"
             type="text"
@@ -75,7 +73,7 @@ const ExamsCreateUpdateForm: FC<ExamsCreateUpdateFormProps> = ({
 
       <RowWrapper className="md:flex">
         <Input.Root className="flex-auto">
-          <Input.Label>Data Planejada</Input.Label>
+          <label>Data Planejada</label>
           <Input.Content
             name="planned_date"
             type="date"
@@ -85,7 +83,7 @@ const ExamsCreateUpdateForm: FC<ExamsCreateUpdateFormProps> = ({
         </Input.Root>
 
         <Input.Root className="flex-auto">
-          <Input.Label>Data Aplicada</Input.Label>
+          <label>Data Aplicada</label>
           <Input.Content
             name="applied_date"
             type="date"
