@@ -8,6 +8,9 @@ interface Student {
   user: {
     email: string;
   };
+  class_students: {
+    computed_grade: number;
+  }[];
 }
 
 export default Student;
