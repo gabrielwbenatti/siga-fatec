@@ -1,11 +1,9 @@
 import Dashboard from "./_components/Dashboard";
 
-const HomePage = () => {
+export default function HomePage() {
   return (
     <>
       <Dashboard />
     </>
   );
-};
-
-export default HomePage;
+}
