@@ -1,7 +1,7 @@
 "use client";
 
 import { fetchTeacherDashboard } from "@/app/actions/teacherActions";
-import { GridMenu } from "@/components/SiGA/GridMenu/indext";
+import { GridMenu } from "@/components/SiGA/GridMenu";
 import { Titlebar } from "@/components/SiGA/Titlebar";
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/lib/routes";
