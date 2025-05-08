@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { BadRequestError } from "../errors/api-error";
-import { classesBibliographyService } from "../services/classesBibliographyService";
+import { classesBibliographyService } from "../services/classes.bibliography.service";
 import StatusCode from "../utils/http-status-code";
 
 export const classesBibliographyController = {
