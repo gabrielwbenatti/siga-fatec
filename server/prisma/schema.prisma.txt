@@ -1,0 +1,153 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("SIGA_DATABASE_URL")
+}
+
+model users {
+  id          Int        @id @default(autoincrement())
+  username    String     @db.VarChar(63)
+  email       String     @db.VarChar(127)
+  password    String     @db.VarChar(255)
+  last_access DateTime?  @db.Timestamp(6)
+  student     students[]
+  teacher     teachers[]
+}
+
+model teachers {
+  id          Int       @id @default(autoincrement())
+  user_id     Int
+  teach_since DateTime? @db.Date
+  document    String?   @db.VarChar(63)
+  first_name  String    @db.VarChar(255)
+  last_name   String    @db.VarChar(255)
+  classes     classes[]
+  user        users     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model students {
+  id               Int                 @id @default(autoincrement())
+  first_name       String              @db.VarChar(255)
+  last_name        String              @db.VarChar(255)
+  user_id          Int
+  phone1           String?             @db.VarChar(15)
+  phone2           String?             @db.VarChar(15)
+  class_students   class_students[]
+  exam_submissions exam_submissions[]
+  plans_attendance plans_attendances[]
+  user             users               @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model courses {
+  id           Int           @id @default(autoincrement())
+  name         String        @db.VarChar(127)
+  abbreviation String        @db.VarChar(15)
+  disciplines  disciplines[]
+}
+
+model disciplines {
+  id           Int       @id @default(autoincrement())
+  name         String    @db.VarChar(127)
+  abbreviation String    @db.VarChar(15)
+  course_id    Int
+  classes      classes[]
+  course       courses   @relation(fields: [course_id], references: [id], onDelete: Cascade)
+}
+
+model classes {
+  id                Int                 @id @default(autoincrement())
+  teacher_id        Int
+  discipline_id     Int
+  semester          Int                 @db.SmallInt
+  year              Int                 @db.SmallInt
+  finished          Boolean?            @default(false)
+  class_materials   class_materials[]
+  class_plans       class_plans[]
+  class_schedules   class_schedules[]
+  class_students    class_students[]
+  discipline        disciplines         @relation(fields: [discipline_id], references: [id])
+  teacher           teachers            @relation(fields: [teacher_id], references: [id])
+  exams             exams[]
+  plans_attendances plans_attendances[]
+}
+
+model class_schedules {
+  id               Int                 @id @default(autoincrement())
+  class_id         Int
+  day_of_week      Int
+  start_time       String              @db.Char(5)
+  end_time         String              @db.Char(5)
+  class            classes             @relation(fields: [class_id], references: [id])
+  plans_attendance plans_attendances[]
+}
+
+model class_materials {
+  id          Int     @id @default(autoincrement())
+  title       String  @db.VarChar(255)
+  description String?
+  file_format String? @db.VarChar(7)
+  file_url    String? @db.VarChar(255)
+  list_index  Int     @db.SmallInt
+  class_id    Int
+  is_active   Boolean @default(true)
+  class       classes @relation(fields: [class_id], references: [id], onDelete: Cascade)
+}
+
+model class_plans {
+  id                Int                 @id @default(autoincrement())
+  title             String              @db.VarChar(255)
+  description       String
+  planned_date      DateTime            @db.Date
+  applied_date      DateTime?           @db.Date
+  class_id          Int
+  info_for_absent   String?             @db.VarChar(255)
+  class             classes             @relation(fields: [class_id], references: [id], onDelete: Cascade)
+  plans_attendances plans_attendances[]
+}
+
+model plans_attendances {
+  id                Int             @id @default(autoincrement())
+  class_id          Int
+  class_schedule_id Int
+  class_plan_id     Int
+  student_id        Int
+  is_present        Boolean         @default(true)
+  class             classes         @relation(fields: [class_id], references: [id])
+  class_plan        class_plans     @relation(fields: [class_plan_id], references: [id])
+  class_schedule    class_schedules @relation(fields: [class_schedule_id], references: [id])
+  student           students        @relation(fields: [student_id], references: [id])
+
+  @@unique([class_id, class_schedule_id, class_plan_id, student_id])
+}
+
+model exams {
+  id               Int                @id @default(autoincrement())
+  class_id         Int
+  title            String             @db.VarChar(255)
+  description      String?
+  planned_date     DateTime           @db.Date
+  applied_date     DateTime?          @db.Date
+  weight           Decimal            @default(0) @db.Decimal(10, 2)
+  exam_submissions exam_submissions[]
+  class            classes            @relation(fields: [class_id], references: [id], onDelete: Cascade)
+}
+
+model exam_submissions {
+  id         Int      @id @default(autoincrement())
+  exam_id    Int
+  student_id Int
+  score      Decimal  @default(0.00) @db.Decimal(10, 2)
+  exam       exams    @relation(fields: [exam_id], references: [id], onDelete: Cascade)
+  student    students @relation(fields: [student_id], references: [id])
+}
+
+model class_students {
+  id         Int      @id @default(autoincrement())
+  class_id   Int
+  student_id Int
+  class      classes  @relation(fields: [class_id], references: [id], onDelete: Cascade)
+  student    students @relation(fields: [student_id], references: [id])
+}

@@ -5,6 +5,8 @@ import SidebarMenuItem from "./SidebarMenuItem";
 import Image from "next/image";
 import logotipo2022 from "@/assets/images/logo-cps-2022.svg";
 import { usePathname } from "next/navigation";
+import { LogOutIcon } from "lucide-react";
+import { logOut } from "@/app/actions/authActions";
 
 interface SidebarMenuProps {
   routes: {
@@ -13,9 +15,13 @@ interface SidebarMenuProps {
     icon?: ReactNode;
     items?: { caption: string; href: string; icon: JSX.Element }[];
   }[];
+  className?: string;
 }
 
-const SidebarMenu: FC<SidebarMenuProps> = ({ routes }: SidebarMenuProps) => {
+const SidebarMenu: FC<SidebarMenuProps> = ({
+  routes,
+  className = "",
+}: SidebarMenuProps) => {
   const pathname = usePathname();
 
   const isActive = (href: string) => {
@@ -24,8 +30,12 @@ const SidebarMenu: FC<SidebarMenuProps> = ({ routes }: SidebarMenuProps) => {
     return pathname === href || pathname.startsWith(href + "/");
   };
 
+  const handleLogOut = async () => {
+    await logOut();
+  };
+
   return (
-    <nav className="hidden bg-white md:block md:h-full md:w-[300px]">
+    <nav className={className}>
       <Image
         src={logotipo2022}
         priority={true}
@@ -33,7 +43,7 @@ const SidebarMenu: FC<SidebarMenuProps> = ({ routes }: SidebarMenuProps) => {
         height={70}
         className="p-4"
       />
-      <ul className="flex flex-col justify-between p-4 md:h-full">
+      <ul className="flex flex-col justify-between p-4">
         <div className="flex flex-col gap-4">
           {routes.map((r, i) => (
             <SidebarMenuItem
@@ -44,6 +54,18 @@ const SidebarMenu: FC<SidebarMenuProps> = ({ routes }: SidebarMenuProps) => {
               selected={isActive(r.href || "")}
             />
           ))}
+
+          <li
+            className={
+              "cursor-pointer text-ellipsis rounded-lg text-[#b20000] hover:bg-primary/10"
+            }
+            onClick={handleLogOut}
+          >
+            <div className="flex w-full gap-2 p-2">
+              <LogOutIcon />
+              Logout
+            </div>
+          </li>
         </div>
       </ul>
     </nav>

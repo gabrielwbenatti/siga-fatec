@@ -5,7 +5,7 @@ import classesPlansController from "../controllers/classes.plans.controller";
 import classesStudentsController from "../controllers/classes.students.controller";
 import classesAttendancesController from "../controllers/classes.attendances.controller";
 import classesExamsController from "../controllers/classes.exams.controller";
-import { classesBibliographyController } from "../controllers/classesBibliographyController";
+import { classesBibliographyController } from "../controllers/classes.bibliography.controller";
 
 const classesRouter = Router();
 

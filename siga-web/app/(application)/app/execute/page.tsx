@@ -1,4 +1,4 @@
-import { GridMenu } from "@/components/SiGA/GridMenu/indext";
+import { GridMenu } from "@/components/SiGA/GridMenu";
 import { Titlebar } from "@/components/SiGA/Titlebar";
 import { ROUTES } from "@/lib/routes";
 import { MenuItem } from "@/types/internal/MenuItem";

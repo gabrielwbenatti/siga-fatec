@@ -38,7 +38,7 @@ const PlansCreateUpdateForm: FC<PlansCreateUpdateFormProps> = ({
       className="flex flex-col gap-4 space-y-4 px-4"
     >
       <Input.Root>
-        <Input.Label>Título da Aula</Input.Label>
+        <label>Título da Aula</label>
         <Input.Content
           placeholder="Título da Aula"
           name="title"
@@ -48,7 +48,7 @@ const PlansCreateUpdateForm: FC<PlansCreateUpdateFormProps> = ({
       </Input.Root>
 
       <Input.Root>
-        <Input.Label>Descrição da Aula</Input.Label>
+        <label>Descrição da Aula</label>
         <Input.Textarea
           placeholder="Descrição da Aula"
           rows={6}
@@ -59,9 +59,7 @@ const PlansCreateUpdateForm: FC<PlansCreateUpdateFormProps> = ({
 
       <div className="gap-2 md:flex">
         <Input.Root className="flex-auto">
-          <Input.Label tooltip="Data pretendida para a aula">
-            Data Planejada
-          </Input.Label>
+          <label>Data Planejada</label>
           <Input.Content
             type="date"
             name="planned_date"
@@ -71,9 +69,7 @@ const PlansCreateUpdateForm: FC<PlansCreateUpdateFormProps> = ({
         </Input.Root>
 
         <Input.Root className="flex-auto">
-          <Input.Label tooltip="Data em que a aula foi lecionada (chamada online)">
-            Data Aplicada
-          </Input.Label>
+          <label>Data Aplicada</label>
           <Input.Content
             type="date"
             name="applied_date"

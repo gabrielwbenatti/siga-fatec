@@ -29,9 +29,12 @@ const HomeLayout = ({
   ];
 
   return (
-    <div className="bg-gray-100 md:flex md:h-screen md:flex-row">
-      <SidebarMenu routes={routes} />
-      <main className="h-screen w-full">{children}</main>
+    <div className="flex h-screen">
+      <aside className="hidden bg-white md:block md:h-full md:w-[300px]">
+        <SidebarMenu routes={routes} className="h-full" />
+      </aside>
+
+      <main className="flex-1 overflow-auto">{children}</main>
     </div>
   );
 };

@@ -6,7 +6,7 @@ import {
   NotebookIcon,
   SquareSigmaIcon,
 } from "lucide-react";
-import { GridMenu } from "@/components/SiGA/GridMenu/indext";
+import { GridMenu } from "@/components/SiGA/GridMenu";
 import { MenuItem } from "@/types/internal/MenuItem";
 
 const HomePlanningPage = async () => {
