@@ -168,7 +168,16 @@ export default function AttendanceForm({
       </InputWrapper>
 
       <InputWrapper>
-        <Label>Data de realização</Label>
+        <Label>Data Planejada</Label>
+        <Input
+          disabled
+          type="date"
+          value={formatDate(data.plan.planned_date, "input") || ""}
+        />
+      </InputWrapper>
+
+      <InputWrapper>
+        <Label>Data de Realização</Label>
         <Input
           required
           type="date"
