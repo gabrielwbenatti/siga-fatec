@@ -15,6 +15,7 @@ export interface TeacherSummary {
   first_name: string;
   last_name: string;
   class_id: number;
+  discipline: { abbreviation: string; name: string };
 }
 
 export interface TeacherDashboard {

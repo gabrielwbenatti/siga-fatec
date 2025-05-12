@@ -99,6 +99,9 @@ const Dashboard = () => {
         <Titlebar.Title
           title={`Bem vindo(a) ${teacherData.currentUser.first_name} ${teacherData.currentUser.last_name}`}
         />
+        <Titlebar.Actions>
+          <p>{`${teacherData.currentUser.discipline.abbreviation} - ${teacherData.currentUser.discipline.name}`}</p>
+        </Titlebar.Actions>
       </Titlebar.Root>
 
       <div className="mx-auto px-4 py-6">

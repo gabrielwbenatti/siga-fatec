@@ -44,6 +44,10 @@ class TeachersService {
       year: cls.year,
       studentCount: cls.class_students.length,
     }));
+    const currentDiscipline = await db.classes.findFirst({
+      select: { discipline: { select: { abbreviation: true, name: true } } },
+      where: { id: classId },
+    });
 
     const result = {
       upcomingClasses: upcomingClasses,
@@ -53,6 +57,7 @@ class TeachersService {
         last_name: teacher?.last_name ?? "",
         id: teacher?.id ?? 0,
         class_id: classId,
+        discipline: currentDiscipline?.discipline,
       },
     };
 
