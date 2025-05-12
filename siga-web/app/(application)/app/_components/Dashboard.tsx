@@ -12,14 +12,24 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import SelectClassModal from "./SelectClassModal";
+import { ClassesResponse } from "@/types/Class";
+import { fetchClasses, setClassId } from "@/app/actions/authActions";
 
 const Dashboard = () => {
   const router = useRouter();
+
   const [isLoading, setisLoading] = useState(true);
+  const [isLoadingClasses, setisLoadingClasses] = useState(true);
+
   const [teacherData, setTeacherData] = useState<TeacherDashboard | null>(null);
+  const [classesData, setClassesData] = useState<ClassesResponse[] | null>(
+    null,
+  );
 
   useEffect(() => {
     fetchTeacherDashboardData();
+    fetchTeacherClasses();
   }, []);
 
   const fetchTeacherDashboardData = async () => {
@@ -40,6 +50,24 @@ const Dashboard = () => {
       setisLoading(false);
     }
   };
+  const fetchTeacherClasses = async () => {
+    try {
+      setisLoadingClasses(true);
+      const result = await fetchClasses();
+
+      if (!result.success && !result.data) {
+        toast.error(result.error);
+        setClassesData(null);
+      }
+
+      setClassesData(result.data);
+    } catch (error) {
+      console.log(error);
+      setClassesData(null);
+    } finally {
+      setisLoadingClasses(false);
+    }
+  };
 
   const handleUpcomingClassClick = (
     currentClassId: number,
@@ -51,6 +79,10 @@ const Dashboard = () => {
       return;
     }
     router.push(ROUTES.PLANNING.CLASSES.EDIT(selectedPlanId));
+  };
+  const handleSubmitChangeClass = async (classId: string) => {
+    await setClassId(classId);
+    window.location.reload();
   };
 
   if (isLoading || !teacherData) {
@@ -70,6 +102,16 @@ const Dashboard = () => {
       </Titlebar.Root>
 
       <div className="mx-auto px-4 py-6">
+        {!isLoadingClasses && classesData && (
+          <div className="mb-8">
+            <SelectClassModal
+              data={classesData}
+              currentClass={String(teacherData.currentUser.class_id)}
+              onSubmit={handleSubmitChangeClass}
+            />
+          </div>
+        )}
+
         {/* Próximas aulas */}
         <section className="mb-8">
           <div className="mb-4 text-xl font-semibold">Próximas Aulas</div>
