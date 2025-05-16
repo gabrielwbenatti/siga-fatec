@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import * as bcrypt from "bcrypt";
-import { seedBancoDados } from "./seeds/bancodados";
+
+import { seedBancoDados } from "./seeds/bancoDados";
 import { seedSistemasOperacionais } from "./seeds/sistemasOperacionais";
 import { seedInglesV } from "./seeds/inglesV";
 import { seedStudents } from "./seeds/students";
