@@ -124,7 +124,6 @@ class ClassesExamsService {
       formula: dataClass?.evaluation_formula,
       pivot: [...pivot],
     };
-    console.log(result, JSON.stringify(result, null, 2));
     return result;
   };
 
@@ -141,7 +140,6 @@ class ClassesExamsService {
     classId: number
   ) => {
     const allPromises: Promise<any>[] = [];
-    console.log(JSON.stringify(body, null, 2));
 
     for (const stud of body) {
       for (const sub of stud.submissions) {
