@@ -3,11 +3,11 @@
 import { createClassPlan, updateClassPlan } from "@/app/actions/plansActions";
 import { Input } from "@/components/SiGA/Input";
 import { Button } from "@/components/ui/button";
-// import { Textarea } from "@/components/ui/textarea";
 import { ROUTES } from "@/lib/routes";
 import ClassPlan from "@/types/ClassPlan";
 import { useRouter } from "next/navigation";
 import { FC, FormEvent } from "react";
+import { toast } from "sonner";
 
 interface PlansCreateUpdateFormProps {
   initialData?: ClassPlan;
@@ -29,6 +29,7 @@ const PlansCreateUpdateForm: FC<PlansCreateUpdateFormProps> = ({
       await createClassPlan(formData);
     }
 
+    toast.success("Dados salvos com sucesso");
     router.push(ROUTES.PLANNING.CLASSES.LIST);
   }
 

@@ -4,3 +4,4 @@
 /server/dist
 
 /frontend/node_modules
+.vercel

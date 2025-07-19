@@ -65,6 +65,7 @@ const MaterialsCreateUpdateForm: FC<MaterialsCreateUpdateFormProps> = ({
       return;
     }
 
+    toast.success("Dados salvos com sucesso");
     router.push(ROUTES.EXECUTE.MATERIALS.LIST);
   };
 

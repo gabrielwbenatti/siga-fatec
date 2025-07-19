@@ -16,6 +16,7 @@ class ClassesStudentsServices {
           },
         },
       },
+      orderBy: { first_name: "asc" },
     });
     const computedGrades = await db.class_students.findMany({
       select: {
